@@ -1,24 +1,13 @@
-import express from 'express';
-import cors from 'cors';
+// src/server.ts
+import app from './app';
 import dotenv from 'dotenv';
 
+// Cargar variables de entorno
 dotenv.config();
-
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'API Fundacion Atma Namaste',
-    status: 'OK',
-    timestamp: new Date().toISOString()
-  });
-});
 
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🔌 Conectado al entorno: ${process.env.NODE_ENV}`);
 });
