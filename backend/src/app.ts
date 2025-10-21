@@ -15,7 +15,7 @@ app.use(express.json()); // Permite a Express entender JSON en el body
 // Ruta de prueba (la moveremos pronto)
 app.get('/', (req, res) => {
   res.json({
-    message: '🚀 API Fundación Atma Namasté v1.0',
+    message: 'API Fundación Atma Namasté v1.0',
     status: 'OK',
     timestamp: new Date().toISOString()
   });
