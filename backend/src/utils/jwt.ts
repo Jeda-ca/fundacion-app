@@ -1,8 +1,13 @@
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { RolUsuario } from '@prisma/client';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret_key_change_in_production';
+// Validación explícita de variables de entorno
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '24h';
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET debe estar definido en las variables de entorno');
+}
 
 // Estructura del payload del token
 export interface JwtPayload {
@@ -18,9 +23,8 @@ export interface JwtPayload {
  * @returns Token JWT firmado
  */
 export const generateToken = (payload: JwtPayload): string => {
-  return jwt.sign(payload, JWT_SECRET, {
-    expiresIn: JWT_EXPIRATION,
-  });
+const options: SignOptions = { expiresIn: JWT_EXPIRATION as any };
+  return jwt.sign(payload, JWT_SECRET, options);
 };
 
 /**
@@ -31,8 +35,14 @@ export const generateToken = (payload: JwtPayload): string => {
  */
 export const verifyToken = (token: string): JwtPayload => {
   try {
-    return jwt.verify(token, JWT_SECRET) as JwtPayload;
+    return jwt.verify(token, JWT_SECRET as string) as JwtPayload;
   } catch (error) {
-    throw new Error('Token inválido o expirado');
+    if (error instanceof jwt.JsonWebTokenError) {
+      throw new Error('Token inválido');
+    }
+    if (error instanceof jwt.TokenExpiredError) {
+      throw new Error('Token expirado');
+    }
+    throw new Error('Error al verificar el token');
   }
 };

@@ -9,7 +9,7 @@ const router = Router();
  */
 router.get('/health', healthController.check);
 
-// Aquí iremos añadiendo más rutas:
+// Aquí iremos añadiendo más endpoints:
 // router.use('/auth', authRoutes);
 // router.use('/personas', personaRoutes);
 // router.use('/programas', programaRoutes);
