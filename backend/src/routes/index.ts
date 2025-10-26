@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import healthController from '../controllers/healthController';
+import authRoutes from './authRoutes';
 
 const router = Router();
 
@@ -8,11 +9,6 @@ const router = Router();
  * GET /api/health
  */
 router.get('/health', healthController.check);
-
-// Aquí iremos añadiendo más endpoints:
-// router.use('/auth', authRoutes);
-// router.use('/personas', personaRoutes);
-// router.use('/programas', programaRoutes);
-// etc.
+router.use('/auth', authRoutes);
 
 export default router;
