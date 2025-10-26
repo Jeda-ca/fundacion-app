@@ -30,7 +30,7 @@ class AuthController {
   // GET /api/auth/me
   async me(req: Request, res: Response): Promise<Response> {
     try {
-      const user = (req as any).user;
+      const user = req.user;
       if (!user) return sendError(res, 401, 'No autenticado');
 
       const userData = await authService.getCurrentUser(user.id);

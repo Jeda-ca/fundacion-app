@@ -1,3 +1,4 @@
+// src/types/auth.ts
 import { RolUsuario, EstadoUsuario } from '@prisma/client';
 
 // Datos que llega el frontend para login
@@ -12,7 +13,7 @@ export interface AuthResponse {
     id: string;
     username: string;
     rol: RolUsuario;
-    personaId: string | null;
+    personaId: string;
     estado: EstadoUsuario;
   };
   token: string;
@@ -24,7 +25,7 @@ export interface JwtPayload {
   id: string;
   username: string;
   rol: RolUsuario;
-  personaId: string | null;
+  personaId: string;
   iat?: number;
   exp?: number;
 }
@@ -34,7 +35,7 @@ export interface AuthenticatedUser {
   id: string;
   username: string;
   rol: RolUsuario;
-  personaId: string | null;
+  personaId: string;
 }
 
 // Error con códigos para distinguir causas en controller

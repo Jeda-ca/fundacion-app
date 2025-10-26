@@ -1,3 +1,4 @@
+// src/types/index.d.ts
 import { Request } from 'express';
 import { RolUsuario } from '@prisma/client';
 
@@ -9,7 +10,7 @@ declare global {
         id: string;
         username: string;
         rol: RolUsuario;
-        personaId: string;
+        personaId: string;  
       };
     }
   }
@@ -27,7 +28,7 @@ export interface AuthResponse {
     id: string;
     username: string;
     rol: RolUsuario;
-    personaId: string;
+    personaId: string;  
   };
 }
 
