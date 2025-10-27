@@ -1,620 +1,639 @@
-  // This is your Prisma schema file,
-  // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-  // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-  // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-  generator client {
-    provider = "prisma-client-js"
-  }
-
-  datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-  }
-
-
-  // ENUMS
-
-
-  enum TipoDocumento {
-    CC
-    TI
-    CE
-    PASAPORTE
-    RC
-  }
-
-  enum Genero {
-    MASCULINO
-    FEMENINO
-    OTRO
-  }
-
-  enum TipoPersona {
-    MENOR
-    TUTOR
-    BENEFICIARIO_ADULTO
-    DOCENTE
-    ADMINISTRATIVO
-    PERSONAL_APOYO
-  }
-
-  enum Parentesco {
-    PADRE
-    MADRE
-    ABUELO
-    ABUELA
-    TIO
-    TIA
-    HERMANO
-    HERMANA
-    OTRO
-  }
-
-  enum EstadoGeneral {
-    ACTIVO
-    INACTIVO
-  }
-
-  enum RolUsuario {
-    ADMIN
-    DOCENTE
-  }
-
-  enum EstadoUsuario {
-    ACTIVO
-    INACTIVO
-    BLOQUEADO
-  }
-
-  enum TipoPrograma {
-    ACADEMICO
-    LUDICO
-    APOYO_SOCIAL
-    ESPIRITUAL
-  }
-
-  enum PublicoObjetivo {
-    NINOS
-    JOVENES
-    ADULTOS
-    TODOS
-  }
-
-  enum DiaSemana {
-    LUNES
-    MARTES
-    MIERCOLES
-    JUEVES
-    VIERNES
-    SABADO
-    DOMINGO
-  }
-
-  enum EstadoPrograma {
-    ACTIVO
-    INACTIVO
-    EN_PAUSA
-  }
-
-  enum EstadoInscripcion {
-    ACTIVO
-    RETIRADO
-    SUSPENDIDO
-  }
-
-  enum EstadoAsistencia {
-    PRESENTE
-    AUSENTE
-    JUSTIFICADO
-    TARDANZA
-  }
-
-  enum TipoPadrino {
-    PERSONA_NATURAL
-    EMPRESA
-    ORGANIZACION
-  }
-
-  enum TipoDonacionPadrino {
-    MONETARIA
-    EN_ESPECIE
-    AMBAS
-  }
-
-  enum FrecuenciaDonacion {
-    MENSUAL
-    TRIMESTRAL
-    SEMESTRAL
-    ANUAL
-    OCASIONAL
-  }
-
-  enum Privacidad {
-    PUBLICA
-    PRIVADA
-    ANONIMA
-  }
-
-  enum EstadoApadrinamiento {
-    ACTIVO
-    FINALIZADO
-  }
-
-  enum TipoDonacion {
-    PADRINO
-    GENERAL
-    ANONIMA
-    PARA_PROGRAMA
-  }
-
-  enum TipoRecurso {
-    MONETARIA
-    EN_ESPECIE
-    MIXTA
-  }
-
-  enum MetodoPago {
-    TRANSFERENCIA
-    GIRO_INTERNACIONAL
-    EFECTIVO
-    CHEQUE
-    OTRO
-  }
-
-  enum TipoEntrega {
-    MERCADO
-    BECA_BESPRO
-    UTILES_ESCOLARES
-    ROPA_ZAPATOS
-    AYUDA_PUNTUAL
-    OTRO
-  }
-
-  enum EstadoEntrega {
-    PROGRAMADA
-    ENTREGADA
-    CANCELADA
-  }
-
-  enum CategoriaGasto {
-    PAGO_PERSONAL
-    GASTO_OPERATIVO
-    GASTO_PROGRAMA
-    EVENTO
-    OTRO
-  }
-
-  enum AccionAuditoria {
-    CREATE
-    UPDATE
-    DELETE
-    LOGIN
-    LOGOUT
-    EXPORT
-  }
-
-
-  // MODELOS - MÓDULO CORE
-
-
-  model Persona {
-    id                          String        @id @default(uuid())
-    tipoDocumento               TipoDocumento
-    numeroDocumento             String        @unique @db.VarChar(20)
-    primerNombre                String        @db.VarChar(50)
-    segundoNombre               String?       @db.VarChar(50)
-    primerApellido              String        @db.VarChar(50)
-    segundoApellido             String?       @db.VarChar(50)
-    fechaNacimiento             DateTime      @db.Date
-    genero                      Genero
-    direccion                   String        @db.VarChar(200)
-    barrio                      String?       @db.VarChar(100)
-    telefono                    String        @db.VarChar(20)
-    email                       String?       @unique @db.VarChar(100)
-    tipoPersona                 TipoPersona
-    estado                      EstadoGeneral @default(ACTIVO)
-    observaciones               String?       @db.Text
-    fotografiaUrl               String?       @db.VarChar(500)
-    consentimientoInformado     Boolean       @default(false)
-    documentoConsentimientoUrl  String?       @db.VarChar(500)
-    creadoPor                   String
-    modificadoPor               String?
-    createdAt                   DateTime      @default(now())
-    updatedAt                   DateTime      @updatedAt
-
-    // Relaciones
-    usuario                     Usuario?
-    tutorDe                     TutorMenor[]  @relation("PersonaTutor")
-    menorDe                     TutorMenor[]  @relation("PersonaMenor")
-    inscripciones               Inscripcion[]
-    programasResponsable        ProgramaResponsable[]
-    apadrinamientos             Apadrinamiento[]
-    padrino                     Padrino?
-    entregas                    Entrega[]
-    entregasBeneficiario        EntregaBeneficiario[]
-    gastosRecibidos             Gasto[]       @relation("PersonaRecibeGasto")
-    
-    usuarioCreador              Usuario       @relation("PersonaCreadaPor", fields: [creadoPor], references: [id])
-    usuarioModificador          Usuario?      @relation("PersonaModificadaPor", fields: [modificadoPor], references: [id])
-
-    @@index([numeroDocumento])
-    @@index([tipoPersona, estado])
-    @@index([primerNombre, primerApellido])
-    @@map("personas")
-  }
-
-  model TutorMenor {
-    id                 String        @id @default(uuid())
-    tutorId            String
-    menorId            String
-    parentesco         Parentesco
-    parentescoOtro     String?       @db.VarChar(50)
-    esTutorPrincipal   Boolean       @default(false)
-    fechaInicio        DateTime      @default(now()) @db.Date
-    fechaFin           DateTime?     @db.Date
-    estado             EstadoGeneral @default(ACTIVO)
-    createdAt          DateTime      @default(now())
-    updatedAt          DateTime      @updatedAt
-
-    // Relaciones
-    tutor              Persona       @relation("PersonaTutor", fields: [tutorId], references: [id])
-    menor              Persona       @relation("PersonaMenor", fields: [menorId], references: [id])
-
-    @@index([tutorId, estado])
-    @@index([menorId, estado])
-    @@map("tutores_menores")
-  }
-
-  model Usuario {
-    id                      String        @id @default(uuid())
-    personaId               String        @unique
-    username                String        @unique @db.VarChar(50)
-    email                   String        @unique @db.VarChar(100)
-    password                String        @db.VarChar(255)
-    rol                     RolUsuario
-    estado                  EstadoUsuario @default(ACTIVO)
-    ultimoAcceso            DateTime?
-    createdAt               DateTime      @default(now())
-    updatedAt               DateTime      @updatedAt
-
-    // Relaciones
-    persona                 Persona       @relation(fields: [personaId], references: [id])
-    auditorias              Auditoria[]
-    
-    personasCreadas         Persona[]     @relation("PersonaCreadaPor")
-    personasModificadas     Persona[]     @relation("PersonaModificadaPor")
-    programasCreados        Programa[]
-    inscripcionesRealizadas Inscripcion[]
-    asistenciasRegistradas  Asistencia[]
-    padrinosCreados         Padrino[]
-    apadrinamientosCreados  Apadrinamiento[]
-    donacionesRegistradas   Donacion[]
-    entregasRegistradas     Entrega[]     @relation("EntregaRegistradaPor")
-    entregasRealizadas      Entrega[]     @relation("EntregaRealizadaPor")
-    gastosRegistrados       Gasto[]
-
-    @@index([username])
-    @@index([email])
-    @@index([estado, rol])
-    @@map("usuarios")
-  }
-
-
-  // MODELOS - MÓDULO PROGRAMAS
-
-
-  model Programa {
-    id                String          @id @default(uuid())
-    codigo            String          @unique @db.VarChar(20)
-    nombre            String          @db.VarChar(100)
-    descripcion       String?         @db.Text
-    tipoPrograma      TipoPrograma
-    publicoObjetivo   PublicoObjetivo
-    edadMinima        Int?
-    edadMaxima        Int?
-    diasActividad     DiaSemana[]
-    horaInicio        DateTime?       @db.Time
-    horaFin           DateTime?       @db.Time
-    requiereDocente   Boolean         @default(true)
-    cupoMaximo        Int?
-    estado            EstadoPrograma  @default(ACTIVO)
-    creadoPor         String
-    createdAt         DateTime        @default(now())
-    updatedAt         DateTime        @updatedAt
-
-    // Relaciones
-    responsables      ProgramaResponsable[]
-    inscripciones     Inscripcion[]
-    donaciones        Donacion[]
-    entregas          Entrega[]
-    gastos            Gasto[]
-    
-    usuarioCreador    Usuario         @relation(fields: [creadoPor], references: [id])
-
-    @@index([codigo])
-    @@index([estado, tipoPrograma])
-    @@index([publicoObjetivo])
-    @@map("programas")
-  }
-
-  model ProgramaResponsable {
-    id                      String        @id @default(uuid())
-    programaId              String
-    personaId               String
-    esResponsablePrincipal  Boolean       @default(false)
-    fechaAsignacion         DateTime      @default(now()) @db.Date
-    fechaFinalizacion       DateTime?     @db.Date
-    estado                  EstadoGeneral @default(ACTIVO)
-    createdAt               DateTime      @default(now())
-    updatedAt               DateTime      @updatedAt
-
-    // Relaciones
-    programa                Programa      @relation(fields: [programaId], references: [id])
-    persona                 Persona       @relation(fields: [personaId], references: [id])
-
-    @@index([programaId, estado])
-    @@index([personaId, estado])
-    @@map("programas_responsables")
-  }
-
-  model Inscripcion {
-    id                String             @id @default(uuid())
-    programaId        String
-    personaId         String
-    fechaInscripcion  DateTime           @default(now()) @db.Date
-    fechaRetiro       DateTime?          @db.Date
-    estado            EstadoInscripcion  @default(ACTIVO)
-    motivoRetiro      String?            @db.Text
-    observaciones     String?            @db.Text
-    inscritoPor       String
-    createdAt         DateTime           @default(now())
-    updatedAt         DateTime           @updatedAt
-
-    // Relaciones
-    programa          Programa           @relation(fields: [programaId], references: [id])
-    persona           Persona            @relation(fields: [personaId], references: [id])
-    asistencias       Asistencia[]
-    usuarioInscriptor Usuario            @relation(fields: [inscritoPor], references: [id])
-
-    @@index([programaId, estado])
-    @@index([personaId, estado])
-    @@index([fechaInscripcion])
-    @@map("inscripciones")
-  }
-
-  model Asistencia {
-    id             String           @id @default(uuid())
-    inscripcionId  String
-    fecha          DateTime         @db.Date
-    estado         EstadoAsistencia
-    observaciones  String?          @db.Text
-    registradoPor  String
-    createdAt      DateTime         @default(now())
-    updatedAt      DateTime         @updatedAt
-
-    // Relaciones
-    inscripcion    Inscripcion      @relation(fields: [inscripcionId], references: [id])
-    usuario        Usuario          @relation(fields: [registradoPor], references: [id])
-
-    @@unique([inscripcionId, fecha])
-    @@index([fecha])
-    @@index([fecha, estado])
-    @@map("asistencias")
-  }
-
-
-  // MODELOS - MÓDULO APADRINAMIENTO
-
-
-  model Padrino {
-    id                    String              @id @default(uuid())
-    personaId             String?             @unique
-    tipo                  TipoPadrino
-    nombreCompleto        String              @db.VarChar(200)
-    nombreEmpresa         String?             @db.VarChar(200)
-    pais                  String              @db.VarChar(100)
-    ciudad                String?             @db.VarChar(100)
-    email                 String              @db.VarChar(100)
-    telefono              String?             @db.VarChar(20)
-    tipoDonacion          TipoDonacionPadrino
-    frecuenciaDonacion    FrecuenciaDonacion
-    preferenciaPrivacidad Privacidad          @default(PRIVADA)
-    fechaInicio           DateTime            @default(now()) @db.Date
-    estado                EstadoGeneral       @default(ACTIVO)
-    observaciones         String?             @db.Text
-    creadoPor             String
-    createdAt             DateTime            @default(now())
-    updatedAt             DateTime            @updatedAt
-
-    // Relaciones
-    persona               Persona?            @relation(fields: [personaId], references: [id])
-    apadrinamientos       Apadrinamiento[]
-    donaciones            Donacion[]
-    usuarioCreador        Usuario             @relation(fields: [creadoPor], references: [id])
-
-    @@index([estado])
-    @@index([pais])
-    @@index([email])
-    @@map("padrinos")
-  }
-
-  model Apadrinamiento {
-    id                  String                @id @default(uuid())
-    padrinoId           String
-    menorId             String
-    fechaInicio         DateTime              @default(now()) @db.Date
-    fechaFin            DateTime?             @db.Date
-    estado              EstadoApadrinamiento  @default(ACTIVO)
-    motivoFinalizacion  String?               @db.Text
-    observaciones       String?               @db.Text
-    creadoPor           String
-    createdAt           DateTime              @default(now())
-    updatedAt           DateTime              @updatedAt
-
-    // Relaciones
-    padrino             Padrino               @relation(fields: [padrinoId], references: [id])
-    menor               Persona               @relation(fields: [menorId], references: [id])
-    donaciones          Donacion[]
-    entregas            Entrega[]
-    usuarioCreador      Usuario               @relation(fields: [creadoPor], references: [id])
-
-    @@index([padrinoId, estado])
-    @@index([menorId, estado])
-    @@map("apadrinamientos")
-  }
-
-  model Donacion {
-    id                 String        @id @default(uuid())
-    tipo               TipoDonacion
-    padrinoId          String?
-    apadrinamientoId   String?
-    programaId         String?
-    donadorNombre      String?       @db.VarChar(200)
-    esAnonima          Boolean       @default(false)
-    tipoRecurso        TipoRecurso
-    monto              Decimal?      @db.Decimal(12, 2)
-    moneda             String        @default("COP") @db.VarChar(3)
-    descripcionEspecie String?       @db.Text
-    fechaRecepcion     DateTime      @default(now()) @db.Date
-    metodoPago         MetodoPago?
-    numeroReferencia   String?       @db.VarChar(100)
-    descripcion        String?       @db.Text
-    observaciones      String?       @db.Text
-    comprobanteUrl     String?       @db.VarChar(500)
-    registradoPor      String
-    createdAt          DateTime      @default(now())
-    updatedAt          DateTime      @updatedAt
-
-    // Relaciones
-    padrino            Padrino?      @relation(fields: [padrinoId], references: [id])
-    apadrinamiento     Apadrinamiento? @relation(fields: [apadrinamientoId], references: [id])
-    programa           Programa?     @relation(fields: [programaId], references: [id])
-    usuario            Usuario       @relation(fields: [registradoPor], references: [id])
-
-    @@index([tipo])
-    @@index([fechaRecepcion(sort: Desc)])
-    @@index([tipo, fechaRecepcion])
-    @@index([padrinoId])
-    @@index([programaId])
-    @@map("donaciones")
-  }
-
-
-  // MODELOS - MÓDULO RECURSOS
-
-
-  model Entrega {
-    id                    String        @id @default(uuid())
-    tipo                  TipoEntrega
-    programaId            String?
-    apadrinamientoId      String?
-    personaId             String?
-    tipoRecurso           TipoRecurso
-    monto                 Decimal?      @db.Decimal(12, 2)
-    descripcionItems      String        @db.Text
-    fechaProgramada       DateTime      @db.Date
-    fechaEntrega          DateTime?     @db.Date
-    estado                EstadoEntrega @default(PROGRAMADA)
-    motivoCancelacion     String?       @db.Text
-    confirmacionRecibido  Boolean       @default(false)
-    firmaUrl              String?       @db.VarChar(500)
-    comprobanteUrl        String?       @db.VarChar(500)
-    observaciones         String?       @db.Text
-    registradoPor         String
-    entregadoPor          String?
-    createdAt             DateTime      @default(now())
-    updatedAt             DateTime      @updatedAt
-
-    // Relaciones
-    programa              Programa?     @relation(fields: [programaId], references: [id])
-    apadrinamiento        Apadrinamiento? @relation(fields: [apadrinamientoId], references: [id])
-    persona               Persona?      @relation(fields: [personaId], references: [id])
-    beneficiarios         EntregaBeneficiario[]
-    usuarioRegistrador    Usuario       @relation("EntregaRegistradaPor", fields: [registradoPor], references: [id])
-    usuarioEntregador     Usuario?      @relation("EntregaRealizadaPor", fields: [entregadoPor], references: [id])
-
-    @@index([tipo])
-    @@index([estado])
-    @@index([fechaProgramada])
-    @@index([estado, fechaProgramada])
-    @@index([personaId])
-    @@index([programaId])
-    @@map("entregas")
-  }
-
-  model EntregaBeneficiario {
-    id                 String    @id @default(uuid())
-    entregaId          String
-    personaId          String
-    confirmado         Boolean   @default(false)
-    fechaConfirmacion  DateTime?
-    firmaUrl           String?   @db.VarChar(500)
-    observaciones      String?   @db.Text
-    createdAt          DateTime  @default(now())
-
-    // Relaciones
-    entrega            Entrega   @relation(fields: [entregaId], references: [id])
-    persona            Persona   @relation(fields: [personaId], references: [id])
-
-    @@unique([entregaId, personaId])
-    @@index([entregaId])
-    @@index([personaId])
-    @@map("entregas_beneficiarios")
-  }
-
-  model Gasto {
-    id                String         @id @default(uuid())
-    categoria         CategoriaGasto
-    subcategoria      String         @db.VarChar(100)
-    concepto          String         @db.VarChar(200)
-    personaId         String?
-    programaId        String?
-    monto             Decimal        @db.Decimal(12, 2)
-    fechaGasto        DateTime       @default(now()) @db.Date
-    metodoPago        MetodoPago
-    numeroReferencia  String?        @db.VarChar(100)
-    descripcion       String?        @db.Text
-    comprobanteUrl    String?        @db.VarChar(500)
-    observaciones     String?        @db.Text
-    registradoPor     String
-    createdAt         DateTime       @default(now())
-    updatedAt         DateTime       @updatedAt
-
-    // Relaciones
-    persona           Persona?       @relation("PersonaRecibeGasto", fields: [personaId], references: [id])
-    programa          Programa?      @relation(fields: [programaId], references: [id])
-    usuario           Usuario        @relation(fields: [registradoPor], references: [id])
-
-    @@index([categoria])
-    @@index([fechaGasto(sort: Desc)])
-    @@index([categoria, fechaGasto])
-    @@index([personaId])
-    @@index([programaId])
-    @@map("gastos")
-  }
-
-
-  // MODELOS - MÓDULO AUDITORÍA
-
-
-  model Auditoria {
-    id               String          @id @default(uuid())
-    usuarioId        String
-    accion           AccionAuditoria
-    entidad          String          @db.VarChar(50)
-    entidadId        String?
-    datosAnteriores  Json?
-    datosNuevos      Json?
-    createdAt        DateTime        @default(now())
-
-    // Relaciones
-    usuario          Usuario         @relation(fields: [usuarioId], references: [id])
-
-    @@index([usuarioId])
-    @@index([createdAt(sort: Desc)])
-    @@index([usuarioId, createdAt])
-    @@index([entidad, entidadId])
-    @@map("auditorias")
-  }
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// ENUMS
+// =============================================================================
+
+enum TipoDocumento {
+  CC
+  TI
+  CE
+  PASAPORTE
+  RC
+}
+
+enum Genero {
+  MASCULINO
+  FEMENINO
+  OTRO
+}
+
+enum TipoPersona {
+  MENOR
+  TUTOR
+  BENEFICIARIO_ADULTO
+  DOCENTE
+  ADMINISTRATIVO
+  PERSONAL_APOYO
+}
+
+enum Parentesco {
+  PADRE
+  MADRE
+  ABUELO
+  ABUELA
+  TIO
+  TIA
+  HERMANO
+  HERMANA
+  OTRO
+}
+
+enum EstadoGeneral {
+  ACTIVO
+  INACTIVO
+}
+
+enum RolUsuario {
+  ADMIN
+  DOCENTE
+}
+
+enum EstadoUsuario {
+  ACTIVO
+  INACTIVO
+  BLOQUEADO
+}
+
+enum TipoPrograma {
+  ACADEMICO
+  LUDICO
+  APOYO_SOCIAL
+  ESPIRITUAL
+}
+
+enum PublicoObjetivo {
+  NINOS
+  JOVENES
+  ADULTOS
+  TODOS
+}
+
+enum DiaSemana {
+  LUNES
+  MARTES
+  MIERCOLES
+  JUEVES
+  VIERNES
+  SABADO
+  DOMINGO
+}
+
+enum EstadoPrograma {
+  ACTIVO
+  INACTIVO
+  EN_PAUSA
+}
+
+enum EstadoInscripcion {
+  ACTIVO
+  RETIRADO
+  SUSPENDIDO
+}
+
+enum EstadoAsistencia {
+  PRESENTE
+  AUSENTE
+  JUSTIFICADO
+  TARDANZA
+}
+
+enum TipoPadrino {
+  PERSONA_NATURAL
+  EMPRESA
+  ORGANIZACION
+}
+
+enum TipoDonacionPadrino {
+  MONETARIA
+  EN_ESPECIE
+  AMBAS
+}
+
+enum FrecuenciaDonacion {
+  MENSUAL
+  TRIMESTRAL
+  SEMESTRAL
+  ANUAL
+  OCASIONAL
+}
+
+enum Privacidad {
+  PUBLICA
+  PRIVADA
+  ANONIMA
+}
+
+enum EstadoApadrinamiento {
+  ACTIVO
+  FINALIZADO
+}
+
+enum TipoDonacion {
+  PADRINO
+  GENERAL
+  ANONIMA
+  PARA_PROGRAMA
+}
+
+enum TipoRecurso {
+  MONETARIA
+  EN_ESPECIE
+  MIXTA
+}
+
+enum MetodoPago {
+  TRANSFERENCIA
+  GIRO_INTERNACIONAL
+  EFECTIVO
+  CHEQUE
+  OTRO
+}
+
+enum TipoEntrega {
+  MERCADO
+  BECA_BESPRO
+  UTILES_ESCOLARES
+  ROPA_ZAPATOS
+  AYUDA_PUNTUAL
+  OTRO
+}
+
+enum EstadoEntrega {
+  PROGRAMADA
+  ENTREGADA
+  CANCELADA
+}
+
+enum CategoriaGasto {
+  PAGO_PERSONAL
+  GASTO_OPERATIVO
+  GASTO_PROGRAMA
+  EVENTO
+  OTRO
+}
+
+enum AccionAuditoria {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  EXPORT
+}
+
+// =============================================================================
+// MÓDULO CORE
+// =============================================================================
+
+model Persona {
+  id                          String        @id @default(uuid())
+  tipoDocumento               TipoDocumento
+  numeroDocumento             String        @unique @db.VarChar(20)
+  primerNombre                String        @db.VarChar(50)
+  segundoNombre               String?       @db.VarChar(50)
+  primerApellido              String        @db.VarChar(50)
+  segundoApellido             String?       @db.VarChar(50)
+  fechaNacimiento             DateTime      @db.Date
+  genero                      Genero
+  direccion                   String        @db.VarChar(200)
+  barrio                      String?       @db.VarChar(100)
+  telefono                    String        @db.VarChar(20)
+  email                       String?       @unique @db.VarChar(100)
+  tipoPersona                 TipoPersona
+  estado                      EstadoGeneral @default(ACTIVO)
+  observaciones               String?       @db.Text
+  fotografiaUrl               String?       @db.VarChar(500)
+  consentimientoInformado     Boolean       @default(false)
+  documentoConsentimientoUrl  String?       @db.VarChar(500)
+  
+  // Campos de auditoría OPCIONALES
+  creadoPor                   String?       // ← Permite NULL para bootstrap
+  modificadoPor               String?
+  createdAt                   DateTime      @default(now())
+  updatedAt                   DateTime      @updatedAt
+
+  // Relaciones principales
+  usuario                     Usuario?
+  tutorDe                     TutorMenor[]  @relation("PersonaTutor")
+  menorDe                     TutorMenor[]  @relation("PersonaMenor")
+  inscripciones               Inscripcion[]
+  programasResponsable        ProgramaResponsable[]
+  apadrinamientos             Apadrinamiento[]
+  padrino                     Padrino?
+  entregas                    Entrega[]
+  entregasBeneficiario        EntregaBeneficiario[]
+  gastosRecibidos             Gasto[]       @relation("PersonaRecibeGasto")
+
+  // Relaciones de auditoría OPCIONALES
+  usuarioCreador              Usuario?      @relation("PersonaCreadaPor", fields: [creadoPor], references: [id])
+  usuarioModificador          Usuario?      @relation("PersonaModificadaPor", fields: [modificadoPor], references: [id])
+
+  @@index([numeroDocumento])
+  @@index([tipoPersona, estado])
+  @@index([primerNombre, primerApellido])
+  @@map("personas")
+}
+
+model TutorMenor {
+  id                 String        @id @default(uuid())
+  tutorId            String
+  menorId            String
+  parentesco         Parentesco
+  parentescoOtro     String?       @db.VarChar(50)
+  esTutorPrincipal   Boolean       @default(false)
+  fechaInicio        DateTime      @default(now()) @db.Date
+  fechaFin           DateTime?     @db.Date
+  estado             EstadoGeneral @default(ACTIVO)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  // Relaciones
+  tutor              Persona       @relation("PersonaTutor", fields: [tutorId], references: [id])
+  menor              Persona       @relation("PersonaMenor", fields: [menorId], references: [id])
+
+  @@unique([menorId, esTutorPrincipal, estado], name: "unique_tutor_principal")
+  @@index([tutorId, estado])
+  @@index([menorId, estado])
+  @@map("tutores_menores")
+}
+
+model Usuario {
+  id                      String        @id @default(uuid())
+  personaId               String        @unique
+  username                String        @unique @db.VarChar(50)
+  email                   String        @unique @db.VarChar(100)
+  password                String        @db.VarChar(255)
+  rol                     RolUsuario
+  estado                  EstadoUsuario @default(ACTIVO)
+  ultimoAcceso            DateTime?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  // Relación principal
+  persona                 Persona       @relation(fields: [personaId], references: [id])
+  
+  // Relaciones de auditoría (todas las entidades que este usuario puede crear/modificar)
+  personasCreadas         Persona[]     @relation("PersonaCreadaPor")
+  personasModificadas     Persona[]     @relation("PersonaModificadaPor")
+  programasCreados        Programa[]
+  inscripcionesRealizadas Inscripcion[]
+  asistenciasRegistradas  Asistencia[]
+  padrinosCreados         Padrino[]
+  apadrinamientosCreados  Apadrinamiento[]
+  donacionesRegistradas   Donacion[]
+  entregasRegistradas     Entrega[]     @relation("EntregaRegistradaPor")
+  entregasRealizadas      Entrega[]     @relation("EntregaRealizadaPor")
+  gastosRegistrados       Gasto[]
+  auditorias              Auditoria[]
+
+  @@index([username])
+  @@index([email])
+  @@index([estado, rol])
+  @@map("usuarios")
+}
+
+// =============================================================================
+// MÓDULO PROGRAMAS
+// =============================================================================
+
+model Programa {
+  id                String          @id @default(uuid())
+  codigo            String          @unique @db.VarChar(20)
+  nombre            String          @db.VarChar(100)
+  descripcion       String?         @db.Text
+  tipoPrograma      TipoPrograma
+  publicoObjetivo   PublicoObjetivo
+  edadMinima        Int?
+  edadMaxima        Int?
+  diasActividad     DiaSemana[]
+  horaInicio        DateTime?       @db.Time
+  horaFin           DateTime?       @db.Time
+  requiereDocente   Boolean         @default(true)
+  cupoMaximo        Int?
+  estado            EstadoPrograma  @default(ACTIVO)
+
+  // Campo de auditoría opcional para bootstrap
+  creadoPor         String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  // Relaciones
+  responsables      ProgramaResponsable[]
+  inscripciones     Inscripcion[]
+  donaciones        Donacion[]
+  entregas          Entrega[]
+  gastos            Gasto[]
+  
+  usuarioCreador    Usuario?        @relation(fields: [creadoPor], references: [id])
+
+  @@index([codigo])
+  @@index([estado, tipoPrograma])
+  @@index([publicoObjetivo])
+  @@map("programas")
+}
+
+model ProgramaResponsable {
+  id                      String        @id @default(uuid())
+  programaId              String
+  personaId               String
+  esResponsablePrincipal  Boolean       @default(false)
+  fechaAsignacion         DateTime      @default(now()) @db.Date
+  fechaFinalizacion       DateTime?     @db.Date
+  estado                  EstadoGeneral @default(ACTIVO)
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  // Relaciones
+  programa                Programa      @relation(fields: [programaId], references: [id])
+  persona                 Persona       @relation(fields: [personaId], references: [id])
+
+  @@unique([programaId, esResponsablePrincipal, estado], name: "unique_responsable_principal")
+  @@index([programaId, estado])
+  @@index([personaId, estado])
+  @@map("programas_responsables")
+}
+
+model Inscripcion {
+  id                String             @id @default(uuid())
+  programaId        String
+  personaId         String
+  fechaInscripcion  DateTime           @default(now()) @db.Date
+  fechaRetiro       DateTime?          @db.Date
+  estado            EstadoInscripcion  @default(ACTIVO)
+  motivoRetiro      String?            @db.Text
+  observaciones     String?            @db.Text
+  
+  // Campo de auditoría opcional
+  inscritoPor       String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  // Relaciones
+  programa          Programa           @relation(fields: [programaId], references: [id])
+  persona           Persona            @relation(fields: [personaId], references: [id])
+  asistencias       Asistencia[]
+  usuarioInscriptor Usuario?           @relation(fields: [inscritoPor], references: [id])
+
+  @@unique([programaId, personaId, estado], name: "unique_inscripcion_activa")
+  @@index([programaId, estado])
+  @@index([personaId, estado])
+  @@index([fechaInscripcion])
+  @@map("inscripciones")
+}
+
+model Asistencia {
+  id             String           @id @default(uuid())
+  inscripcionId  String
+  fecha          DateTime         @db.Date
+  estado         EstadoAsistencia
+  observaciones  String?          @db.Text
+  
+  // Campo de auditoría opcional
+  registradoPor  String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  // Relaciones
+  inscripcion    Inscripcion      @relation(fields: [inscripcionId], references: [id])
+  usuario        Usuario?         @relation(fields: [registradoPor], references: [id])
+
+  @@unique([inscripcionId, fecha])
+  @@index([fecha])
+  @@index([fecha, estado])
+  @@map("asistencias")
+}
+
+// =============================================================================
+// MÓDULO APADRINAMIENTO
+// =============================================================================
+
+model Padrino {
+  id                    String              @id @default(uuid())
+  personaId             String?             @unique
+  tipo                  TipoPadrino
+  nombreCompleto        String              @db.VarChar(200)
+  nombreEmpresa         String?             @db.VarChar(200)
+  pais                  String              @db.VarChar(100)
+  ciudad                String?             @db.VarChar(100)
+  email                 String              @db.VarChar(100)
+  telefono              String?             @db.VarChar(20)
+  tipoDonacion          TipoDonacionPadrino
+  frecuenciaDonacion    FrecuenciaDonacion
+  preferenciaPrivacidad Privacidad          @default(PRIVADA)
+  fechaInicio           DateTime            @default(now()) @db.Date
+  estado                EstadoGeneral       @default(ACTIVO)
+  observaciones         String?             @db.Text
+  
+  // Campo de auditoría opcional
+  creadoPor             String?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  // Relaciones
+  persona               Persona?            @relation(fields: [personaId], references: [id])
+  apadrinamientos       Apadrinamiento[]
+  donaciones            Donacion[]
+  usuarioCreador        Usuario?            @relation(fields: [creadoPor], references: [id])
+
+  @@index([estado])
+  @@index([pais])
+  @@index([email])
+  @@map("padrinos")
+}
+
+model Apadrinamiento {
+  id                  String                @id @default(uuid())
+  padrinoId           String
+  menorId             String
+  fechaInicio         DateTime              @default(now()) @db.Date
+  fechaFin            DateTime?             @db.Date
+  estado              EstadoApadrinamiento  @default(ACTIVO)
+  motivoFinalizacion  String?               @db.Text
+  observaciones       String?               @db.Text
+  
+  // Campo de auditoría opcional
+  creadoPor           String?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  // Relaciones
+  padrino             Padrino               @relation(fields: [padrinoId], references: [id])
+  menor               Persona               @relation(fields: [menorId], references: [id])
+  donaciones          Donacion[]
+  entregas            Entrega[]
+  usuarioCreador      Usuario?              @relation(fields: [creadoPor], references: [id])
+
+  @@unique([menorId, estado], name: "unique_apadrinamiento_activo")
+  @@index([padrinoId, estado])
+  @@index([menorId, estado])
+  @@map("apadrinamientos")
+}
+
+model Donacion {
+  id                 String        @id @default(uuid())
+  tipo               TipoDonacion
+  padrinoId          String?
+  apadrinamientoId   String?
+  programaId         String?
+  donadorNombre      String?       @db.VarChar(200)
+  esAnonima          Boolean       @default(false)
+  tipoRecurso        TipoRecurso
+  monto              Decimal?      @db.Decimal(12, 2)
+  moneda             String        @default("COP") @db.VarChar(3)
+  descripcionEspecie String?       @db.Text
+  fechaRecepcion     DateTime      @default(now()) @db.Date
+  metodoPago         MetodoPago?
+  numeroReferencia   String?       @db.VarChar(100)
+  descripcion        String?       @db.Text
+  observaciones      String?       @db.Text
+  comprobanteUrl     String?       @db.VarChar(500)
+  
+  // Campo de auditoría opcional
+  registradoPor      String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  // Relaciones
+  padrino            Padrino?      @relation(fields: [padrinoId], references: [id])
+  apadrinamiento     Apadrinamiento? @relation(fields: [apadrinamientoId], references: [id])
+  programa           Programa?     @relation(fields: [programaId], references: [id])
+  usuario            Usuario?      @relation(fields: [registradoPor], references: [id])
+
+  @@index([tipo])
+  @@index([fechaRecepcion(sort: Desc)])
+  @@index([tipo, fechaRecepcion])
+  @@index([padrinoId])
+  @@index([programaId])
+  @@map("donaciones")
+}
+
+// =============================================================================
+// MÓDULO RECURSOS
+// =============================================================================
+
+model Entrega {
+  id                    String        @id @default(uuid())
+  tipo                  TipoEntrega
+  programaId            String?
+  apadrinamientoId      String?
+  personaId             String?
+  tipoRecurso           TipoRecurso
+  monto                 Decimal?      @db.Decimal(12, 2)
+  descripcionItems      String        @db.Text
+  fechaProgramada       DateTime      @db.Date
+  fechaEntrega          DateTime?     @db.Date
+  estado                EstadoEntrega @default(PROGRAMADA)
+  motivoCancelacion     String?       @db.Text
+  confirmacionRecibido  Boolean       @default(false)
+  firmaUrl              String?       @db.VarChar(500)
+  comprobanteUrl        String?       @db.VarChar(500)
+  observaciones         String?       @db.Text
+  
+  // Campos de auditoría opcionales
+  registradoPor         String?
+  entregadoPor          String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  // Relaciones
+  programa              Programa?     @relation(fields: [programaId], references: [id])
+  apadrinamiento        Apadrinamiento? @relation(fields: [apadrinamientoId], references: [id])
+  persona               Persona?      @relation(fields: [personaId], references: [id])
+  beneficiarios         EntregaBeneficiario[]
+  usuarioRegistrador    Usuario?      @relation("EntregaRegistradaPor", fields: [registradoPor], references: [id])
+  usuarioEntregador     Usuario?      @relation("EntregaRealizadaPor", fields: [entregadoPor], references: [id])
+
+  @@index([tipo])
+  @@index([estado])
+  @@index([fechaProgramada])
+  @@index([estado, fechaProgramada])
+  @@index([personaId])
+  @@index([programaId])
+  @@map("entregas")
+}
+
+model EntregaBeneficiario {
+  id                 String    @id @default(uuid())
+  entregaId          String
+  personaId          String
+  confirmado         Boolean   @default(false)
+  fechaConfirmacion  DateTime?
+  firmaUrl           String?   @db.VarChar(500)
+  observaciones      String?   @db.Text
+  createdAt          DateTime  @default(now())
+
+  // Relaciones
+  entrega            Entrega   @relation(fields: [entregaId], references: [id])
+  persona            Persona   @relation(fields: [personaId], references: [id])
+
+  @@unique([entregaId, personaId])
+  @@index([entregaId])
+  @@index([personaId])
+  @@map("entregas_beneficiarios")
+}
+
+model Gasto {
+  id                String         @id @default(uuid())
+  categoria         CategoriaGasto
+  subcategoria      String         @db.VarChar(100)
+  concepto          String         @db.VarChar(200)
+  personaId         String?
+  programaId        String?
+  monto             Decimal        @db.Decimal(12, 2)
+  fechaGasto        DateTime       @default(now()) @db.Date
+  metodoPago        MetodoPago
+  numeroReferencia  String?        @db.VarChar(100)
+  descripcion       String?        @db.Text
+  comprobanteUrl    String?        @db.VarChar(500)
+  observaciones     String?        @db.Text
+  
+  // Campo de auditoría opcional
+  registradoPor     String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  // Relaciones
+  persona           Persona?       @relation("PersonaRecibeGasto", fields: [personaId], references: [id])
+  programa          Programa?      @relation(fields: [programaId], references: [id])
+  usuario           Usuario?       @relation(fields: [registradoPor], references: [id])
+
+  @@index([categoria])
+  @@index([fechaGasto(sort: Desc)])
+  @@index([categoria, fechaGasto])
+  @@index([personaId])
+  @@index([programaId])
+  @@map("gastos")
+}
+
+// =============================================================================
+// MÓDULO AUDITORÍA
+// =============================================================================
+
+model Auditoria {
+  id               String          @id @default(uuid())
+  usuarioId        String
+  accion           AccionAuditoria
+  entidad          String          @db.VarChar(50)
+  entidadId        String?
+  datosAnteriores  Json?
+  datosNuevos      Json?
+  createdAt        DateTime        @default(now())
+
+  // Relaciones
+  usuario          Usuario         @relation(fields: [usuarioId], references: [id])
+
+  @@index([usuarioId])
+  @@index([createdAt(sort: Desc)])
+  @@index([usuarioId, createdAt])
+  @@index([entidad, entidadId])
+  @@map("auditorias")
+}
