@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { navLinks, programasDropdown } from "../data/data"
 import { getActiveClass } from "../utils/getActiveClass"
-import logo from "../assets/LogoMejorado.png"
+import logo from "../assets/LogoMejoradoSinFondo.png"
 
 export default function NavBar(){
   const location = useLocation()
@@ -11,6 +11,11 @@ export default function NavBar(){
   const [menuOpen, setMenuOpen] = useState(false)
   const [programasOpen, setProgramasOpen] = useState(false)
   const [languageOpen, setLanguageOpen] = useState(false)
+
+  // Lee idioma guardado o usa 'es' por defecto
+  const [language, setLanguage] = useState<string>(() => {
+    return localStorage.getItem('app_lang') || 'es'
+  })
 
   // Refs para detectar clicks fuera y cerrar dropdowns
   const programasRef = useRef<HTMLDivElement | null>(null)
@@ -38,6 +43,12 @@ export default function NavBar(){
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+   // Actualiza <html lang="...">
+  useEffect(() => {
+  document.documentElement.lang = language
+  localStorage.setItem('app_lang', language)
+}, [language])
+
   // Cerrar menu al cambiar de ruta (útil en mobile)
   useEffect(() => {
     setMenuOpen(false)
@@ -46,7 +57,7 @@ export default function NavBar(){
   }, [location.pathname])
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-pink-300 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -54,7 +65,7 @@ export default function NavBar(){
             <img
               src={logo}
               alt="Fundación Atma Namasté"
-              className="h-10 w-10 object-contain"
+              className="size-15 object-contain"
               width={40}
               height={40}
             />
@@ -78,7 +89,7 @@ export default function NavBar(){
                       className={`${getActiveClass(location.pathname, nav.path)} flex items-center`}
                     >
                       {nav.name}
-                      <svg className="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="size-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
@@ -86,14 +97,14 @@ export default function NavBar(){
                     <div
                       id="programas-dropdown"
                       role="menu"
-                      className={`${programasOpen ? "block" : "hidden"} absolute left-0 mt-2 w-56 bg-white border rounded-md shadow-lg z-20`}
+                      className={`${programasOpen ? "block" : "hidden"} absolute left-0 mt-2 w-56 bg-pink-300 border rounded-md shadow-lg z-20`}
                     >
                       <ul>
                         {programasDropdown.map((x) => (
                           <li key={x.id}>
                             <Link
                               to={x.path}
-                              className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+                              className="block px-4 py-2 text-gray-700 bg-pink-400/45 hover:bg-pink-400/60"
                             >
                               {x.name}
                             </Link>
@@ -114,7 +125,7 @@ export default function NavBar(){
             <li className="md:hidden mt-2">
               <Link
                 to="/login"
-                className="block px-4 py-2 rounded-md text-sm font-medium text-white bg-sky-600 hover:bg-sky-700"
+                className="block px-4 py-2 rounded-md text-sm text-gray-50 font-medium bg-orange-400/70 hover:bg-amber-600"
               >
                 Gestión Administrativa
               </Link>
@@ -126,12 +137,12 @@ export default function NavBar(){
         {/* Botones derecha (desktop) */}
         <div className="flex items-center gap-4">
           {/* Selector de lenguaje */}
-          <div className="relative" ref={languageRef}>
+          <div className="relative right-0" ref={languageRef}>
             <button
               onClick={toggleLanguage}
               aria-expanded={languageOpen ? "true" : "false"}
               aria-controls="language-dropdown"
-              className="inline-flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
+              className="inline-flex items-center px-3 py-2 rounded-md text-gray-50 hover:bg-pink-400/45 focus:outline-none"
             >
               <span className="sr-only">Abrir selector de idioma</span>
               <svg
@@ -151,17 +162,17 @@ export default function NavBar(){
               id="language-dropdown"
               role="menu"
               aria-labelledby="language-button"
-              className={`${languageOpen ? "block" : "hidden"} absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-20`}
+              className={`${languageOpen ? "block" : "hidden"} absolute right-0 mt-2 w-40 bg-pink-400/45 rounded-md shadow-lg z-20`}
             >
-              <ul className="py-1">
+              <ul className="py-1" role="menu" aria-label="Seleccionar idioma">
                 <li>
-                  <button className="w-full text-left px-4 py-2 hover:bg-gray-50">Español</button>
+                  <button className="w-full text-left px-4 py-2 hover:bg-pink-400/45">Español</button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-4 py-2 hover:bg-gray-50">Inglés</button>
+                  <button className="w-full text-left px-4 py-2 hover:bg-pink-400/45">English</button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-4 py-2 hover:bg-gray-50">Italiano</button>
+                  <button className="w-full text-left px-4 py-2 hover:bg-pink-400/45">Italiano</button>
                 </li>
               </ul>
             </div>
@@ -171,7 +182,7 @@ export default function NavBar(){
           <div className="hidden md:block">
             <Link
               to="/login"
-              className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-sky-600 hover:bg-sky-700"
+              className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-orange-400/70 hover:bg-amber-500"
             >
               Gestión Administrativa
             </Link>
@@ -183,15 +194,15 @@ export default function NavBar(){
               onClick={toggleMenu}
               aria-expanded={menuOpen ? "true" : "false"}
               aria-controls="primary-navigation"
-              className="inline-flex items-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
+              className="inline-flex items-center p-2 rounded-md text-gray-50 hover:bg-pink-400/45 focus:outline-none"
             >
               <span className="sr-only">Abrir menú</span>
               {menuOpen ? (
-                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
