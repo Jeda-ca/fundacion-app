@@ -63,7 +63,7 @@ export default function NavBar() {
   }, [location.pathname])
   
   return (
-    <nav className="bg-pink-300 shadow-sm">
+    <nav className="bg-[#E297C2] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -103,14 +103,14 @@ export default function NavBar() {
                       <div
                         id="programas-dropdown"
                         role="menu"
-                        className={`${programasOpen ? "block" : "hidden"} absolute left-0 mt-2 w-56 bg-pink-300 border rounded-md shadow-lg z-20`}
+                        className={`${programasOpen ? "block" : "hidden"} absolute left-0 mt-2 w-56 bg-pink-300 rounded-md shadow-lg z-20`}
                       >
                         <ul>
                           {programasDropdown.map((x) => (
                             <li key={x.id}>
                               <Link
                                 to={x.path}
-                                className="block px-4 py-2 text-gray-700 bg-pink-400/45 hover:bg-pink-400/60"
+                                className="block px-4 py-2 text-white font-[Open Sans] rounded-md bg-pink-300 hover:bg-pink-400 hover:font-semibold transition-colors"
                               >
                                 {x.name}
                               </Link>
@@ -134,9 +134,9 @@ export default function NavBar() {
                     handleAdminAccess();
                     setMenuOpen(false); // Cierra el menú móvil
                   }}
-                  className="block w-full text-left px-4 py-2 rounded-md text-sm text-gray-50 font-serif bg-orange-400/70 hover:bg-amber-600 transition-colors"
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm text-gray-50 font-[Poppins] bg-orange-400/70 hover:bg-amber-600 transition-colors"
                 >
-                  Gestión Administrativa
+                  Gestión <br />Administrativa
                 </button>
               </li>
             </ul>
@@ -144,7 +144,7 @@ export default function NavBar() {
         </div>
 
         {/* Botones derecha (desktop) */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Selector de lenguaje */}
           <div className="relative right-0" ref={languageRef}>
             <button
@@ -187,16 +187,16 @@ export default function NavBar() {
             </div>
           </div>
 
-          {/* ✅ Gestión administrativa - CAMBIAR A NUEVA PESTAÑA */}
+          {/* Gestión administrativa - Desktop */}
           <div className="hidden md:block">
             <button
               onClick={handleAdminAccess}
-              className="inline-flex items-center px-4 py-2 rounded-md text-sm font-serif text-white bg-orange-400/70 hover:bg-amber-500 transition-colors"
+              className="inline-flex items-center px-2 py-1 rounded-md text-md font-[Poppins] text-white bg-[#F38840] hover:bg-amber-600 transition-colors"
             >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="size-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              Gestión Administrativa
+              Gestión <br /> Administrativa
             </button>
           </div>
 
