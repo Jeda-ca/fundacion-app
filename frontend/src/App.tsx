@@ -1,29 +1,26 @@
-import { useState } from 'react'
+// src/App.tsx
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import NavBar from './components/NavBar'
 import Inicio from './pages/Inicio'
 import QuienesSomos from './pages/QuienesSomos'
-import LoginModal from './components/LoginModal'
-
+import LoginPage from './pages/LoginPage' // ✅ NUEVA IMPORTACIÓN
 
 function App() {
-const [count, setCount] = useState(0)
-  //Estado y funciones para el LoginModal
-  const [showLogin, setShowLogin] = useState(false)
-  const handleOpenLogin = () => setShowLogin(true)
-  const handleCloseLogin = () => setShowLogin(false)
+
 
   return (
     <>
-      <NavBar onLoginClick={handleOpenLogin}/>
+      <NavBar />
+      
       <Routes>
-        {/* Otras rutas */}
+        {/* Rutas del sitio público */}
         <Route path="/" element={<Inicio />} />
         <Route path="/quienes-somos" element={<QuienesSomos />} />
+        
+        {/* ✅ NUEVA RUTA: Página de login administrativo */}
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
-
-      {showLogin && <LoginModal onClose={handleCloseLogin} />}
     </>
   )
 }

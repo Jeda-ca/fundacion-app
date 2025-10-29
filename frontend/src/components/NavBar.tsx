@@ -1,16 +1,11 @@
+// src/components/NavBar.tsx
 import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { navLinks, programasDropdown } from "../data/data"
 import { getActiveClass } from "../utils/getActiveClass"
 import logo from "../assets/LogoMejoradoSinFondo.png"
 
-// 1. AÑADIR INTERFAZ DE PROPS
-interface NavBarProps {
-  onLoginClick: () => void;
-}
-
-// 2. USAR LA INTERFAZ DE PROPS
-export default function NavBar({ onLoginClick }: NavBarProps) {
+export default function NavBar() {
   const location = useLocation();
   // Estados
   const [menuOpen, setMenuOpen] = useState(false)
@@ -31,6 +26,12 @@ export default function NavBar({ onLoginClick }: NavBarProps) {
   const toggleProgramas = () => setProgramasOpen((s) => !s)
   const toggleLanguage = () => setLanguageOpen((s) => !s)
 
+  // ✅ NUEVA FUNCIÓN: Abrir login en nueva pestaña
+  const handleAdminAccess = () => {
+    // Abre /login en nueva pestaña
+    window.open('/login', '_blank', 'noopener,noreferrer')
+  }
+
   // Cerrar dropdowns al hacer click fuera
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -48,11 +49,11 @@ export default function NavBar({ onLoginClick }: NavBarProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-   // Actualiza <html lang="...">
+  // Actualiza <html lang="...">
   useEffect(() => {
-  document.documentElement.lang = language
-  localStorage.setItem('app_lang', language)
-}, [language])
+    document.documentElement.lang = language
+    localStorage.setItem('app_lang', language)
+  }, [language])
 
   // Cerrar menu al cambiar de ruta (útil en mobile)
   useEffect(() => {
@@ -63,14 +64,14 @@ export default function NavBar({ onLoginClick }: NavBarProps) {
   
   return (
     <nav className="bg-pink-300 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center">
             <img
               src={logo}
               alt="Fundación Atma Namasté"
-              className="size-15 object-contain"
+              className="size-26 object-contain"
               width={40}
               height={40}
             />
@@ -78,70 +79,69 @@ export default function NavBar({ onLoginClick }: NavBarProps) {
         </div>
 
         {/* Navigation links */}
-      <div
-        id="primary-navigation"
-        className={`${menuOpen ? "block" : "hidden"} md:block border-t md:border-t-0`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <ul className="flex flex-col md:flex-row md:items-center md:gap-6 md:py-0 py-4">
-            {navLinks.map((nav) => (
-              <li key={nav.id} className="md:inline-block">
-                {nav.path === "/programas" ? (
-                  <div ref={programasRef} className="relative">
-                    <button
-                      onClick={toggleProgramas}
-                      aria-expanded={programasOpen ? "true" : "false"}
-                      aria-controls="programas-dropdown"
-                      className={`${getActiveClass(location.pathname, nav.path)} flex items-center`}
-                    >
-                      {nav.name}
-                      <svg className="size-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
+        <div
+          id="primary-navigation"
+          className={`${menuOpen ? "block" : "hidden"} md:block border-t md:border-t-0`}>
+          <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <ul className="flex flex-col md:flex-row md:items-center md:gap-6 md:py-0 py-4">
+              {navLinks.map((nav) => (
+                <li key={nav.id} className="md:inline-block">
+                  {nav.path === "/programas" ? (
+                    <div ref={programasRef} className="relative">
+                      <button
+                        onClick={toggleProgramas}
+                        aria-expanded={programasOpen ? "true" : "false"}
+                        aria-controls="programas-dropdown"
+                        className={`${getActiveClass(location.pathname, nav.path)} flex items-center`}
+                      >
+                        {nav.name}
+                        <svg className="size-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
 
-                    <div
-                      id="programas-dropdown"
-                      role="menu"
-                      className={`${programasOpen ? "block" : "hidden"} absolute left-0 mt-2 w-56 bg-pink-300 border rounded-md shadow-lg z-20`}
-                    >
-                      <ul>
-                        {programasDropdown.map((x) => (
-                          <li key={x.id}>
-                            <Link
-                              to={x.path}
-                              className="block px-4 py-2 text-gray-700 bg-pink-400/45 hover:bg-pink-400/60"
-                            >
-                              {x.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                      <div
+                        id="programas-dropdown"
+                        role="menu"
+                        className={`${programasOpen ? "block" : "hidden"} absolute left-0 mt-2 w-56 bg-pink-300 border rounded-md shadow-lg z-20`}
+                      >
+                        <ul>
+                          {programasDropdown.map((x) => (
+                            <li key={x.id}>
+                              <Link
+                                to={x.path}
+                                className="block px-4 py-2 text-gray-700 bg-pink-400/45 hover:bg-pink-400/60"
+                              >
+                                {x.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <Link to={nav.path} className={getActiveClass(location.pathname, nav.path)}>
-                    {nav.name}
-                  </Link>
-                )}
-              </li>
-            ))}
+                  ) : (
+                    <Link to={nav.path} className={getActiveClass(location.pathname, nav.path)}>
+                      {nav.name}
+                    </Link>
+                  )}
+                </li>
+              ))}
 
-            {/* Login visible en mobile */}
-            <li className="md:hidden mt-2">
-              {/* CAMBIAR EL <Link> POR <button> */}
-              <button
-                onClick={() => {
-                  onLoginClick();
-                  setMenuOpen(false); // También cierra el menú
-                }}
-                className="block w-full text-left px-4 py-2 rounded-md text-sm text-gray-50 font-medium bg-orange-400/70 hover:bg-amber-600"
-              >
-                Gestión Administrativa
-              </button>
-            </li>
-          </ul>
+              {/* Login en mobile - CAMBIAR A NUEVA PESTAÑA */}
+              <li className="md:hidden mt-2">
+                <button
+                  onClick={() => {
+                    handleAdminAccess();
+                    setMenuOpen(false); // Cierra el menú móvil
+                  }}
+                  className="block w-full text-left px-4 py-2 rounded-md text-sm text-gray-50 font-serif bg-orange-400/70 hover:bg-amber-600 transition-colors"
+                >
+                  Gestión Administrativa
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
 
         {/* Botones derecha (desktop) */}
         <div className="flex items-center gap-4">
@@ -187,14 +187,15 @@ export default function NavBar({ onLoginClick }: NavBarProps) {
             </div>
           </div>
 
-          {/* Gestión administrativa */}
+          {/* ✅ Gestión administrativa - CAMBIAR A NUEVA PESTAÑA */}
           <div className="hidden md:block">
-            {/* CAMBIAR EL <Link> POR <button> */}
             <button
-              onClick={onLoginClick}
-              className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-orange-400/70 hover:bg-amber-500"
+              onClick={handleAdminAccess}
+              className="inline-flex items-center px-4 py-2 rounded-md text-sm font-serif text-white bg-orange-400/70 hover:bg-amber-500 transition-colors"
             >
-              {/* ... (El SVG del usuario que ella tiene) ... */}
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
               Gestión Administrativa
             </button>
           </div>

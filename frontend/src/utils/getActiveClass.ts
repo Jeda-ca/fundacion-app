@@ -1,11 +1,11 @@
 export function getActiveClass(currentPath: string, linkPath: string): string {
     const baseClasses =
-    "block py-2 px-3 border-b border-gray-100 hover:bg-gray-50 text-gray-500 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
+    "px-3 py-2 rounded-md text-sm font-serif hover:text-pink-600 hover:font-semibold transition-colors duration-200"
 
     const isActive = // Verifica si la ruta actual coincide con el enlace o es una subruta
     currentPath === linkPath || currentPath.startsWith(linkPath + "/") //Detecta subrutas y marca activo el enlace padre
 
     return isActive
-    ? `text-blue-600 font-semibold ${baseClasses}` // enlace activo
-    : `text-gray-900 ${baseClasses}` // enlace inactivo
+    ? `text-pink-600 font-semibold font-serif ${baseClasses}` // enlace activo
+    : `text-gray-100 ${baseClasses}` // enlace inactivo
 }
