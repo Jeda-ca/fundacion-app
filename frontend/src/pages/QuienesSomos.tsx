@@ -2,7 +2,7 @@
 export default function QuienesSomos() {
   // Ejemplo de campos destacados, se pueden adaptar según el backend/fuentes reales
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 px-4 py-10">
+        <div className="min-h-screen bg-linear-to-br from-white to-blue-50 px-4 py-10">
         <header className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-bold text-pink-700 mb-2">
             ¿Quiénes somos?

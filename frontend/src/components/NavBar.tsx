@@ -4,9 +4,14 @@ import { navLinks, programasDropdown } from "../data/data"
 import { getActiveClass } from "../utils/getActiveClass"
 import logo from "../assets/LogoMejoradoSinFondo.png"
 
-export default function NavBar(){
-  const location = useLocation()
+// 1. AÑADIR INTERFAZ DE PROPS
+interface NavBarProps {
+  onLoginClick: () => void;
+}
 
+// 2. USAR LA INTERFAZ DE PROPS
+export default function NavBar({ onLoginClick }: NavBarProps) {
+  const location = useLocation();
   // Estados
   const [menuOpen, setMenuOpen] = useState(false)
   const [programasOpen, setProgramasOpen] = useState(false)
@@ -55,7 +60,7 @@ export default function NavBar(){
     setProgramasOpen(false)
     setLanguageOpen(false)
   }, [location.pathname])
-
+  
   return (
     <nav className="bg-pink-300 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
@@ -123,12 +128,16 @@ export default function NavBar(){
 
             {/* Login visible en mobile */}
             <li className="md:hidden mt-2">
-              <Link
-                to="/login"
-                className="block px-4 py-2 rounded-md text-sm text-gray-50 font-medium bg-orange-400/70 hover:bg-amber-600"
+              {/* CAMBIAR EL <Link> POR <button> */}
+              <button
+                onClick={() => {
+                  onLoginClick();
+                  setMenuOpen(false); // También cierra el menú
+                }}
+                className="block w-full text-left px-4 py-2 rounded-md text-sm text-gray-50 font-medium bg-orange-400/70 hover:bg-amber-600"
               >
                 Gestión Administrativa
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
@@ -180,12 +189,14 @@ export default function NavBar(){
 
           {/* Gestión administrativa */}
           <div className="hidden md:block">
-            <Link
-              to="/login"
+            {/* CAMBIAR EL <Link> POR <button> */}
+            <button
+              onClick={onLoginClick}
               className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-orange-400/70 hover:bg-amber-500"
             >
+              {/* ... (El SVG del usuario que ella tiene) ... */}
               Gestión Administrativa
-            </Link>
+            </button>
           </div>
 
           {/* Botón hamburguesa (mobile) */}
