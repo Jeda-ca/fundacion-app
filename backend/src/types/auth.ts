@@ -1,4 +1,3 @@
-// src/types/auth.ts
 import { RolUsuario, EstadoUsuario } from '@prisma/client';
 
 // Datos que llega el frontend para login
@@ -26,8 +25,8 @@ export interface JwtPayload {
   username: string;
   rol: RolUsuario;
   personaId: string;
-  iat?: number;
-  exp?: number;
+  iat?: number;  // issued at (timestamp)
+  exp?: number;  // expiration (timestamp) 
 }
 
 // Usuario que queda en req.user (tipado para middleware)

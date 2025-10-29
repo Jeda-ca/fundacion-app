@@ -1,5 +1,7 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { RolUsuario } from '@prisma/client';
+import { JwtPayload } from '../types/auth';
+
 
 // Validación explícita de variables de entorno
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -7,14 +9,6 @@ const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '24h';
 
 if (!JWT_SECRET) {
   throw new Error('JWT_SECRET debe estar definido en las variables de entorno');
-}
-
-// Estructura del payload del token
-export interface JwtPayload {
-  id: string;
-  username: string;
-  rol: RolUsuario;
-  personaId: string;
 }
 
 /**
