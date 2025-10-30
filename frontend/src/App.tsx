@@ -4,11 +4,9 @@ import './App.css'
 import NavBar from './components/NavBar'
 import Inicio from './pages/Inicio'
 import QuienesSomos from './pages/QuienesSomos'
-import LoginPage from './pages/LoginPage' // ✅ NUEVA IMPORTACIÓN
+import LoginPage from './pages/LoginPage'
 
 function App() {
-
-
   return (
     <>
       <NavBar />
@@ -18,7 +16,7 @@ function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/quienes-somos" element={<QuienesSomos />} />
         
-        {/* ✅ NUEVA RUTA: Página de login administrativo */}
+        {/* Página de login administrativo */}
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
