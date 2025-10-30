@@ -41,7 +41,7 @@ export const estadisticas: Estadistica[] = [
     sublabel: "Experiencia comprobada" 
   },
   { 
-    number: "500+", 
+    number: "200+", 
     label: "Familias beneficiadas", 
     sublabel: "Impacto directo" 
   },
