@@ -1,7 +1,7 @@
 // src/components/NavBar.tsx
 import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { navLinks, programasDropdown } from "../data/data"
+import { navLinks, programasDropdown } from "../data/navData"
 import { getActiveClass } from "../utils/getActiveClass"
 import logo from "../assets/LogoMejoradoSinFondo.png"
 

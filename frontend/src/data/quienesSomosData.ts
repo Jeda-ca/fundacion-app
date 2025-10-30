@@ -1,155 +1,160 @@
-// --- INTERFACES DE DATOS ---
-interface HeaderData {
-  title: string;
-  description: string;
-  imageUrl: string;
-}
+// Todos los datos de la página ¿Quiénes Somos?
 
-interface HistoriaItem {
-  title: string;
-  description: string;
-  imageUrl: string;
-}
+import type { 
+  QuienesSomosHeroData,
+  MisionVisionData,
+  HistoriaData,
+  TimelineItem,
+  ValorData,
+  ImpactoData,
+  SeccionData
+} from '../types';
 
-interface MisionVisionData {
-  mision: {
-    title: string;
-    text: string;
-  };
-  vision: {
-    title: string;
-    text: string;
-  };
-}
-
-interface ValorItem {
-  // Cambiado de LucideIcon a un string simple para identificar el ícono
-  icon: 'heart' | 'gem' | 'users' | 'target' | 'shield' | 'eye';
-  title: string;
-  description: string;
-  colorClass: 'pink' | 'orange';
-}
-
-interface EquipoMember {
-  name: string;
-  role: string;
-  imageUrl: string;
-}
-
-interface QuienesSomosData {
-  header: HeaderData;
-  historia: HistoriaItem[];
-  misionVision: MisionVisionData;
-  valores: ValorItem[];
-  equipo: EquipoMember[];
-}
-
-// --- CONTENIDO DE LA PÁGINA ---
-export const quienesSomosData: QuienesSomosData = {
-  header: {
-    title: '¿Quiénes somos?',
-    description:
-      'Somos una organización sin fines de lucro dedicada a transformar vidas y fortalecer comunidades a través de programas educativos, sociales y de desarrollo integral.',
-    imageUrl: 'https://placehold.co/1200x400/E297C2/white?text=Imagen+Fundacion&font=inter',
-  },
-  historia: [
-    {
-      title: 'Nuestro Comienzo',
-      description:
-        'Fundada en [Año], nuestra organización nació del sueño de [Nombre del Fundador] de crear un espacio seguro y enriquecedor para los niños y jóvenes de [Ciudad/Región]. Comenzamos con un pequeño grupo de voluntarios y un gran corazón.',
-      imageUrl: 'https://placehold.co/600x400/f38840/white?text=Hito+1&font=inter',
-    },
-    {
-      title: 'Crecimiento y Expansión',
-      description:
-        'Gracias al apoyo de la comunidad y la dedicación de nuestro equipo, expandimos nuestros programas para incluir [Programa Clave 1] y [Programa Clave 2]. Abrimos nuevas sedes y duplicamos el número de beneficiarios en solo [X] años.',
-      imageUrl: 'https://placehold.co/600x400/e297c2/white?text=Hito+2&font=inter',
-    },
-    {
-      title: 'Impacto Actual',
-      description:
-        'Hoy, servimos a más de [Número] personas anualmente, ofreciendo un ecosistema de apoyo que abarca desde la educación inicial hasta la capacitación para el empleo. Seguimos comprometidos con nuestra misión original, adaptándonos a los nuevos desafíos.',
-      imageUrl: 'https://placehold.co/600x400/f38840/white?text=Hito+3&font=inter',
-    },
-  ],
-  misionVision: {
-    mision: {
-      title: 'Nuestra Misión',
-      text: 'Proporcionar herramientas, oportunidades y apoyo integral a individuos y familias en situación de vulnerabilidad, fomentando su desarrollo personal, educativo y social para que alcancen su máximo potencial y contribuyan positivamente a la sociedad.',
-    },
-    vision: {
-      title: 'Nuestra Visión',
-      text: 'Ser una organización líder y referente en la transformación social, reconocida por nuestro impacto sostenible, la transparencia en nuestra gestión y la capacidad de inspirar a una sociedad más justa, equitativa y solidaria para todos.',
-    },
-  },
-  valores: [
-    {
-      icon: 'heart', // Ícono actualizado a string
-      title: 'Compromiso',
-      description: 'Actuamos con pasión y dedicación total hacia nuestra misión y beneficiarios.',
-      colorClass: 'pink',
-    },
-    {
-      icon: 'gem', // Ícono actualizado a string
-      title: 'Integridad',
-      description: 'Trabajamos con transparencia, honestidad y ética en todas nuestras acciones.',
-      colorClass: 'orange',
-    },
-    {
-      icon: 'users', // Ícono actualizado a string
-      title: 'Empatía',
-      description: 'Escuchamos y nos conectamos genuinamente con las realidades de quienes servimos.',
-      colorClass: 'pink',
-    },
-    {
-      icon: 'target', // Ícono actualizado a string
-      title: 'Excelencia',
-      description: 'Buscamos la mejora continua y la calidad en cada programa y servicio que ofrecemos.',
-      colorClass: 'orange',
-    },
-    {
-      icon: 'shield', // Ícono actualizado a string
-      title: 'Respeto',
-      description: 'Valoramos la dignidad y diversidad de cada persona, promoviendo la inclusión.',
-      colorClass: 'pink',
-    },
-    {
-      icon: 'eye', // Ícono actualizado a string
-      title: 'Innovación',
-      description: 'Somos creativos y proactivos en la búsqueda de soluciones efectivas y sostenibles.',
-      colorClass: 'orange',
-    },
-  ],
-  equipo: [
-    {
-      name: '[Nombre Apellido]',
-      role: 'Director/a Ejecutivo/a',
-      imageUrl: 'https://placehold.co/400x400/E297C2/white?text=Avatar&font=inter',
-    },
-    {
-      name: '[Nombre Apellido]',
-      role: 'Coordinador/a de Programas',
-      imageUrl: 'https://placehold.co/400x400/F38840/white?text=Avatar&font=inter',
-    },
-    {
-      name: '[Nombre Apellido]',
-      role: 'Coordinador/a de Finanzas',
-      imageUrl: 'https://placehold.co/400x400/E297C2/white?text=Avatar&font=inter',
-    },
-    {
-      name: '[Nombre Apellido]',
-      role: 'Trabajador/a Social',
-      imageUrl: 'https://placehold.co/400x400/F38840/white?text=Avatar&font=inter',
-    },
-    {
-      name: '[Nombre Apellido]',
-      role: 'Psicólogo/a',
-      imageUrl: 'https://placehold.co/400x400/E297C2/white?text=Avatar&font=inter',
-    },
-    {
-      name: '[Nombre Apellido]',
-      role: 'Líder de Voluntariado',
-      imageUrl: 'https://placehold.co/400x400/F38840/white?text=Avatar&font=inter',
-    },
-  ],
+export const quienesSomosHero: QuienesSomosHeroData = {
+  titulo: "¿Quiénes Somos?",
+  subtitulo: "Una fundación comprometida con el desarrollo integral",
+  descripcion: "Desde hace más de 15 años, trabajamos incansablemente para transformar vidas a través del amor, la educación y la sanación pránica, construyendo un futuro lleno de esperanza para las comunidades más vulnerables."
 };
+
+export const misionData: MisionVisionData = {
+  titulo: "Nuestra Misión",
+  descripcion: "Transformar vidas a través de programas educativos, culturales, sociales y espirituales, promoviendo el desarrollo integral de niños, jóvenes y familias en situación de vulnerabilidad, basados en los principios de amor incondicional y sanación pránica.",
+  icono: "mision"
+};
+
+export const visionData: MisionVisionData = {
+  titulo: "Nuestra Visión", 
+  descripcion: "Ser reconocidos como una fundación líder en el desarrollo comunitario integral, creando redes de apoyo sostenibles que generen transformaciones duraderas y contribuyan a la construcción de una sociedad más justa, equitativa y espiritualmente consciente.",
+  icono: "vision"
+};
+
+export const historiaData: HistoriaData = {
+  etiqueta: "Nuestra Historia",
+  titulo: "Más de una década transformando vidas",
+  descripcion: "Nuestro camino comenzó con un sueño: crear un espacio donde el amor y la educación se encontraran para generar cambios profundos en las comunidades. A lo largo de los años, hemos crecido, evolucionado y expandido nuestro impacto.",
+  timeline: [
+    {
+      año: "2009",
+      evento: "Fundación Atma Namasté",
+      descripcion: "Iniciamos nuestra labor con un pequeño grupo de voluntarios comprometidos con el servicio comunitario."
+    },
+    {
+      año: "2012", 
+      evento: "Primeros Programas Educativos",
+      descripcion: "Lanzamos nuestros programas de refuerzo escolar y desarrollo artístico en comunidades vulnerables."
+    },
+    {
+      año: "2015",
+      evento: "Expansión Internacional",
+      descripcion: "Establecemos conexiones con redes internacionales de sanación pránica y desarrollo comunitario."
+    },
+    {
+      año: "2018",
+      evento: "500 Familias Beneficiadas",
+      descripcion: "Alcanzamos la meta de impactar directamente a 500 familias a través de nuestros programas integrales."
+    },
+    {
+      año: "2021",
+      evento: "Programas Digitales",
+      descripcion: "Adaptamos nuestros servicios al mundo digital, manteniendo el acompañamiento durante la pandemia."
+    },
+    {
+      año: "2024",
+      evento: "Red Global Consolidada", 
+      descripcion: "Fortalecemos nuestra presencia con una red de colaboradores nacionales e internacionales."
+    }
+  ]
+};
+
+export const valoresData: SeccionData = {
+  etiqueta: "Nuestros Valores",
+  titulo: "Los pilares que guían nuestro trabajo",
+  descripcion: "Cada acción que emprendemos está fundamentada en principios sólidos que reflejan nuestro compromiso con la transformación integral de las comunidades."
+};
+
+export const valores: ValorData[] = [
+  {
+    nombre: "Amor Incondicional",
+    descripcion: "Actuamos desde el corazón, ofreciendo apoyo sin condiciones ni juicios, reconociendo la dignidad inherente de cada persona.",
+    icono: "corazon"
+  },
+  {
+    nombre: "Servicio Desinteresado", 
+    descripcion: "Nos entregamos completamente al bienestar de otros, poniendo las necesidades comunitarias por encima de intereses personales.",
+    icono: "manos"
+  },
+  {
+    nombre: "Integridad",
+    descripcion: "Mantenemos coherencia entre nuestros valores, palabras y acciones, siendo transparentes en todos nuestros procesos.",
+    icono: "escudo"
+  },
+  {
+    nombre: "Respeto y Inclusión",
+    descripcion: "Valoramos la diversidad cultural, religiosa y social, creando espacios seguros donde todos se sienten acogidos.",
+    icono: "diversidad"
+  },
+  {
+    nombre: "Crecimiento Continuo",
+    descripcion: "Buscamos constantemente la excelencia y el aprendizaje, adaptándonos a las necesidades cambiantes de las comunidades.",
+    icono: "crecimiento"
+  },
+  {
+    nombre: "Responsabilidad Social",
+    descripcion: "Asumimos nuestro compromiso con la sociedad, trabajando por la justicia social y el desarrollo sostenible.",
+    icono: "tierra"
+  }
+];
+
+export const impactoData: SeccionData = {
+  etiqueta: "Nuestro Impacto", 
+  titulo: "Transformando realidades, construyendo futuro",
+  descripcion: "Los números reflejan solo una parte de nuestro trabajo. Detrás de cada cifra hay historias de transformación, esperanza y crecimiento que nos impulsan a seguir adelante."
+};
+
+export const estadisticasImpacto: ImpactoData[] = [
+  {
+    numero: "1,200+",
+    texto: "Niños y jóvenes atendidos",
+    descripcion: "En programas educativos y de desarrollo integral"
+  },
+  {
+    numero: "500+", 
+    texto: "Familias transformadas",
+    descripcion: "A través de acompañamiento directo y sostenido"
+  },
+  {
+    numero: "50+",
+    texto: "Profesionales voluntarios",
+    descripcion: "Comprometidos con el servicio comunitario"
+  },
+  {
+    numero: "15+",
+    texto: "Años de experiencia",
+    descripcion: "Construyendo confianza y generando impacto"
+  },
+  {
+    numero: "8",
+    texto: "Programas activos", 
+    descripcion: "Cubriendo educación, arte, espiritualidad y bienestar"
+  },
+  {
+    numero: "Global",
+    texto: "Alcance internacional",
+    descripcion: "Red de colaboradores en varios países"
+  }
+];
+
+export const compromisoFuturoData: SeccionData = {
+  etiqueta: "Compromiso con el Futuro",
+  titulo: "Construyendo el mañana que soñamos",
+  descripcion: "Nuestro compromiso va más allá del presente. Trabajamos cada día pensando en las generaciones futuras, sembrando semillas de transformación que florecerán en los años venideros."
+};
+
+export const compromisosLista = [
+  "Expandir nuestros programas a más comunidades vulnerables",
+  "Fortalecer la red internacional de sanación pránica",
+  "Implementar tecnologías educativas innovadoras",
+  "Desarrollar programas de liderazgo juvenil",
+  "Crear alianzas estratégicas con organizaciones afines",
+  "Consolidar un modelo replicable de desarrollo comunitario"
+];

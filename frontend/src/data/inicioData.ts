@@ -1,5 +1,4 @@
 // Todos los datos del contenido de la página de inicio
-
 import type { 
   HeroData, 
   Estadistica, 
@@ -95,36 +94,43 @@ export const programasData: SeccionData = {
   descripcion: "Desde refuerzo escolar hasta artes y meditación, nuestros programas abrazan todas las dimensiones del desarrollo humano integral."
 };
 
+// ¡RECORDATORIO!: Agregar URL a cada programa para redireccionamiento
 export const programas: Programa[] = [
   { 
     name: "Refuerzo Escolar", 
     desc: "Apoyo académico personalizado para niños y jóvenes", 
-    color: "border-blue-200 hover:border-blue-400" 
+    color: "border-blue-200 hover:border-blue-400",
+    url: "/programas#refuerzo-escolar"
   },
   { 
     name: "Artes & Pintura", 
     desc: "Expresión creativa y desarrollo artístico integral", 
-    color: "border-pink-200 hover:border-pink-400" 
+    color: "border-pink-200 hover:border-pink-400",
+    url: "/programas#artes-pintura"
   },
   { 
     name: "Danza", 
     desc: "Movimiento, ritmo y expresión cultural", 
-    color: "border-purple-200 hover:border-purple-400" 
+    color: "border-purple-200 hover:border-purple-400",
+    url: "/programas#danza"
   },
   { 
     name: "Iniciación Musical", 
     desc: "Educación musical desde los primeros años", 
-    color: "border-orange-200 hover:border-orange-400" 
+    color: "border-orange-200 hover:border-orange-400",
+    url: "/programas#iniciacion-musical"
   },
   { 
     name: "Apadrinamiento", 
     desc: "Apoyo directo y personalizado a familias", 
-    color: "border-green-200 hover:border-green-400" 
+    color: "border-green-200 hover:border-green-400",
+    url: "/programas#apadrinamiento"
   },
   { 
     name: "BESPRO", 
     desc: "Desarrollo de habilidades para la vida", 
-    color: "border-indigo-200 hover:border-indigo-400" 
+    color: "border-indigo-200 hover:border-indigo-400",
+    url: "/programas#bespro"
   }
 ];
 
