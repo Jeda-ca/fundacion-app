@@ -1,5 +1,4 @@
 // Todos los datos de la página ¿Quiénes Somos?
-
 import type { 
   QuienesSomosHeroData,
   MisionVisionData,
@@ -10,7 +9,7 @@ import type {
   SeccionData
 } from '../types';
 
-export const quienesSomosHero: QuienesSomosHeroData = {
+export const quienesSomosHeroData: QuienesSomosHeroData = {
   titulo: "¿Quiénes Somos?",
   subtitulo: "Una fundación comprometida con el desarrollo integral",
   descripcion: "Desde hace más de 15 años, trabajamos incansablemente para transformar vidas a través del amor, la educación y la sanación pránica, construyendo un futuro lleno de esperanza para las comunidades más vulnerables."
@@ -97,11 +96,6 @@ export const valores: ValorData[] = [
     nombre: "Crecimiento Continuo",
     descripcion: "Buscamos constantemente la excelencia y el aprendizaje, adaptándonos a las necesidades cambiantes de las comunidades.",
     icono: "crecimiento"
-  },
-  {
-    nombre: "Responsabilidad Social",
-    descripcion: "Asumimos nuestro compromiso con la sociedad, trabajando por la justicia social y el desarrollo sostenible.",
-    icono: "tierra"
   }
 ];
 

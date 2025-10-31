@@ -1,5 +1,5 @@
-// src/pages/Programas.tsx - Página completa con personalidad única
 import React, { useEffect, useState, useRef } from "react"
+import { useLocation } from 'react-router-dom'
 
 // Importar datos
 import {
@@ -57,10 +57,10 @@ export default function Programas() {
     }
 
     const [heroRef, heroInView] = useInView(0.1)
-    const [programasRef, programasInView] = useInView(0.05)
+    const [programasRef, programasInView] = useInView(0.2)
     const [testimoniosRef, testimoniosInView] = useInView(0.1)
     const [procesoRef, procesoInView] = useInView(0.1)
-    const [horariosRef, horariosInView] = useInView(0.1)
+    const [compromisoRef, compromisoInView] = useInView(0.25)
 
   // Función para renderizar iconos
     const renderIcon = (tipo: string, className = "w-8 h-8") => {
@@ -89,6 +89,21 @@ export default function Programas() {
         </svg>
         )
     }
+
+    
+const location = useLocation();
+
+useEffect(() => {
+    if (location.hash) {
+        const id = location.hash.replace('#','');
+        const el = document.getElementById(id);
+        if (el) {
+        const y = el.getBoundingClientRect().top + window.pageYOffset - 90;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    }
+    }, [location]);
+
 
     return (
         <main className="bg-stone-50 overflow-hidden">
@@ -139,19 +154,7 @@ export default function Programas() {
                 <p className="text-lg lg:text-xl text-gray-700 leading-relaxed font-light max-w-4xl mx-auto">
                     {programasHero.descripcion}
                 </p>
-
-                {/* Navegación rápida */}
-                <div className="flex flex-wrap justify-center gap-3 lg:gap-4 pt-6">
-                    {programasDetallados.map((programa, index) => (
-                    <a 
-                        key={index}
-                        href={`#${programa.id}`}
-                        className="px-4 py-2 bg-white/90 hover:bg-white text-gray-700 hover:text-purple-700 font-medium rounded-xl border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-md text-sm"
-                    >
-                        {programa.nombre}
-                    </a>
-                    ))}
-                </div>
+                
                 </div>
             </div>
             </div>
@@ -264,45 +267,57 @@ export default function Programas() {
         </section>
 
         {/* COMPROMISOS */}
-        <section 
-            ref={horariosRef}
-            className={`py-16 lg:py-24 bg-white/60 backdrop-blur-sm transition-all duration-1000 ${horariosInView ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-4'}`} >
-            <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-                {/* Nuestros compromisos */}
-                <div className={`transition-all duration-1000 delay-400 ${horariosInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-                <div className="space-y-6 lg:space-y-8">
-                    <div className="space-y-4">
+        {/* COMPROMISOS (reorganizado) */}
+        <section
+            ref={compromisoRef}
+            className={`py-16 lg:py-24 bg-white/60 backdrop-blur-sm transition-all duration-700 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            >
+            <div className="max-w-[1200px] mx-auto px-4 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                {/* Columna izquierda: texto introductorio */}
+                <div
+                    className={`lg:col-span-1 transition-all duration-700 delay-200 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                >
+                    <div className="space-y-4 lg:space-y-5">
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-0.5 bg-purple-500" />
-                        <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Nuestros Compromisos</span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-purple-600">
+                        Nuestros Compromisos
+                        </span>
                     </div>
-                    
+
                     <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
                         Lo que garantizamos
                     </h2>
-                    
-                    <p className="text-lg text-gray-600 leading-relaxed">
-                        Cada programa viene respaldado por nuestro compromiso inquebrantable con la excelencia educativa y el desarrollo integral.
+
+                    <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
+                        Cada programa está respaldado por nuestro compromiso con la excelencia educativa y el desarrollo integral, con enfoque humano y espiritual.
                     </p>
                     </div>
+                </div>
 
-                    {/* Lista de compromisos */}
-                    <div className="space-y-4">
+                {/* Columna derecha: grilla 2x3 con márgenes estables */}
+                <div
+                    className={`lg:col-span-2 transition-all duration-700 delay-300 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {compromisosLista.map((compromiso, i) => (
-                        <div key={i} className="flex items-start gap-4">
+                        <div
+                        key={i}
+                        className="flex items-start gap-3 bg-white border border-purple-100 rounded-xl p-4 shadow-sm"
+                        >
                         <div className="w-6 h-6 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
                             <div className="w-2 h-2 bg-purple-600 rounded-full" />
                         </div>
-                        <span className="text-gray-700 leading-relaxed">{compromiso}</span>
+                        <span className="text-gray-700 leading-relaxed text-sm lg:text-base">{compromiso}</span>
                         </div>
                     ))}
                     </div>
                 </div>
                 </div>
             </div>
-            </div>
         </section>
+
 
         {/* FOOTER - Reutilizado */}
         <footer className="bg-gray-900 text-white">
