@@ -94,10 +94,10 @@ export default function QuienesSomos() {
 
     return (
         <main className="bg-stone-50 overflow-hidden">
-        {/* HERO SECTION */}
+              {/* HERO SECTION - Imagen full width con texto superpuesto */}
         <section 
-        ref={heroRef}
-        className={`relative min-h-screen flex items-end transition-all duration-1000 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            ref={heroRef}
+            className={`relative min-h-screen flex items-end transition-all duration-1000 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
             {/* Imagen de fondo de extremo a extremo */}
             <div className={`absolute inset-0 transition-all duration-1000 delay-200 ${heroInView ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}>
@@ -136,12 +136,10 @@ export default function QuienesSomos() {
                 </div>
                 </div>
 
-                {/* Overlay gradiente para mejorar legibilidad del texto inferior */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-            </div>
+                </div>
             </div>
 
-            {/* Contenido textual superpuesto en la parte inferior - MÁS PEQUEÑO Y COMPACTO */}
+            {/* Contenido textual superpuesto en la parte inferior */}
             <div className="relative z-10 w-full">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-8 lg:pb-12">
                 <div className={`text-center transition-all duration-1000 delay-500 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -165,7 +163,7 @@ export default function QuienesSomos() {
                         {quienesSomosHero.descripcion}
                     </p>
 
-                    {/* Botón CTA - MÁS PEQUEÑO */}
+                    {/* Botón CTA */}
                     <div className="pt-2">
                         <a 
                         href="/contacto"
@@ -183,6 +181,7 @@ export default function QuienesSomos() {
             </div>
             </div>
         </section>
+
 
         {/* MISIÓN Y VISIÓN */}
         <section 
