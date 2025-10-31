@@ -94,8 +94,13 @@ export const programasData: SeccionData = {
   descripcion: "Desde refuerzo escolar hasta artes y meditación, nuestros programas abrazan todas las dimensiones del desarrollo humano integral."
 };
 
-// ¡RECORDATORIO!: Agregar URL a cada programa para redireccionamiento
 export const programas: Programa[] = [
+  { 
+    name: "Programa de Mercados", 
+    desc: "Apoyo alimentario mensual para familias", 
+    color: "border-pink-200 hover:border-pink-400",
+    url: "/programas#programa-mercados"
+  },
   { 
     name: "Refuerzo Escolar", 
     desc: "Apoyo académico personalizado para niños y jóvenes", 
@@ -103,10 +108,10 @@ export const programas: Programa[] = [
     url: "/programas#refuerzo-escolar"
   },
   { 
-    name: "Artes & Pintura", 
+    name: "Artes Plásticas/Pintura", 
     desc: "Expresión creativa y desarrollo artístico integral", 
     color: "border-pink-200 hover:border-pink-400",
-    url: "/programas#artes-pintura"
+    url: "/programas#artes-plasticas-pintura"
   },
   { 
     name: "Danza", 
@@ -115,24 +120,30 @@ export const programas: Programa[] = [
     url: "/programas#danza"
   },
   { 
-    name: "Iniciación Musical", 
+    name: "Escuela de Iniciación Musical", 
     desc: "Educación musical desde los primeros años", 
     color: "border-orange-200 hover:border-orange-400",
-    url: "/programas#iniciacion-musical"
+    url: "/programas#escuela-iniciacion-musical"
+  },
+  { 
+    name: "Becas Estudiantiles y Profesionales (BESPRO)", 
+    desc: "Desarrollo de habilidades y acceso a oportunidades", 
+    color: "border-indigo-200 hover:border-indigo-400",
+    url: "/programas#bespro"
+  },
+  { 
+    name: "Programa de Meditación", 
+    desc: "Prácticas para paz interior y bienestar", 
+    color: "border-purple-200 hover:border-purple-400",
+    url: "/programas#programa-meditacion"
   },
   { 
     name: "Apadrinamiento", 
     desc: "Apoyo directo y personalizado a familias", 
-    color: "border-green-200 hover:border-green-400",
+    color: "border-pink-200 hover:border-pink-400",
     url: "/programas#apadrinamiento"
-  },
-  { 
-    name: "BESPRO", 
-    desc: "Desarrollo de habilidades para la vida", 
-    color: "border-indigo-200 hover:border-indigo-400",
-    url: "/programas#bespro"
   }
-];
+]
 
 export const espiritualidadData: SeccionData = {
   etiqueta: "Espiritualidad & Sanación",

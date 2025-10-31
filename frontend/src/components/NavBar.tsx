@@ -59,6 +59,19 @@ export default function NavBar() {
     setProgramasOpen(false)
     setLanguageOpen(false)
   }, [location.pathname])
+
+  // Scroll suave a secciones con hash
+useEffect(() => {
+  if (location.hash) {
+    const id = location.hash.replace('#','');
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+}, [location]);
+
   
   return (
     <nav className="bg-[#E297C2] shadow-sm">
@@ -109,19 +122,18 @@ export default function NavBar() {
                       <div
                         id="programas-dropdown"
                         role="menu"
-                        className={`${programasOpen ? "block" : "hidden"} absolute left-0 top-full w-64 
-                                    bg-white border border-pink-300 rounded-lg shadow-xl z-20
-                                    pt-2`} // padding-top para continuidad
+                        className={`${programasOpen ? "block" : "hidden"} absolute left-0 top-full w-64 bg-white border border-pink-300 rounded-lg shadow-xl z-20 pt-2`}
                       >
                         <ul className="py-2">
                           {programasDropdown.map((x) => (
                             <li key={x.id}>
                               <Link
-                                to={`/programas#${x.path.split('/').pop()}`}
+                                to={x.path}
                                 className="block px-4 py-3 font-[Poppins] text-gray-700 hover:bg-pink-100 hover:text-pink-700 transition-colors"
                               >
-                                {x.name}
+                              {x.name}
                               </Link>
+
                             </li>
                           ))}
                         </ul>
@@ -135,7 +147,7 @@ export default function NavBar() {
                 </li>
               ))}
 
-              {/* Login en mobile - CAMBIAR A NUEVA PESTAÑA */}
+              {/* Login en mobile */}
               <li className="md:hidden mt-2">
                 <button
                   onClick={() => {

@@ -13,12 +13,12 @@ export const navLinks: NavLinkItem[] = [
     { id: 6, name: "Nuestras sedes", path: "/nuestras-sedes" },
 ]
 export const programasDropdown: NavLinkItem[] = [
-    { id: 1, name: "Refuerzo Escolar", path: "/programas/refuerzo-escolar" },
-    { id: 2, name: "Artes plásticas y pintura", path: "/programas/artes-plasticas-pintura" },
-    { id: 3, name: "Danza", path: "/programas/danza" },
-    { id: 4, name: "Escuela de iniciación musical", path: "/programas/iniciacion-musical" },
-    { id: 5, name: "Apadrinamiento", path: "/programas/apadrinamiento" },
-    { id: 6, name: "Mercados", path: "/programas/mercados" },
-    { id: 7, name: "BESPRO", path: "/programas/bespro" },
-    { id: 8, name: "Programa de Meditación", path: "/programas/meditacion" }
-]
+    { id: 1, name: "Programa de Mercados", path: "/programas#programa-mercados" },
+    { id: 2, name: "Refuerzo Escolar", path: "/programas#refuerzo-escolar" },
+    { id: 3, name: "Artes Plásticas/Pintura", path: "/programas#artes-plasticas-pintura" },
+    { id: 4, name: "Danza", path: "/programas#danza" },
+    { id: 5, name: "Escuela de Iniciación Musical", path: "/programas#escuela-iniciacion-musical" },
+    { id: 6, name: "Becas Estudiantiles y Profesionales (BESPRO)", path: "/programas#bespro" },
+    { id: 7, name: "Programa de Meditación", path: "/programas#programa-meditacion" },
+    { id: 8, name: "Apadrinamiento", path: "/programas#apadrinamiento" }
+];
