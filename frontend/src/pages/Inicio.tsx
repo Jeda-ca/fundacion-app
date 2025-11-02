@@ -1,7 +1,7 @@
-// src/pages/Inicio.tsx - Versión con mejores breakpoints responsivos
-import React, { useEffect, useState, useRef } from "react"
+import { useInView, useScrollEffects } from '../hooks'
+import { Footer } from '../components/layout'
 
-// Importar todos los datos
+// Importar datos necesarios
 import {
     heroData,
     estadisticas,
@@ -14,52 +14,11 @@ import {
     espiritualidadData,
     practicasEspirituales,
     serviciosData,
-    servicios,
-    footerData,
-    navegacionLinks,
-    contactoInfo,
-    redesSociales,
-    politicasLinks
+    servicios
 } from '../data/inicioData'
 
-interface ColorClasses {
-    [key: string]: string;
-}
-
 export default function Inicio() {
-    const [scrollY, setScrollY] = useState(0)
-
-  // Parallax sutil
-    useEffect(() => {
-        const handleScroll = () => setScrollY(window.scrollY)
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
-
-    // Hook para animaciones de intersección
-        const useInView = (threshold = 0.1): [React.RefObject<HTMLDivElement | null>, boolean] => {
-        const [isInView, setIsInView] = useState(false)
-        const ref = useRef<HTMLDivElement | null>(null)
-    
-        useEffect(() => {
-            const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                setIsInView(true)
-                }
-            },
-            { threshold }
-            )
-    
-            if (ref.current) {
-            observer.observe(ref.current)
-            }
-    
-            return () => observer.disconnect()
-        }, [threshold])
-    
-        return [ref, isInView]
-        }
+    const scrollY = useScrollEffects()
 
     const [heroRef, heroInView] = useInView(0.1)
     const [queHacemosRef, queHacemosInView] = useInView(0.2)
@@ -67,21 +26,6 @@ export default function Inicio() {
     const [programasRef, programasInView] = useInView(0.2)
     const [espiritualidadRef, espiritualidadInView] = useInView(0.2)
     const [serviciosRef, serviciosInView] = useInView(0.2)
-
-    // Función para renderizar iconos
-    const renderIcon = (tipo: string) => {
-        const iconos = {
-        ubicacion: (
-            <>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </>
-        ),
-        email: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />,
-        telefono: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-        }
-        return iconos[tipo as keyof typeof iconos] || null
-    }
 
     return (
         <main className="bg-stone-50 overflow-hidden">
@@ -554,85 +498,8 @@ export default function Inicio() {
             </div>
         </section>
 
-        {/* FOOTER - Completamente responsive */}
-        <footer className="bg-gray-900 text-white">
-            <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-            {/* Footer principal */}
-            <div className="py-12 lg:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-                
-                {/* Información principal */}
-                <div className="sm:col-span-2 lg:col-span-2">
-                <div className="space-y-4 lg:space-y-6">
-                    <div>
-                    <h3 className="text-xl lg:text-2xl font-bold mb-1 lg:mb-2">{footerData.titulo}</h3>
-                    <p className="text-sky-400 font-medium text-sm lg:text-base">{footerData.subtitulo}</p>
-                    </div>
-                    <p className="text-gray-300 leading-relaxed max-w-md text-sm lg:text-base">
-                    {footerData.descripcion}
-                    </p>
-                    <div className="flex items-center gap-3 lg:gap-4">
-                    {redesSociales.map((red, index) => (
-                        <a 
-                        key={index}
-                        href={red.url} 
-                        target={red.url.startsWith('http') ? "_blank" : "_self"}
-                        rel={red.url.startsWith('http') ? "noopener noreferrer" : undefined}
-                        className={`w-9 h-9 lg:w-10 lg:h-10 bg-gray-800 rounded-lg flex items-center justify-center ${red.hoverColor} transition-colors duration-300`}
-                        >
-                        <svg className="w-4 h-4 lg:w-5 lg:h-5" fill={red.nombre === 'Contacto' ? "none" : "currentColor"} stroke={red.nombre === 'Contacto' ? "currentColor" : "none"} viewBox="0 0 24 24">
-                            <path strokeLinecap={red.nombre === 'Contacto' ? "round" : undefined} strokeLinejoin={red.nombre === 'Contacto' ? "round" : undefined} strokeWidth={red.nombre === 'Contacto' ? 2 : undefined} d={red.icono}/>
-                        </svg>
-                        </a>
-                    ))}
-                    </div>
-                </div>
-                </div>
-
-                {/* Navegación */}
-                <div>
-                <h4 className="text-base lg:text-lg font-semibold mb-4 lg:mb-6">Navegación</h4>
-                <ul className="space-y-2 lg:space-y-3">
-                    {navegacionLinks.map((link, index) => (
-                    <li key={index}>
-                        <a href={link.url} className="text-gray-300 hover:text-white transition-colors duration-300 text-sm lg:text-base">
-                        {link.texto}
-                        </a>
-                    </li>
-                    ))}
-                </ul>
-                </div>
-
-                {/* Contacto */}
-                <div>
-                <h4 className="text-base lg:text-lg font-semibold mb-4 lg:mb-6">Contacto</h4>
-                <ul className="space-y-2 lg:space-y-3 text-gray-300">
-                    {contactoInfo.map((info, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                        <svg className="w-4 h-4 lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {renderIcon(info.icono)}
-                        </svg>
-                        <span style={{whiteSpace: 'pre-line'}} className="text-sm lg:text-base">{info.texto}</span>
-                    </li>
-                    ))}
-                </ul>
-                </div>
-            </div>
-
-            {/* Footer bottom */}
-            <div className="py-6 lg:py-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-3 lg:gap-4">
-                <p className="text-gray-400 text-xs lg:text-sm text-center sm:text-left">
-                {footerData.copyright}
-                </p>
-                <div className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm">
-                {politicasLinks.map((link, index) => (
-                    <a key={index} href={link.url} className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {link.texto}
-                    </a>
-                ))}
-                </div>
-            </div>
-            </div>
-        </footer>
+        {/* Footer - Componente reutilizable */}
+        <Footer />
         </main>
     )
 }

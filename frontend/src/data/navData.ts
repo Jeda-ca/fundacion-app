@@ -1,8 +1,5 @@
-export interface NavLinkItem { // Interfaz para los enlaces de navegación
-    id: number
-    name: string
-    path: string
-}
+// Datos de navegación para el sitio web
+import type { NavLinkItem } from "../types"
 
 export const navLinks: NavLinkItem[] = [
     { id: 1, name: "Inicio", path: "/" },
@@ -21,4 +18,4 @@ export const programasDropdown: NavLinkItem[] = [
     { id: 6, name: "Becas Estudiantiles y Profesionales (BESPRO)", path: "/programas#bespro" },
     { id: 7, name: "Programa de Meditación", path: "/programas#programa-meditacion" },
     { id: 8, name: "Apadrinamiento", path: "/programas#apadrinamiento" }
-];
+]

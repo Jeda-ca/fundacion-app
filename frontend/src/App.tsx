@@ -1,7 +1,6 @@
-// src/App.tsx
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import NavBar from './components/NavBar'
+import { NavBar } from './components/layout'
 import Inicio from './pages/Inicio'
 import QuienesSomos from './pages/QuienesSomos'
 import LoginPage from './pages/LoginPage'

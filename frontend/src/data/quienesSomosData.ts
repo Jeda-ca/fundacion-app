@@ -7,25 +7,25 @@ import type {
   ValorData,
   ImpactoData,
   SeccionData
-} from '../types';
+} from '../types'
 
 export const quienesSomosHeroData: QuienesSomosHeroData = {
   titulo: "¿Quiénes Somos?",
   subtitulo: "Una fundación comprometida con el desarrollo integral",
   descripcion: "Desde hace más de 15 años, trabajamos incansablemente para transformar vidas a través del amor, la educación y la sanación pránica, construyendo un futuro lleno de esperanza para las comunidades más vulnerables."
-};
+}
 
 export const misionData: MisionVisionData = {
   titulo: "Nuestra Misión",
   descripcion: "Transformar vidas a través de programas educativos, culturales, sociales y espirituales, promoviendo el desarrollo integral de niños, jóvenes y familias en situación de vulnerabilidad, basados en los principios de amor incondicional y sanación pránica.",
   icono: "mision"
-};
+}
 
 export const visionData: MisionVisionData = {
   titulo: "Nuestra Visión", 
   descripcion: "Ser reconocidos como una fundación líder en el desarrollo comunitario integral, creando redes de apoyo sostenibles que generen transformaciones duraderas y contribuyan a la construcción de una sociedad más justa, equitativa y espiritualmente consciente.",
   icono: "vision"
-};
+}
 
 export const historiaData: HistoriaData = {
   etiqueta: "Nuestra Historia",
@@ -63,13 +63,13 @@ export const historiaData: HistoriaData = {
       descripcion: "Fortalecemos nuestra presencia con una red de colaboradores nacionales e internacionales."
     }
   ]
-};
+}
 
 export const valoresData: SeccionData = {
   etiqueta: "Nuestros Valores",
   titulo: "Los pilares que guían nuestro trabajo",
   descripcion: "Cada acción que emprendemos está fundamentada en principios sólidos que reflejan nuestro compromiso con la transformación integral de las comunidades."
-};
+}
 
 export const valores: ValorData[] = [
   {
@@ -97,13 +97,13 @@ export const valores: ValorData[] = [
     descripcion: "Buscamos constantemente la excelencia y el aprendizaje, adaptándonos a las necesidades cambiantes de las comunidades.",
     icono: "crecimiento"
   }
-];
+]
 
 export const impactoData: SeccionData = {
   etiqueta: "Nuestro Impacto", 
   titulo: "Transformando realidades, construyendo futuro",
   descripcion: "Los números reflejan solo una parte de nuestro trabajo. Detrás de cada cifra hay historias de transformación, esperanza y crecimiento que nos impulsan a seguir adelante."
-};
+}
 
 export const estadisticasImpacto: ImpactoData[] = [
   {
@@ -136,7 +136,7 @@ export const estadisticasImpacto: ImpactoData[] = [
     texto: "Alcance internacional",
     descripcion: "Red de colaboradores en varios países"
   }
-];
+]
 
 export const compromisoFuturoData: SeccionData = {
   etiqueta: "Compromiso con el Futuro",
@@ -151,4 +151,4 @@ export const compromisosLista = [
   "Desarrollar programas de liderazgo juvenil",
   "Crear alianzas estratégicas con organizaciones afines",
   "Consolidar un modelo replicable de desarrollo comunitario"
-];
+]

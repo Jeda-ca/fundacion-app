@@ -11,7 +11,7 @@ import type {
   LinkNavegacion,
   ContactoInfo,
   RedSocial
-} from '../types';
+} from '../types'
 
 export const heroData: HeroData = {
   badge: "Fundación sin ánimo de lucro",
@@ -31,7 +31,7 @@ export const heroData: HeroData = {
       url: "/contacto"
     }
   }
-};
+}
 
 export const estadisticas: Estadistica[] = [
   { 
@@ -49,26 +49,26 @@ export const estadisticas: Estadistica[] = [
     label: "Alcance mundial", 
     sublabel: "Presencia internacional" 
   }
-];
+]
 
 export const queHacemosData: SeccionData = {
   etiqueta: "¿Qué hacemos?",
   titulo: "Impulsamos el desarrollo integral de comunidades",
   descripcion: "A través de programas educativos, culturales, sociales y espirituales, acompañamos a niños, jóvenes y familias en su crecimiento personal y comunitario."
-};
+}
 
 export const queHacemosLista: ListaItem[] = [
   { texto: "Educación integral y refuerzo académico" },
   { texto: "Desarrollo artístico y cultural" },
   { texto: "Bienestar espiritual y sanación pránica" },
   { texto: "Apoyo social y nutricional" }
-];
+]
 
 export const compromisoSocialData: SeccionData = {
   etiqueta: "Compromiso Social",
   titulo: "Construyendo un mundo más solidario",
   descripcion: "Trabajamos con comunidades de Colombia y el mundo, promoviendo solidaridad, equidad y oportunidades con un enfoque profundamente humano y espiritual."
-};
+}
 
 export const compromisoSocialItems: SeccionCompromiso[] = [
   { 
@@ -86,13 +86,13 @@ export const compromisoSocialItems: SeccionCompromiso[] = [
     desc: "Trabajo directo con familias para crear transformaciones duraderas desde la raíz.",
     accent: "bg-purple-500"
   }
-];
+]
 
 export const programasData: SeccionData = {
   etiqueta: "Nuestros Programas",
   titulo: "Educación que transforma vidas",
   descripcion: "Desde refuerzo escolar hasta artes y meditación, nuestros programas abrazan todas las dimensiones del desarrollo humano integral."
-};
+}
 
 export const programas: Programa[] = [
   { 
@@ -149,33 +149,33 @@ export const espiritualidadData: SeccionData = {
   etiqueta: "Espiritualidad & Sanación",
   titulo: "Inspirados en las enseñanzas de G.M.C.K.S",
   descripcion: "Promovemos prácticas de meditación y sanación pránica para el bienestar físico, emocional y espiritual. Un camino de transformación interior que irradia hacia la comunidad."
-};
+}
 
 export const practicasEspirituales: PracticaEspiritual[] = [
   { title: "Meditación", desc: "Paz interior y claridad mental" },
   { title: "Sanación", desc: "Bienestar integral del ser" },
   { title: "Servicio", desc: "Amor en acción hacia otros" }
-];
+]
 
 export const serviciosData: SeccionData = {
   etiqueta: "Nuestros Servicios",
   titulo: "Profesionales al servicio de la comunidad",
   descripcion: "Campañas especializadas con profesionales comprometidos con el bienestar integral de nuestras comunidades."
-};
+}
 
 export const servicios: Servicio[] = [
   { name: "Campañas de Salud" },
   { name: "Jornadas Deportivas" },
   { name: "Actividades Espirituales" },
   { name: "Eventos Recreativos" }
-];
+]
 
 export const footerData = {
   titulo: "Fundación Atma Namasté",
   subtitulo: "Sanación pránica G.M.C.K.S",
   descripcion: "Transformamos vidas a través del amor, la educación integral y la sanación pránica, acompañando a familias en su crecimiento espiritual y social.",
   copyright: "© 2025 Fundación Atma Namasté. Todos los derechos reservados."
-};
+}
 
 export const navegacionLinks: LinkNavegacion[] = [
   { texto: "Inicio", url: "/" },
@@ -183,7 +183,7 @@ export const navegacionLinks: LinkNavegacion[] = [
   { texto: "Programas", url: "/programas" },
   { texto: "Servicios", url: "/servicios" },
   { texto: "Contáctanos", url: "/contacto" }
-];
+]
 
 export const contactoInfo: ContactoInfo[] = [
   { 
@@ -198,7 +198,7 @@ export const contactoInfo: ContactoInfo[] = [
     icono: "telefono",
     texto: "+57 300 123 4567"
   }
-];
+]
 
 export const redesSociales: RedSocial[] = [
   {
@@ -219,9 +219,9 @@ export const redesSociales: RedSocial[] = [
     hoverColor: "hover:bg-pink-600",
     icono: "M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
   }
-];
+]
 
 export const politicasLinks: LinkNavegacion[] = [
   { texto: "Políticas de Privacidad", url: "/politicas" },
   { texto: "Términos de Uso", url: "/terminos" }
-];
+]

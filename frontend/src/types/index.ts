@@ -1,4 +1,11 @@
-// Tipos para toda la aplicación
+// Tipos/interfaces para todo el sitio web
+
+// Interfaz para los enlaces de navegación
+export interface NavLinkItem { 
+    id: number
+    name: string
+    path: string
+}
 
 export interface Estadistica {
   number: string;
@@ -72,7 +79,7 @@ export interface RedSocial {
   nombre: string;
   url: string;
   hoverColor: string;
-  icono: string; // SVG path
+  icono: string; // svg
 }
 
 // Tipos específicos para la página "Quiénes Somos":

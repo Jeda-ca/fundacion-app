@@ -1,13 +1,12 @@
 // Todos los datos de la página de Programas
-
 import type { 
-  ProgramasHeroData,
-  ProgramaDetallado,
-  TestimonioData,
-  ProcesoInscripcionData,
-  HorarioData,
-  SeccionData
-} from '../types';
+    ProgramasHeroData,
+    ProgramaDetallado,
+    TestimonioData,
+    ProcesoInscripcionData,
+    HorarioData,
+    SeccionData
+} from '../types'
 
 export const programasHero: ProgramasHeroData = {
     titulo: {
@@ -16,13 +15,13 @@ export const programasHero: ProgramasHeroData = {
     },
     subtitulo: "Educación integral que transforma vidas",
     descripcion: "Cada programa está diseñado con amor y dedicación para potenciar las habilidades únicas de cada participante, creando espacios seguros donde el aprendizaje y el crecimiento personal van de la mano."
-};
+}
 
 export const impactoProgramasData: SeccionData = {
     etiqueta: "Impacto de Nuestros Programas",
     titulo: "Transformando el presente, construyendo el futuro",
     descripcion: "Nuestros programas no solo educan, sino que inspiran, empoderan y crean oportunidades reales de crecimiento para cada participante y sus familias."
-};
+}
 
 export const programasDetallados: ProgramaDetallado[] = [
     {
@@ -169,7 +168,7 @@ export const programasDetallados: ProgramaDetallado[] = [
         icono: "corazon",
         color: "from-orange-400 to-pink-500"
     }
-];
+]
 
 export const horariosProgramas: HorarioData[] = [
     {
@@ -202,7 +201,7 @@ export const horariosProgramas: HorarioData[] = [
         horario: "8:00 AM - 12:00 PM",
         modalidad: "Híbrida"
     }
-];
+]
 
 export const compromisosLista = [
     "Todos nuestros programas son completamente gratuitos",
@@ -211,4 +210,4 @@ export const compromisosLista = [
     "Apoyo emocional y académico integral",
     "Oportunidades de participación en eventos y presentaciones",
     "Conexión con redes de apoyo comunitario y profesional"
-];
+]
