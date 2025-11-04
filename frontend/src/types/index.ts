@@ -1,5 +1,4 @@
-// Tipos/interfaces para todo el sitio web
-
+// Tipos/interfaces para todo el sitio web:
 // Interfaz para los enlaces de navegación
 export interface NavLinkItem { 
     id: number
@@ -138,7 +137,6 @@ export interface ProgramaDetallado {
   imagen?: string;
 }
 
-
 export interface ProgramasHeroData {
   titulo: {
     parte1: string;
@@ -168,4 +166,26 @@ export interface HorarioData {
   dias: string;
   horario: string;
   modalidad: string;
+}
+
+// Tipos específicos para la página de Servicios:
+export interface ServicioItem {
+  id: string
+  titulo: string
+  descripcion: string
+  icono?: string
+  destacado?: boolean
+}
+
+export interface CategoriaServicios {
+  etiqueta: string
+  titulo: string
+  descripcion?: string
+  servicios: ServicioItem[]
+}
+
+export interface ServiciosHeroData {
+  subtitulo: string
+  titulo: string
+  descripcion: string
 }

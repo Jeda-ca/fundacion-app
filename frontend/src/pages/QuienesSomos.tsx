@@ -34,28 +34,21 @@ export default function QuienesSomos() {
                 <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
                     <div className="text-center space-y-6 lg:space-y-8">
                         
-                        {/* IMAGEN ESTÁTICA CENTRADA */}
+                        {/* IMAGEN RECTANGULAR CENTRADA */}
                         <div className={`transition-all duration-1000 delay-200 ${heroInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                             <div className="relative mx-auto mb-4 lg:mb-6">
-                                {/* Imagen principal */}
-                                <div className="relative size-72 sm:size-80 lg:size-96 mx-auto">
-                                    {/* Elementos decorativos de fondo - Reducidos */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100 rounded-2xl lg:rounded-3xl transform rotate-2 opacity-60" />
-                                    <div className="absolute inset-1 lg:inset-2 bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl lg:rounded-3xl transform -rotate-1 opacity-40" />
-                                    
-                                    {/* Marco principal */}
-                                    <div className="relative size-full bg-white rounded-2xl lg:rounded-3xl shadow-2xl overflow-hidden">
-                                        <div className="size-full bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center">
-                                            {/* Placeholder elegante */}
-                                            <div className="text-center text-gray-400">
-                                                <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-4 bg-gradient-to-br from-purple-200 to-pink-200 rounded-2xl flex items-center justify-center shadow-lg">
-                                                    <svg className="w-8 h-8 lg:w-10 lg:h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m3 5.197H9m12 0a9 9 0 11-18 0 2 2 0 01.75-1.424M12 4.354a4 4 0 110 5.292m-3 5.197h6m-3 0a3 3 0 01-3-3V8a3 3 0 016 0v6a3 3 0 01-3 3z" />
-                                                    </svg>
-                                                </div>
-                                                <p className="text-lg lg:text-xl font-semibold text-gray-500 mb-2">Imagen representativa</p>
-                                                <p className="text-base text-gray-400">Fundación Atma Namasté</p>
+                                <div className="relative w-full max-w-md aspect-[4/3] mx-auto rounded-2xl lg:rounded-3xl shadow-2xl overflow-hidden ring-1 ring-pink-200/60">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100 opacity-60" />
+                                    <div className="absolute inset-1 lg:inset-2 bg-gradient-to-br from-pink-100 to-purple-100 opacity-40 rounded-xl" />
+                                    <div className="relative w-full h-full bg-white/70 backdrop-blur-sm flex items-center justify-center">
+                                        <div className="text-center text-gray-400">
+                                            <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-4 bg-gradient-to-br from-purple-200 to-pink-200 rounded-xl flex items-center justify-center shadow-lg">
+                                                <svg className="w-8 h-8 lg:w-10 lg:h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h18M3 19h18M5 7h14v10H5z" />
+                                                </svg>
                                             </div>
+                                            <p className="text-lg lg:text-xl font-semibold text-gray-500 mb-1">Imagen hero (4:3)</p>
+                                            <p className="text-sm text-gray-400">No ocupa toda la pantalla</p>
                                         </div>
                                     </div>
                                 </div>
@@ -257,44 +250,55 @@ export default function QuienesSomos() {
                             {compromisoFuturoData.descripcion}
                         </p>
                         <p className="text-lg text-gray-600 leading-relaxed">
-                            El futuro que construimos hoy será el legado que dejemos a las próximas generaciones. Por eso, cada acción está orientada hacia la sostenibilidad, la replicabilidad y el impacto sistémico que trasciende los límites geográficos y temporales. Trabajamos con una visión de largo plazo que honra el pasado y construye el porvenir.
+                            El futuro que construimos hoy será el legado que dejemos a las próximas generaciones. Por eso, cada acción está orientada hacia la sostenibilidad, la replicabilidad y el impacto sistémico que trasciende los límites geográficos y temporales.
                         </p>
                     </div>
-
-                    {/* Lista de compromisos - Grid elegante estilo Programas */}
-                    <div className={`transition-all duration-1000 delay-600 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
+                    
+                    {/* Layout de dos columnas: texto izquierda + imagen derecha */}
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center transition-all duration-1000 delay-600 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                        
+                        {/* Columna izquierda: Lista de compromisos en texto normal */}
+                        <div className="space-y-6">
                             {compromisosLista.map((compromiso, i) => (
-                                <div 
-                                    key={i} 
-                                    className="bg-white/90 backdrop-blur-sm p-6 lg:p-8 rounded-2xl border-2 border-orange-200 shadow-lg hover:shadow-xl hover:border-orange-300 transition-all duration-400 hover:scale-[1.02]"
-                                >
-                                    <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
-                                            <div className="w-3 h-3 bg-orange-600 rounded-full" />
-                                        </div>
-                                        <span className="text-gray-700 text-lg lg:text-xl font-semibold leading-relaxed">{compromiso}</span>
-                                    </div>
+                                <div key={i} className="flex items-start gap-4">
+                                    <div className="w-3 h-3 bg-orange-500 rounded-full flex-shrink-0 mt-2" />
+                                    <p className="text-gray-700 text-lg lg:text-xl leading-relaxed font-medium">
+                                        {compromiso}
+                                    </p>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Call-to-action elegante */}
-                        <div className="text-center pt-8">
-                            <div className="space-y-4">
-                                <p className="text-lg lg:text-xl text-gray-700 font-medium">
-                                    ¿Te inspira nuestra visión de futuro?
-                                </p>
-                                <a 
-                                    href="/programas" 
-                                    className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-600 text-white font-semibold rounded-2xl hover:bg-orange-700 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]"
-                                >
-                                    Únete a nuestra misión
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        {/* Columna derecha: Placeholder para imagen */}
+                        <div className="w-full">
+                            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-pink-100 to-purple-100 border border-pink-200/60 shadow-lg flex items-center justify-center">
+                                <div className="flex flex-col items-center justify-center text-pink-500 space-y-3">
+                                    <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v10.5a.5.5 0 01-.84.36l-3.82-3.35a2 2 0 00-2.66.06l-1.67 1.6a2 2 0 01-2.7 0l-3.9-3.74a2 2 0 00-2.76 0L3 13.5V7z" />
+                                        <circle cx="8.5" cy="9.5" r="1.5" />
                                     </svg>
-                                </a>
+                                    <span className="text-sm font-medium text-center">Imagen representativa</span>
+                                    <span className="text-xs text-pink-400 text-center">Fundación Atma Namasté</span>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Call-to-action centrado */}
+                    <div className={`text-center mt-12 lg:mt-16 transition-all duration-1000 delay-800 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                        <div className="space-y-4">
+                            <p className="text-lg lg:text-xl text-gray-700 font-medium">
+                                ¿Te inspira nuestra visión de futuro?
+                            </p>
+                            <a 
+                                href="/programas" 
+                                className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-600 text-white font-semibold rounded-2xl hover:bg-orange-700 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                            >
+                                Únete a nuestra misión
+                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
