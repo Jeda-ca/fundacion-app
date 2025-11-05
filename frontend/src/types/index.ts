@@ -189,3 +189,41 @@ export interface ServiciosHeroData {
   titulo: string
   descripcion: string
 }
+
+export interface ServicioDetallado {
+  id: string
+  titulo: string
+  descripcionCorta: string
+  descripcionCompleta: string
+  icono?: string
+  color: 'pink' | 'purple' | 'orange'
+  queIncluye: string[]
+}
+
+
+// Tipos específicos para la página de Contacto:
+export interface ContactoHeroData {
+  subtitulo: string
+  titulo: string
+  descripcion: string
+}
+
+export interface InformacionContacto {
+  correo: string
+  telefonoPrincipal: string
+  direccion: string
+  whatsapp: string
+}
+
+export interface MiembroEquipo {
+  nombre: string
+  telefono: string
+  area?: string
+}
+
+export interface DatosContacto {
+  informacionGeneral: InformacionContacto
+  equipo: MiembroEquipo[]
+  whatsappGeneral: string
+}
+

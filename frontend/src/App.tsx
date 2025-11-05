@@ -6,6 +6,7 @@ import QuienesSomos from './pages/QuienesSomos'
 import LoginPage from './pages/LoginPage'
 import Programas from './pages/Programas'
 import Servicios from './pages/Servicios'
+import Contacto from './pages/Contacto'
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route path="/quienes-somos" element={<QuienesSomos />} />
         <Route path="/programas" element={<Programas />} />
         <Route path="/servicios" element={<Servicios />} />
-        
+        <Route path="/contacto" element={<Contacto />} />
+
         {/* Página de login administrativo */}
         <Route path="/login" element={<LoginPage />} />
       </Routes>
