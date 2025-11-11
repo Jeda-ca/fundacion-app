@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage'
 import Programas from './pages/Programas'
 import Servicios from './pages/Servicios'
 import Contacto from './pages/Contacto'
+import Donaciones from './pages/Donaciones'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/programas" element={<Programas />} />
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/donaciones" element={<Donaciones />} />
 
         {/* Página de login administrativo */}
         <Route path="/login" element={<LoginPage />} />

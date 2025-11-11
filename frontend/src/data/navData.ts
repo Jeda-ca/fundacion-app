@@ -7,7 +7,7 @@ export const navLinks: NavLinkItem[] = [
     { id: 3, name: "Programas", path: "/programas" },
     { id: 4, name: "Servicios", path: "/servicios" },
     { id: 5, name: "Contáctanos", path: "/contacto" },
-    { id: 6, name: "Nuestras sedes", path: "/nuestras-sedes" },
+    { id: 6, name: "Donaciones", path: "/donaciones" },
 ]
 export const programasDropdown: NavLinkItem[] = [
     { id: 1, name: "Programa de Mercados", path: "/programas#programa-mercados" },

@@ -200,7 +200,6 @@ export interface ServicioDetallado {
   queIncluye: string[]
 }
 
-
 // Tipos específicos para la página de Contacto:
 export interface ContactoHeroData {
   subtitulo: string
@@ -215,15 +214,17 @@ export interface InformacionContacto {
   whatsapp: string
 }
 
-export interface MiembroEquipo {
-  nombre: string
-  telefono: string
-  area?: string
-}
-
 export interface DatosContacto {
   informacionGeneral: InformacionContacto
-  equipo: MiembroEquipo[]
-  whatsappGeneral: string
+  whatsappGeneral: {
+    texto: string
+    mensaje: string
+  }
 }
 
+// Tipos específicos para la página de Donaciones:
+export interface DonacionesHeroData {
+  subtitulo: string
+  titulo: string
+  descripcion: string
+}

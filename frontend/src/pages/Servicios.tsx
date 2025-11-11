@@ -1,6 +1,8 @@
 import { useInView } from '../hooks'
 import { Footer } from '../components/layout'
 import { serviciosHeroData, serviciosLista } from '../data/serviciosData'
+import { IconRenderer } from '../components/ui'
+
 
 export default function Servicios() {
   const [heroRef, heroInView] = useInView(0.1)
