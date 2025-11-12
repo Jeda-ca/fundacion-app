@@ -29,10 +29,10 @@ export default function Inicio() {
 
     return (
         <main className="bg-stone-50 overflow-hidden">
-        {/* HERO SECTION - Mejorado para mobile */}
+        {/* HERO SECTION */}
         <section 
             ref={heroRef}
-            className={`relative min-h-screen flex items-center bg-gradient-to-br from-pink-25 via-stone-50 to-orange-25 transition-all duration-1000 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`relative min-h-screen flex items-center bg-gradient-to-br from-pink-25 via-stone-50 to-orange-25 transition-all duration-600 ease-smooth ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
             {/* Elementos decorativos sofisticados */}
             <div className="absolute inset-0 pointer-events-none">
