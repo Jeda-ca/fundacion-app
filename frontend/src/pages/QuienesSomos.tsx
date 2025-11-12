@@ -1,6 +1,6 @@
 import { useInView } from '../hooks'
 import { IconRenderer } from '../components/ui'
-import { Button } from '../components/ui'
+import { Container, Badge, Button, ImagePlaceholder } from '../components/ui'
 import { Footer } from '../components/layout'
 import {
     quienesSomosHeroData,
@@ -23,57 +23,35 @@ export default function QuienesSomos() {
             {/* HERO SECTION */}
             <section 
                 ref={heroRef}
-                className={`relative py-12 lg:py-16 flex items-center justify-center transition-all duration-600 ease-smooth ${heroInView ? 'opacity-100' : 'opacity-0'}`}
-                style={{ minHeight: 'calc(100vh - 80px)' }}
+                className={`relative py-16 lg:py-20 transition-all duration-600 ease-smooth ${heroInView ? 'opacity-100' : 'opacity-0'}`}
             >
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-50/30 via-stone-50 to-pink-50/30" />
                 
-                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-                    <div className="text-center space-y-6 lg:space-y-8">
+                <Container className="relative z-10">
+                    {/* Badge centrado */}
+                    <div className={`text-center mb-8 transition-all duration-600 ease-smooth ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                        <Badge color="purple">{quienesSomosHeroData.subtitulo}</Badge>
+                    </div>
+
+                    {/* Grid de 2 columnas en desktop, 1 en mobile */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                         
-                        {/* IMAGEN RECTANGULAR */}
-                        <div className={`transition-all duration-600 ease-smooth delay-200 ${heroInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                            <div className="relative mx-auto mb-4 lg:mb-6">
-                                <div className="relative w-full max-w-2xl lg:max-w-3xl aspect-[16/9] mx-auto rounded-2xl shadow-xl overflow-hidden ring-1 ring-pink-200/60">
-                                    <div className="absolute inset-0 bg-gradient-pink-orange opacity-60" />
-                                    <div className="relative w-full h-full bg-white/70 backdrop-blur-sm flex items-center justify-center">
-                                        <div className="text-center text-gray-400">
-                                            <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-4 bg-gradient-to-br from-purple-200 to-pink-200 rounded-xl flex items-center justify-center shadow-lg">
-                                                <svg className="w-8 h-8 lg:w-10 lg:h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h18M3 19h18M5 7h14v10H5z" />
-                                                </svg>
-                                            </div>
-                                            <p className="text-lg lg:text-xl font-semibold text-gray-500">Nuestra comunidad</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div className="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-purple-200/30 to-transparent rounded-full blur-2xl" />
-                                <div className="absolute -top-2 -right-2 lg:-top-4 lg:-right-4 w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-pink-200/40 to-transparent rounded-full blur-xl" />
-                            </div>
-                        </div>
-
-                        {/* CONTENIDO */}
-                        <div className={`space-y-4 lg:space-y-6 transition-all duration-600 ease-smooth delay-500 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full border border-purple-200/50 shadow-sm">
-                                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-                                <span className="text-sm font-medium text-purple-700">{quienesSomosHeroData.subtitulo}</span>
-                            </div>
-
+                        {/* COLUMNA IZQUIERDA - Contenido */}
+                        <div className={`space-y-6 lg:space-y-8 transition-all duration-600 ease-smooth delay-200 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
                                 {quienesSomosHeroData.titulo}
                             </h1>
                             
-                            <div className="max-w-4xl mx-auto space-y-4">
+                            <div className="space-y-4">
                                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed font-light">
                                     {quienesSomosHeroData.descripcion}
                                 </p>
-                                <p className="text-base lg:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+                                <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
                                     Nuestra fundación nace del compromiso profundo con la transformación social y espiritual. Creemos en el poder del amor incondicional y la educación integral para generar cambios duraderos en las comunidades más necesitadas.
                                 </p>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 pt-4 justify-center">
+                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
                                 <Button href="/programas" variant="primary">
                                     Conoce nuestros programas
                                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,16 +64,27 @@ export default function QuienesSomos() {
                                 </Button>
                             </div>
                         </div>
+
+                        {/* COLUMNA DERECHA - Imagen */}
+                        <div className={`transition-all duration-600 ease-smooth delay-400 ${heroInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                            <ImagePlaceholder 
+                                icon="comunidad"
+                                title="Nuestra comunidad"
+                                subtitle="Juntos transformamos vidas"
+                                aspectRatio="4/3"
+                                gradient="pink-orange"
+                            />
+                        </div>
                     </div>
-                </div>
+                </Container>
             </section>
 
-            {/* MISIÓN Y VISIÓN - CARDS SOLO AQUÍ */}
+            {/* MISIÓN Y VISIÓN */}
             <section 
                 ref={misionVisionRef}
                 className={`py-16 lg:py-20 bg-white/70 backdrop-blur-sm transition-all duration-600 ease-smooth ${misionVisionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             >
-                <div className="max-w-6xl mx-auto px-4 lg:px-8">
+                <Container>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 xl:gap-16">
                         
                         {[misionData, visionData].map((item, index) => (
@@ -109,25 +98,23 @@ export default function QuienesSomos() {
                                             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">{item.titulo}</h3>
                                         </div>
                                         
-                                        <div className="space-y-4">
-                                            <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
-                                                {item.descripcion}
-                                            </p>
-                                        </div>
+                                        <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
+                                            {item.descripcion}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
+                </Container>
             </section>
 
-            {/* VALORES - SIN CARDS, SOLO ICONOS */}
+            {/* VALORES */}
             <section 
                 ref={valoresRef}
                 className={`py-16 lg:py-20 bg-gradient-to-br from-pink-50/50 via-stone-50/80 to-purple-50/50 transition-all duration-600 ease-smooth ${valoresInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             >
-                <div className="max-w-6xl mx-auto px-4 lg:px-8">
+                <Container>
                     <div className={`text-center max-w-4xl mx-auto mb-16 lg:mb-20 transition-all duration-600 ease-smooth delay-200 ${valoresInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                         <div className="flex items-center justify-center gap-3 lg:gap-4 mb-4">
                             <div className="w-12 h-0.5 bg-pink-600" />
@@ -166,15 +153,15 @@ export default function QuienesSomos() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </Container>
             </section>
 
-            {/* COMPROMISOS - LAYOUT 2 COLUMNAS SIN CARDS */}
+            {/* COMPROMISOS */}
             <section 
                 ref={compromisoRef}
                 className={`py-16 lg:py-20 bg-white/60 backdrop-blur-sm transition-all duration-600 ease-smooth ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             >
-                <div className="max-w-6xl mx-auto px-4 lg:px-8">
+                <Container>
                     <div className={`text-center max-w-4xl mx-auto mb-12 lg:mb-16 transition-all duration-600 ease-smooth delay-200 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                         <div className="flex items-center justify-center gap-3 lg:gap-4 mb-4">
                             <div className="w-12 h-0.5 bg-orange-600" />
@@ -202,17 +189,12 @@ export default function QuienesSomos() {
                             ))}
                         </div>
 
-                        <div className="w-full">
-                            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-pink-orange border border-pink-200/50 shadow-lg flex items-center justify-center">
-                                <div className="flex flex-col items-center justify-center text-pink-500 space-y-3">
-                                    <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v10.5a.5.5 0 01-.84.36l-3.82-3.35a2 2 0 00-2.66.06l-1.67 1.6a2 2 0 01-2.7 0l-3.9-3.74a2 2 0 00-2.76 0L3 13.5V7z" />
-                                        <circle cx="8.5" cy="9.5" r="1.5" />
-                                    </svg>
-                                    <span className="text-sm font-medium text-center">Imagen representativa</span>
-                                </div>
-                            </div>
-                        </div>
+                        <ImagePlaceholder 
+                            icon="crecimiento"
+                            title="Imagen representativa"
+                            subtitle="Fundación Atma Namasté"
+                            gradient="pink-orange"
+                        />
                     </div>
 
                     <div className={`text-center mt-12 lg:mt-16 transition-all duration-600 ease-smooth delay-600 ${compromisoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -228,7 +210,7 @@ export default function QuienesSomos() {
                             </Button>
                         </div>
                     </div>
-                </div>
+                </Container>
             </section>
 
             <Footer />

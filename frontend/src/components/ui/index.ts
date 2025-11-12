@@ -1,2 +1,8 @@
 export { IconRenderer } from './IconRenderer'
 export { Button } from './Button'
+export { Section } from './Section'
+export { SectionHeader } from './SectionHeader'
+export { Card } from './Card'
+export { Badge } from './Badge'
+export { Container } from './Container'
+export { ImagePlaceholder } from './ImagePlaceholder'

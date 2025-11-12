@@ -2,7 +2,7 @@ import type { DonacionesHeroData } from '../types/index'
 
 export const donacionesHeroData: DonacionesHeroData = {
   subtitulo: 'Ayúdanos a seguir transformando vidas',
-  titulo: 'Tu generosidad construye futuro',
+  titulo: 'Donaciones que cambian al mundo',
   descripcion: 'Cada donación, sin importar su tamaño, se convierte en esperanza real para las familias de nuestra comunidad. Juntos podemos lograr transformaciones increíbles.'
 }
 

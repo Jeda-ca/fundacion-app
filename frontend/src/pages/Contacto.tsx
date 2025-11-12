@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useInView } from '../hooks'
 import { Footer } from '../components/layout'
-import { IconRenderer, Button } from '../components/ui'
+import { IconRenderer } from '../components/ui'
+import { Container, Badge, Button, ImagePlaceholder } from '../components/ui'
 import { contactoHeroData, datosContacto } from '../data/contactoData'
 
 export default function Contacto() {
@@ -64,36 +65,28 @@ export default function Contacto() {
           heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-sm mb-6">
-            <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-pink-700">
-              {contactoHeroData.subtitulo}
-            </span>
+        <Container>
+          <div className="text-center space-y-6">
+            <Badge color="pink">{contactoHeroData.subtitulo}</Badge>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
+              {contactoHeroData.titulo}
+            </h1>
+
+            <p className="text-lg lg:text-xl text-gray-700 leading-relaxed font-light max-w-2xl mx-auto mb-12">
+              {contactoHeroData.descripcion}
+            </p>
+
+            <ImagePlaceholder 
+              icon="contacto"
+              title="Nuestra casa de transformación"
+              subtitle="Fundación Atma Namasté"
+              aspectRatio="16/9"
+              gradient="pink-orange"
+              className="max-w-2xl lg:max-w-3xl mx-auto"
+            />
           </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight tracking-tight mb-6">
-            {contactoHeroData.titulo}
-          </h1>
-
-          <p className="text-lg lg:text-xl text-gray-700 leading-relaxed font-light max-w-2xl mx-auto mb-12">
-            {contactoHeroData.descripcion}
-          </p>
-
-          {/* Imagen estratégica */}
-          <div className="w-full max-w-2xl lg:max-w-3xl mx-auto aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-pink-orange border border-pink-200/50 shadow-xl flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center text-pink-500 space-y-4">
-              <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 7v2.99s-1.99.01-2 0V7c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v3c0 .01-2 0-2 0V7c0-2.21 1.79-4 4-4h6c2.21 0 4 1.79 4 4zM8 10v11c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V10H8z" />
-                <path d="M12 2l-5.5 9h11L12 2zm0 2.84L14.93 9H9.07L12 4.84z" />
-              </svg>
-              <div className="text-center">
-                <span className="text-lg font-semibold block mb-1">Nuestra casa de transformación</span>
-                <span className="text-sm text-pink-400">Fundación Atma Namasté</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Container>
       </section>
 
       {/* INFORMACIÓN DE CONTACTO */}
@@ -103,7 +96,7 @@ export default function Contacto() {
           infoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
             
             {/* INFORMACIÓN GENERAL */}
@@ -206,21 +199,16 @@ export default function Contacto() {
                 Nuestra Ubicación
               </h2>
               
-              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-purple-blue border border-blue-200/50 shadow-lg flex items-center justify-center">
-                <div className="text-center text-blue-600">
-                  <svg className="w-20 h-20 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                  </svg>
-                  <div className="space-y-1">
-                    <p className="text-lg font-semibold text-gray-700">Mapa de ubicación</p>
-                    <p className="text-blue-500 font-medium">Valledupar, César</p>
-                    <p className="text-sm text-gray-500">Próximamente con Google Maps</p>
-                  </div>
-                </div>
-              </div>
+              <ImagePlaceholder 
+                icon="ubicacion"
+                title="Mapa de ubicación"
+                subtitle="Valledupar, César - Próximamente con Google Maps"
+                aspectRatio="4/3"
+                gradient="purple-blue"
+              />
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* FORMULARIO */}
@@ -230,7 +218,7 @@ export default function Contacto() {
           formularioInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-4xl mx-auto px-4 lg:px-8">
+        <Container size="md">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               ¿Tienes Alguna Duda? ¡Escríbenos!
@@ -345,7 +333,7 @@ export default function Contacto() {
               </Button>
             </div>
           </form>
-        </div>
+        </Container>
       </section>
 
       <Footer />

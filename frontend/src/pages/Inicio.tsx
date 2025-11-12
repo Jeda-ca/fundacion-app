@@ -1,5 +1,6 @@
 import { useInView, useScrollEffects } from '../hooks'
 import { Footer } from '../components/layout'
+import { Container, Badge, Button } from '../components/ui'
 
 // Importar datos necesarios
 import {
@@ -34,123 +35,63 @@ export default function Inicio() {
             ref={heroRef}
             className={`relative min-h-screen flex items-center bg-gradient-to-br from-pink-25 via-stone-50 to-orange-25 transition-all duration-600 ease-smooth ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
-            {/* Elementos decorativos sofisticados */}
+            {/* Fondo decorativo */}
             <div className="absolute inset-0 pointer-events-none">
-            {/* Mesh gradient de fondo */}
             <div 
                 className="absolute inset-0 opacity-30"
                 style={{
                 backgroundImage: `radial-gradient(circle at 25% 25%, rgba(219, 39, 119, 0.1) 0%, transparent 50%),
-                                radial-gradient(circle at 75% 75%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
-                                radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.05) 0%, transparent 50%)`
+                                    radial-gradient(circle at 75% 75%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
+                                    radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.05) 0%, transparent 50%)`
                 }}
             />
-            
-            {/* Patrones geométricos sutiles - Responsive */}
-            <div className="absolute top-1/4 right-1/4 w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96">
-                <div className="absolute inset-0 bg-pink-100/20 rounded-full blur-3xl animate-pulse" style={{animationDuration: '4s'}} />
-                <div className="absolute inset-4 md:inset-8 border border-pink-200/30 rounded-full" />
-                <div className="absolute inset-8 md:inset-16 border border-pink-200/20 rounded-full animate-spin" style={{animationDuration: '20s'}} />
             </div>
-            
-            <div className="absolute bottom-1/3 left-1/4 w-36 h-36 md:w-48 md:h-48 lg:w-72 lg:h-72">
-                <div className="absolute inset-0 bg-orange-100/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s', animationDuration: '5s'}} />
-            </div>
-            </div>
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+            <Container className="relative">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[80vh]">
-                
-                {/* Contenido textual - Mejorado mobile */}
                 <div className={`lg:col-span-7 space-y-6 lg:space-y-8 transition-all duration-1000 delay-300 ${heroInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                <div className="space-y-4 lg:space-y-6">
-                    {/* Badge inicial elegante */}
-                    <div className="inline-flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-pink-100/50 shadow-sm">
-                    <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-                    <span className="text-xs lg:text-sm font-medium text-gray-700">{heroData.badge}</span>
-                    </div>
-
-                    <div className="space-y-3 lg:space-y-4">
-                    {/* Título - Responsivo */}
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[0.9] tracking-tight">
-                        <span className="block">{heroData.titulo.linea1}</span>
-                        <span className="block text-pink-600">{heroData.titulo.linea2}</span>
-                    </h1>
-                    
-                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-sky-600 font-light tracking-wide">
-                        {heroData.subtitulo}
-                    </p>
-                    </div>
-
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed font-light max-w-2xl">
-                    {heroData.descripcion}
-                    </p>
-                </div>
-
-                {/* Botones - Responsive */}
+                <Badge color="pink">{heroData.badge}</Badge>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[0.9] tracking-tight">
+                    <span className="block">{heroData.titulo.linea1}</span>
+                    <span className="block text-pink-600">{heroData.titulo.linea2}</span>
+                </h1>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-sky-600 font-light tracking-wide">{heroData.subtitulo}</p>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed font-light max-w-2xl">{heroData.descripcion}</p>
                 <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 pt-2 lg:pt-4">
-                    <a 
-                    href={heroData.botones.primario.url}
-                    className="group relative px-6 lg:px-8 py-3 lg:py-4 bg-pink-600 text-white font-semibold rounded-xl lg:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]"
-                    >
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-pink-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
-                        <div className="absolute inset-0 bg-white transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                    </div>
-                    <span className="relative flex items-center justify-center gap-2">
-                        {heroData.botones.primario.texto}
-                        <svg className="w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <Button href={heroData.botones.primario.url} variant="primary">
+                    {heroData.botones.primario.texto}
+                    <svg className="w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </span>
-                    </a>
-                    
-                    <a 
-                    href={heroData.botones.secundario.url}
-                    className="group px-6 lg:px-8 py-3 lg:py-4 text-pink-600 font-semibold rounded-xl lg:rounded-2xl border-2 border-pink-600 hover:bg-pink-50 transition-all duration-300 text-center relative overflow-hidden"
-                    >
-                    <span className="relative z-10">{heroData.botones.secundario.texto}</span>
-                    <div className="absolute inset-0 bg-pink-50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                    </a>
+                    </svg>
+                    </Button>
+                    <Button href={heroData.botones.secundario.url} variant="secondary">
+                    {heroData.botones.secundario.texto}
+                    </Button>
                 </div>
-
-                {/* Estadísticas - Grid responsivo */}
                 <div className="pt-8 lg:pt-12 grid grid-cols-3 gap-4 lg:gap-8">
                     {estadisticas.map((stat, index) => (
                     <div key={index} className="group text-center">
                         <div className="relative">
-                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600 group-hover:scale-110 transition-transform duration-300">
-                            {stat.number}
-                        </div>
+                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600 group-hover:scale-110 transition-transform duration-300">{stat.number}</div>
                         <div className="text-gray-900 font-medium text-xs sm:text-sm lg:text-base mb-1">{stat.label}</div>
                         <div className="text-gray-500 text-xs">{stat.sublabel}</div>
-                        {/* Línea decorativa */}
                         <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-6 lg:w-8 h-0.5 bg-pink-200 group-hover:w-8 lg:group-hover:w-12 group-hover:bg-pink-400 transition-all duration-300" />
                         </div>
                     </div>
                     ))}
                 </div>
                 </div>
-
-                {/* Imagen - Mobile friendly */}
                 <div className={`lg:col-span-5 transition-all duration-1000 delay-500 ${heroInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
                 <div className="relative mt-8 lg:mt-0">
                     <div className="relative aspect-[4/5] max-w-xs sm:max-w-sm md:max-w-md mx-auto">
-                    {/* Elementos de fondo múltiples */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-pink-50 to-orange-100 rounded-2xl lg:rounded-[2.5rem] transform rotate-3 blur-sm" />
-                    <div className="absolute inset-1 lg:inset-2 bg-gradient-to-br from-orange-100 to-pink-100 rounded-2xl lg:rounded-[2.5rem] transform -rotate-2 opacity-60" />
-                    
-                    {/* Marco principal */}
-                    <div className="relative bg-white rounded-2xl lg:rounded-[2.5rem] shadow-2xl overflow-hidden transform -rotate-1 hover:rotate-0 transition-all duration-700 group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-pink-50 to-orange-100 rounded-2xl lg:rounded-[2.5rem] rotate-3 blur-sm" />
+                    <div className="absolute inset-1 lg:inset-2 bg-gradient-to-br from-orange-100 to-pink-100 rounded-2xl lg:rounded-[2.5rem] -rotate-2 opacity-60" />
+                    <div className="relative bg-white rounded-2xl lg:rounded-[2.5rem] shadow-2xl overflow-hidden -rotate-1 hover:rotate-0 transition-all duration-700 group">
                         <div className="aspect-[4/5] bg-gradient-to-br from-pink-50 to-orange-50 relative overflow-hidden">
-                        {/* Pattern sutil de fondo */}
                         <div className="absolute inset-0 opacity-30">
                             <div className="absolute inset-0" style={{
                             backgroundImage: `radial-gradient(circle at 2px 2px, rgba(219, 39, 119, 0.15) 1px, transparent 0)`
                             }} />
                         </div>
-                        
-                        {/* Contenido de placeholder mejorado */}
                         <div className="relative z-10 flex items-center justify-center h-full">
                             <div className="text-center text-gray-400">
                             <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-4 lg:mb-6 bg-gradient-to-br from-pink-100 to-pink-200 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
@@ -162,20 +103,16 @@ export default function Inicio() {
                             <p className="text-sm text-gray-400">de la fundación</p>
                             </div>
                         </div>
-                        
-                        {/* Overlay sutil */}
                         <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-white/10" />
                         </div>
                     </div>
-                    
-                    {/* Elementos decorativos flotantes - Responsive */}
                     <div className="absolute -bottom-4 lg:-bottom-8 -left-4 lg:-left-8 w-20 h-20 lg:w-32 lg:h-32 bg-gradient-to-br from-pink-200/40 to-transparent rounded-full blur-2xl" />
                     <div className="absolute -top-2 lg:-top-4 -right-2 lg:-right-4 w-12 h-12 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-200/50 to-transparent rounded-full blur-xl" />
                     </div>
                 </div>
                 </div>
             </div>
-            </div>
+            </Container>
         </section>
 
         {/* QUÉ HACEMOS - Responsive */}

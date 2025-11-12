@@ -1,13 +1,19 @@
 import { useInView } from '../hooks'
 import { Footer } from '../components/layout'
-import { Button } from '../components/ui'
+import { 
+  SectionHeader, 
+  Container, 
+  ImagePlaceholder, 
+  Badge, 
+  Button 
+} from '../components/ui'
 import { serviciosHeroData, serviciosLista } from '../data/serviciosData'
 
 export default function Servicios() {
   const [heroRef, heroInView] = useInView(0.1)
   const [saludRef, saludInView] = useInView(0.15)
   const [deporteRef, deporteInView] = useInView(0.15)
-  const [espritualRef, espiritualInView] = useInView(0.15)
+  const [espiritualRef, espiritualInView] = useInView(0.15)
 
   return (
     <main className="bg-stone-50 overflow-hidden">
@@ -18,35 +24,28 @@ export default function Servicios() {
           heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-sm mb-8">
-            <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-pink-700">
-              {serviciosHeroData.subtitulo}
-            </span>
+        <Container size="md">
+          <div className="text-center space-y-8">
+            <Badge color="pink">{serviciosHeroData.subtitulo}</Badge>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
+              {serviciosHeroData.titulo}
+            </h1>
+
+            <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-light">
+              {serviciosHeroData.descripcion}
+            </p>
+
+            <ImagePlaceholder 
+              icon="salud"
+              title="Jornadas comunitarias"
+              subtitle="Momentos de encuentro y crecimiento"
+              aspectRatio="3/2"
+              gradient="pink-orange"
+              className="max-w-xl lg:max-w-2xl mx-auto"
+            />
           </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight mb-8">
-            {serviciosHeroData.titulo}
-          </h1>
-
-          <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-light mb-12">
-            {serviciosHeroData.descripcion}
-          </p>
-
-          {/* Imagen introductoria */}
-          <div className="w-full max-w-xl lg:max-w-2xl mx-auto aspect-[3/2] rounded-2xl overflow-hidden bg-gradient-pink-orange border border-pink-200/50 shadow-xl flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center text-pink-500 space-y-4">
-              <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-6h2.5l6 8h2L7 10.5V6H4V4h5c1.1 0 2 .9 2 2v2.5l2.84 3.21c.82.93 1.94 1.47 3.16 1.56V18c-1.1 0-2-.9-2-2v-2h-2.5l-2 2.5L12 18H8z" />
-              </svg>
-              <div className="text-center">
-                <span className="text-lg font-semibold block">Jornadas comunitarias</span>
-                <span className="text-sm text-pink-400">Momentos de encuentro y crecimiento</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Container>
       </section>
 
       {/* JORNADAS DE SALUD */}
@@ -56,11 +55,11 @@ export default function Servicios() {
           saludInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-16 items-center">
             {/* Contenido */}
             <div className="space-y-6">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-0.5 bg-pink-500" />
                 <span className="text-xs font-bold uppercase tracking-wider text-pink-600">
                   Salud Comunitaria
@@ -93,19 +92,14 @@ export default function Servicios() {
             </div>
 
             {/* Imagen */}
-            <div className="w-full">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-pink-100 to-red-100 border border-pink-200/50 shadow-lg flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center text-pink-500 space-y-3">
-                  <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z" />
-                  </svg>
-                  <span className="text-sm font-medium text-center">Jornadas de salud</span>
-                  <span className="text-xs text-pink-400 text-center">Cuidando la comunidad</span>
-                </div>
-              </div>
-            </div>
+            <ImagePlaceholder 
+              icon="salud"
+              title="Jornadas de salud"
+              subtitle="Cuidando la comunidad"
+              gradient="pink-orange"
+            />
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* JORNADAS DEPORTIVAS */}
@@ -115,24 +109,21 @@ export default function Servicios() {
           deporteInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-16 items-center">
-            {/* Imagen primero en esta sección */}
-            <div className="w-full lg:order-1">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-purple-blue border border-purple-200/50 shadow-lg flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center text-purple-500 space-y-3">
-                  <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                  </svg>
-                  <span className="text-sm font-medium text-center">Jornadas deportivas</span>
-                  <span className="text-xs text-purple-400 text-center">Deporte y comunidad</span>
-                </div>
-              </div>
+            {/* Imagen primero en desktop */}
+            <div className="lg:order-1">
+              <ImagePlaceholder 
+                icon="deporte"
+                title="Jornadas deportivas"
+                subtitle="Deporte y comunidad"
+                gradient="purple-blue"
+              />
             </div>
 
             {/* Contenido */}
             <div className="space-y-6 lg:order-2">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-0.5 bg-purple-500" />
                 <span className="text-xs font-bold uppercase tracking-wider text-purple-600">
                   Deporte y Bienestar
@@ -164,21 +155,21 @@ export default function Servicios() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* JORNADAS EDU ARHAT */}
       <section
-        ref={espritualRef}
+        ref={espiritualRef}
         className={`py-16 lg:py-20 bg-white/60 backdrop-blur-sm transition-all duration-600 ease-smooth ${
           espiritualInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-16 items-center">
             {/* Contenido */}
             <div className="space-y-6">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-0.5 bg-orange-500" />
                 <span className="text-xs font-bold uppercase tracking-wider text-orange-600">
                   Crecimiento Espiritual
@@ -211,25 +202,20 @@ export default function Servicios() {
             </div>
 
             {/* Imagen */}
-            <div className="w-full">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-orange-yellow border border-orange-200/50 shadow-lg flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center text-orange-500 space-y-3">
-                  <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 3c-.46 0-.93.04-1.4.14L7.86 5.86C8.58 5.31 9.46 5 10.38 5c.51 0 1.01.1 1.48.28.95.36 1.61 1.15 1.84 2.11l.03.12c0 .05.01.1.01.15 0 .31-.06.6-.16.87-.2.56-.58 1.03-1.09 1.36l-.12.08c-.54.35-1.23.53-1.93.53-.28 0-.56-.04-.83-.11L12 12.8c2.76 0 5-2.24 5-5S14.76 2.8 12 2.8z" />
-                  </svg>
-                  <span className="text-sm font-medium text-center">Edu Arhat</span>
-                  <span className="text-xs text-orange-400 text-center">Crecimiento interior</span>
-                </div>
-              </div>
-            </div>
+            <ImagePlaceholder 
+              icon="meditacion"
+              title="Edu Arhat"
+              subtitle="Crecimiento interior"
+              gradient="orange-yellow"
+            />
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* CTA FINAL */}
       <section className="py-12 lg:py-16 bg-gradient-to-br from-pink-50/30 to-orange-50/30">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 text-center">
-          <div className="space-y-6">
+        <Container size="md">
+          <div className="text-center space-y-6">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
               ¿Te interesa alguno de nuestros servicios?
             </h2>
@@ -259,7 +245,7 @@ export default function Servicios() {
               </Button>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       <Footer />

@@ -1,6 +1,6 @@
 import { useInView } from '../hooks'
 import { Footer } from '../components/layout'
-import { Button } from '../components/ui'
+import { Container, Badge, Button } from '../components/ui'
 import { donacionesHeroData, paypalDonationData } from '../data/donacionesData'
 
 export default function Donaciones() {
@@ -20,22 +20,19 @@ export default function Donaciones() {
           heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-sm mb-6">
-            <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-pink-700">
-              {donacionesHeroData.subtitulo}
-            </span>
+        <Container>
+          <div className="text-center space-y-6">
+            <Badge color="pink">{donacionesHeroData.subtitulo}</Badge>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
+              {donacionesHeroData.titulo}
+            </h1>
+
+            <p className="text-lg lg:text-xl text-gray-700 leading-relaxed font-light max-w-4xl mx-auto">
+              {donacionesHeroData.descripcion}
+            </p>
           </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            {donacionesHeroData.titulo}
-          </h1>
-
-          <p className="text-lg lg:text-xl text-gray-700 leading-relaxed font-light max-w-4xl mx-auto">
-            {donacionesHeroData.descripcion}
-          </p>
-        </div>
+        </Container>
       </section>
 
       {/* SECCIÓN PRINCIPAL DE DONACIÓN */}
@@ -45,8 +42,7 @@ export default function Donaciones() {
           donacionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
-          
+        <Container>
           {/* Header */}
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -149,13 +145,13 @@ export default function Donaciones() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* CTA FINAL */}
       <section className="py-12 lg:py-16 bg-gradient-to-br from-pink-50/30 to-orange-50/30">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 text-center">
-          <div className="space-y-6">
+        <Container size="md">
+          <div className="text-center space-y-6">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
               ¡Gracias por tu generosidad!
             </h2>
@@ -173,7 +169,7 @@ export default function Donaciones() {
               </Button>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       <Footer />
