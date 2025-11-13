@@ -1,90 +1,108 @@
 import { IconRenderer } from '../ui'
-import {
-  footerData,
-  navegacionLinks,
-  contactoInfo,
-  redesSociales,
-  politicasLinks
-} from '../../data/inicioData'
+import { mainNavLinks, redesSociales, politicasLinks, contactoInfo, footerData } from '../../data/navigationData'
 
-// Footer global de la aplicación
-export function Footer() {
-  return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
-        {/* Footer principal */}
-        <div className="py-12 lg:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          
-          {/* Información principal */}
-          <div className="sm:col-span-2 lg:col-span-2">
-            <div className="space-y-4 lg:space-y-6">
-              <div>
-                <h3 className="text-xl lg:text-2xl font-bold mb-1 lg:mb-2">{footerData.titulo}</h3>
-                <p className="text-sky-400 font-medium text-sm lg:text-base">{footerData.subtitulo}</p>
-              </div>
-              <p className="text-gray-300 leading-relaxed max-w-md text-sm lg:text-base">
-                {footerData.descripcion}
-              </p>
-              <div className="flex items-center gap-3 lg:gap-4">
-                {redesSociales.map((red, index) => (
-                  <a 
-                    key={index}
-                    href={red.url} 
-                    target={red.url.startsWith('http') ? "_blank" : "_self"}
-                    rel={red.url.startsWith('http') ? "noopener noreferrer" : undefined}
-                    className={`size-9 lg:size-10 bg-gray-800 rounded-lg flex items-center justify-center ${red.hoverColor} transition-colors duration-300`}
-                  >
-                    <svg className="size-4 lg:size-5" fill={red.nombre === 'Contacto' ? "none" : "currentColor"} stroke={red.nombre === 'Contacto' ? "currentColor" : "none"} viewBox="0 0 24 24">
-                      <path strokeLinecap={red.nombre === 'Contacto' ? "round" : undefined} strokeLinejoin={red.nombre === 'Contacto' ? "round" : undefined} strokeWidth={red.nombre === 'Contacto' ? 2 : undefined} d={red.icono}/>
-                    </svg>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+export const Footer = () => {
+return (
+<footer className="bg-gradient-to-b from-gray-900 to-gray-800 border-t border-gray-700">
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
 
-          {/* Navegación */}
-          <div>
-            <h4 className="text-base lg:text-lg font-semibold mb-4 lg:mb-6">Navegación</h4>
-            <ul className="space-y-2 lg:space-y-3">
-              {navegacionLinks.map((link, index) => (
-                <li key={index}>
-                  <a href={link.url} className="text-gray-300 hover:text-white transition-colors duration-300 text-sm lg:text-base">
-                    {link.texto}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contacto */}
-          <div>
-            <h4 className="text-base lg:text-lg font-semibold mb-4 lg:mb-6">Contacto</h4>
-            <ul className="space-y-2 lg:space-y-3 text-gray-300">
-              {contactoInfo.map((info, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <IconRenderer tipo={info.icono} className="size-4 lg:size-5 mt-0.5 flex-shrink-0" />
-                  <span style={{whiteSpace: 'pre-line'}} className="text-sm lg:text-base">{info.texto}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* Columna 1: Información de la fundación */}
+      <div className="lg:col-span-2 space-y-4">
+        <div>
+          <h3 className="text-2xl font-bold text-white mb-1">
+            {footerData.titulo}
+          </h3>
+          <p className="text-sm text-purple-400 font-medium mb-3">
+            {footerData.subtitulo}
+          </p>
+          <p className="text-gray-300 leading-relaxed text-sm">
+            {footerData.descripcion}
+          </p>
         </div>
 
-        {/* Footer bottom */}
-        <div className="py-6 lg:py-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-3 lg:gap-4">
-          <p className="text-gray-400 text-xs lg:text-sm text-center sm:text-left">
-            {footerData.copyright}
-          </p>
-          <div className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm">
-            {politicasLinks.map((link, index) => (
-              <a key={index} href={link.url} className="text-gray-400 hover:text-white transition-colors duration-300">
-                {link.texto}
-              </a>
-            ))}
-          </div>
+        {/* Redes sociales */}
+        <div className="flex gap-3 pt-2">
+          {redesSociales.map((red, index) => (
+            <a
+              key={index}
+              href={red.url}
+              target={red.nombre !== "Contacto" ? "_blank" : undefined}
+              rel={red.nombre !== "Contacto" ? "noopener noreferrer" : undefined}
+              className={`w-10 h-10 rounded-lg bg-gray-700/50 flex items-center justify-center text-gray-300 ${red.hoverColor} hover:text-white transition-all duration-300 hover:scale-110`}
+              aria-label={red.nombre}
+            >
+              {red.nombre === "Contacto" ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d={red.icono} />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d={red.icono} />
+                </svg>
+              )}
+            </a>
+          ))}
         </div>
       </div>
-    </footer>
-  )
+
+      {/* Columna 2: Navegación */}
+      <div>
+        <h4 className="text-lg font-bold text-white mb-4">Navegación</h4>
+        <ul className="space-y-2">
+          {mainNavLinks.map((link, index) => (
+            <li key={index}>
+              <a
+                href={link.url}
+                className="text-gray-300 hover:text-pink-400 transition-colors duration-300 text-sm"
+              >
+                {link.texto}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Columna 3: Contacto */}
+      <div>
+        <h4 className="text-lg font-bold text-white mb-4">Contacto</h4>
+        <ul className="space-y-3">
+          {contactoInfo.map((info, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <div className="w-5 h-5 text-pink-400 flex-shrink-0 mt-0.5">
+                <IconRenderer tipo={info.icono} />
+              </div>
+              <span className="text-gray-300 text-sm whitespace-pre-line">
+                {info.texto}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    {/* Línea divisoria */}
+    <div className="border-t border-gray-700 mt-8 lg:mt-12 pt-6 lg:pt-8">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p className="text-gray-400 text-sm text-center md:text-left">
+          {footerData.copyright}
+        </p>
+        
+        {/* Links de políticas */}
+        <div className="flex gap-6">
+          {politicasLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              className="text-gray-400 hover:text-pink-400 transition-colors duration-300 text-sm"
+            >
+              {link.texto}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+)
 }

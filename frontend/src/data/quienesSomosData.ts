@@ -2,10 +2,7 @@
 import type { 
   QuienesSomosHeroData,
   MisionVisionData,
-  HistoriaData,
-  TimelineItem,
   ValorData,
-  ImpactoData,
   SeccionData
 } from '../types'
 
@@ -25,44 +22,6 @@ export const visionData: MisionVisionData = {
   titulo: "Nuestra Visión", 
   descripcion: "Ser reconocidos como una fundación líder en el desarrollo comunitario integral, creando redes de apoyo sostenibles que generen transformaciones duraderas y contribuyan a la construcción de una sociedad más justa, equitativa y espiritualmente consciente.",
   icono: "vision"
-}
-
-export const historiaData: HistoriaData = {
-  etiqueta: "Nuestra Historia",
-  titulo: "Más de una década transformando vidas",
-  descripcion: "Nuestro camino comenzó con un sueño: crear un espacio donde el amor y la educación se encontraran para generar cambios profundos en las comunidades. A lo largo de los años, hemos crecido, evolucionado y expandido nuestro impacto.",
-  timeline: [
-    {
-      año: "2009",
-      evento: "Fundación Atma Namasté",
-      descripcion: "Iniciamos nuestra labor con un pequeño grupo de voluntarios comprometidos con el servicio comunitario."
-    },
-    {
-      año: "2012", 
-      evento: "Primeros Programas Educativos",
-      descripcion: "Lanzamos nuestros programas de refuerzo escolar y desarrollo artístico en comunidades vulnerables."
-    },
-    {
-      año: "2015",
-      evento: "Expansión Internacional",
-      descripcion: "Establecemos conexiones con redes internacionales de sanación pránica y desarrollo comunitario."
-    },
-    {
-      año: "2018",
-      evento: "500 Familias Beneficiadas",
-      descripcion: "Alcanzamos la meta de impactar directamente a 500 familias a través de nuestros programas integrales."
-    },
-    {
-      año: "2021",
-      evento: "Programas Digitales",
-      descripcion: "Adaptamos nuestros servicios al mundo digital, manteniendo el acompañamiento durante la pandemia."
-    },
-    {
-      año: "2024",
-      evento: "Red Global Consolidada", 
-      descripcion: "Fortalecemos nuestra presencia con una red de colaboradores nacionales e internacionales."
-    }
-  ]
 }
 
 export const valoresData: SeccionData = {
@@ -96,45 +55,6 @@ export const valores: ValorData[] = [
     nombre: "Crecimiento Continuo",
     descripcion: "Buscamos constantemente la excelencia y el aprendizaje, adaptándonos a las necesidades cambiantes de las comunidades.",
     icono: "crecimiento"
-  }
-]
-
-export const impactoData: SeccionData = {
-  etiqueta: "Nuestro Impacto", 
-  titulo: "Transformando realidades, construyendo futuro",
-  descripcion: "Los números reflejan solo una parte de nuestro trabajo. Detrás de cada cifra hay historias de transformación, esperanza y crecimiento que nos impulsan a seguir adelante."
-}
-
-export const estadisticasImpacto: ImpactoData[] = [
-  {
-    numero: "1,200+",
-    texto: "Niños y jóvenes atendidos",
-    descripcion: "En programas educativos y de desarrollo integral"
-  },
-  {
-    numero: "500+", 
-    texto: "Familias transformadas",
-    descripcion: "A través de acompañamiento directo y sostenido"
-  },
-  {
-    numero: "50+",
-    texto: "Profesionales voluntarios",
-    descripcion: "Comprometidos con el servicio comunitario"
-  },
-  {
-    numero: "15+",
-    texto: "Años de experiencia",
-    descripcion: "Construyendo confianza y generando impacto"
-  },
-  {
-    numero: "8",
-    texto: "Programas activos", 
-    descripcion: "Cubriendo educación, arte, espiritualidad y bienestar"
-  },
-  {
-    numero: "Global",
-    texto: "Alcance internacional",
-    descripcion: "Red de colaboradores en varios países"
   }
 ]
 

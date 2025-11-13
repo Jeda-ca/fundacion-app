@@ -1,8 +1,8 @@
 import type { ServiciosHeroData, ServicioDetallado } from '../types/index'
 
 export const serviciosHeroData: ServiciosHeroData = {
-  subtitulo: 'Nuestros servicios',
-  titulo: 'Lo que hacemos por la comunidad',
+  subtitulo: 'Lo que hacemos por la comunidad',
+  titulo: 'Nuestros servicios',
   descripcion: 'Organizamos jornadas que conectan a las familias con oportunidades de bienestar, crecimiento y alegría. Cada actividad nace del corazón y está pensada para generar encuentros significativos.'
 }
 

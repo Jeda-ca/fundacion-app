@@ -88,29 +88,10 @@ export interface MisionVisionData {
   icono: string;
 }
 
-export interface HistoriaData {
-  etiqueta: string;
-  titulo: string;
-  descripcion: string;
-  timeline: TimelineItem[];
-}
-
-export interface TimelineItem {
-  año: string;
-  evento: string;
-  descripcion: string;
-}
-
 export interface ValorData {
   nombre: string;
   descripcion: string;
   icono: string;
-}
-
-export interface ImpactoData {
-  numero: string;
-  texto: string;
-  descripcion: string;
 }
 
 export interface QuienesSomosHeroData {
@@ -227,4 +208,47 @@ export interface DonacionesHeroData {
   subtitulo: string
   titulo: string
   descripcion: string
+}
+
+// ============================================================
+// INTERFACES DE NAVEGACIÓN Y LINKS
+// ============================================================
+
+// Interface para links simples de navegación
+export interface NavLink {
+id?: string
+name?: string
+texto: string
+path?: string
+url: string
+externo?: boolean
+}
+
+// Para items de dropdown en navbar
+export interface NavDropdownItem {
+id: string
+name?: string
+texto: string
+path: string
+url: string
+}
+
+// Para el dropdown completo
+export interface NavDropdown {
+texto: string
+items: NavDropdownItem[]
+}
+
+// Para redes sociales (Footer)
+export interface RedSocial {
+nombre: string
+url: string
+hoverColor: string
+icono: string
+}
+
+// Para información de contacto (Footer)
+export interface ContactoInfo {
+icono: string
+texto: string
 }

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { navLinks, programasDropdown } from "../../data/navData"
+import { navLinks, programasDropdown } from '../../data/navData'
 import { getActiveClass } from "../../utils/getActiveClass"
 import logo from '../../assets/atmav2SinFondo.png'
 
@@ -142,7 +142,7 @@ export default function NavBar() {
                         onMouseLeave={() => setProgramasOpen(false)}
                       >
                         <Link
-                          to={nav.path}
+                          to={nav.path ?? '/programas'}
                           className={`${getActiveClass(location.pathname, nav.path)} flex items-center`}
                           aria-haspopup="true"
                           aria-expanded={programasOpen ? "true" : "false"}
@@ -163,7 +163,7 @@ export default function NavBar() {
                             {programasDropdown.map((x) => (
                               <li key={x.id}>
                                 <Link
-                                  to={x.path}
+                                  to={x.path ?? '/programas'}
                                   className="block px-4 py-3 font-[Poppins] text-gray-700 hover:bg-pink-100 hover:text-pink-700 transition-colors"
                                 >
                                   {x.name}
@@ -174,7 +174,7 @@ export default function NavBar() {
                         </div>
                       </div>
                     ) : (
-                      <Link to={nav.path} className={getActiveClass(location.pathname, nav.path)}>
+                      <Link to={nav.path ?? '/'} className={getActiveClass(location.pathname, nav.path ?? '/')}>
                         {nav.name}
                       </Link>
                     )}
@@ -395,7 +395,7 @@ export default function NavBar() {
                 {navLinks.map((nav) => (
                   <li key={nav.id}>
                     <Link
-                      to={nav.path}
+                      to={nav.path ?? '/'}
                       onClick={() => setMenuOpen(false)}
                       className="block py-3 px-4 text-white font-[Poppins] text-lg hover:bg-pink-400/30 rounded-lg transition-colors duration-200"
                     >
@@ -408,7 +408,7 @@ export default function NavBar() {
                         {programasDropdown.map((programa) => (
                           <Link
                             key={programa.id}
-                            to={programa.path}
+                            to={programa.path ?? '/programas'}
                             onClick={() => setMenuOpen(false)}
                             className="block py-2 px-3 text-white/90 font-[Poppins] text-sm hover:bg-pink-400/20 hover:text-white rounded-md transition-colors duration-200"
                           >

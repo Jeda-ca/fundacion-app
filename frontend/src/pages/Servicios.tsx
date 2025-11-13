@@ -158,7 +158,7 @@ export default function Servicios() {
         </Container>
       </section>
 
-      {/* JORNADAS EDU ARHAT */}
+      {/* JORNADAS */}
       <section
         ref={espiritualRef}
         className={`py-16 lg:py-20 bg-white/60 backdrop-blur-sm transition-all duration-600 ease-smooth ${
@@ -204,7 +204,7 @@ export default function Servicios() {
             {/* Imagen */}
             <ImagePlaceholder 
               icon="meditacion"
-              title="Edu Arhat"
+              title="Meditación y bienestar"
               subtitle="Crecimiento interior"
               gradient="orange-yellow"
             />

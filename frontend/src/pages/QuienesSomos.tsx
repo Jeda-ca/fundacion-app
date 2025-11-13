@@ -46,15 +46,12 @@ export default function QuienesSomos() {
                                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed font-light">
                                     {quienesSomosHeroData.descripcion}
                                 </p>
-                                <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
-                                    Nuestra fundación nace del compromiso profundo con la transformación social y espiritual. Creemos en el poder del amor incondicional y la educación integral para generar cambios duraderos en las comunidades más necesitadas.
-                                </p>
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-4 pt-4">
                                 <Button href="/programas" variant="primary">
                                     Conoce nuestros programas
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="size-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </Button>
@@ -92,7 +89,7 @@ export default function QuienesSomos() {
                                 <div className="bg-white/90 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border-2 border-pink-200/50 shadow-lg hover:shadow-xl hover:border-pink-300/50 transition-all duration-300 h-full">
                                     <div className="space-y-6 lg:space-y-8">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-16 h-16 lg:w-18 lg:h-18 bg-gradient-to-br from-pink-100 to-pink-200 rounded-xl flex items-center justify-center shadow-lg">
+                                            <div className="size-16 lg:size-18 bg-gradient-to-br from-pink-100 to-pink-200 rounded-xl flex items-center justify-center shadow-lg">
                                                 <IconRenderer tipo={item.icono} className="w-8 h-8 lg:w-9 lg:h-9 text-pink-600" />
                                             </div>
                                             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">{item.titulo}</h3>
@@ -117,9 +114,9 @@ export default function QuienesSomos() {
                 <Container>
                     <div className={`text-center max-w-4xl mx-auto mb-16 lg:mb-20 transition-all duration-600 ease-smooth delay-200 ${valoresInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                         <div className="flex items-center justify-center gap-3 lg:gap-4 mb-4">
-                            <div className="w-12 h-0.5 bg-pink-600" />
+                            <div className="size-0.5 bg-pink-600" />
                             <span className="text-xs font-bold uppercase tracking-wider text-pink-600">{valoresData.etiqueta}</span>
-                            <div className="w-12 h-0.5 bg-pink-600" />
+                            <div className="size-0.5 bg-pink-600" />
                         </div>
                         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-4 mb-6">
                             {valoresData.titulo}
@@ -133,19 +130,19 @@ export default function QuienesSomos() {
                         {valores.map((valor, index) => (
                             <div 
                                 key={index} 
-                                className={`group text-center transition-all duration-600 ease-smooth ${valoresInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                                className={`group transition-all duration-600 ease-smooth ${valoresInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                                 style={{transitionDelay: `${(index + 1) * 100 + 400}ms`}}
                             >
                                 <div className="space-y-4 p-4">
                                     <div className="flex justify-center">
-                                        <div className="w-16 h-16 lg:w-18 lg:h-18 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:scale-110 transition-all duration-300 border border-pink-100">
-                                            <IconRenderer tipo={valor.icono || "estrella"} className="w-8 h-8 text-pink-600" />
+                                        <div className="size-16 lg:size-18 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:scale-110 transition-all duration-300 border border-pink-100">
+                                            <IconRenderer tipo={valor.icono || "estrella"} className="size-8 text-pink-600" />
                                         </div>
                                     </div>
                                     
                                     <div>
-                                        <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-3 leading-tight">{valor.nombre}</h3>
-                                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                                        <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-3 leading-tight text-center">{valor.nombre}</h3>
+                                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base text-justify">
                                             {valor.descripcion}
                                         </p>
                                     </div>
