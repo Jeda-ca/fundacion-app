@@ -119,27 +119,8 @@ export interface ProgramaDetallado {
 }
 
 export interface ProgramasHeroData {
-  titulo: {
-    parte1: string;
-    parte2: string;
-  };
-  subtitulo: string;
-  descripcion: string;
-}
-
-export interface TestimonioData {
-  nombre: string;
-  edad: number;
-  programa: string;
-  testimonio: string;
-  imagen?: string;
-}
-
-export interface ProcesoInscripcionData {
-  paso: number;
   titulo: string;
   descripcion: string;
-  icono: string;
 }
 
 export interface HorarioData {

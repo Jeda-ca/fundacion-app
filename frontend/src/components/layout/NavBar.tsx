@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { navLinks, programasDropdown } from '../../data/navData'
+import { LoginModal } from '../auth'
 import { getActiveClass } from "../../utils/getActiveClass"
 import logo from '../../assets/atmav2SinFondo.png'
 
@@ -11,6 +12,7 @@ export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [programasOpen, setProgramasOpen] = useState(false)
   const [languageOpen, setLanguageOpen] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   // Lee idioma guardado o usa 'es' por defecto
   const [language, setLanguage] = useState<string>(() => {
@@ -109,7 +111,7 @@ export default function NavBar() {
 
   return (
     <>
-      {/* NAVBAR PRINCIPAL - Con tus estilos originales */}
+      {/* NAVBAR PRINCIPAL */}
       <nav className="bg-[#E297C2] shadow-sm relative z-40">
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo - Tus estilos */}
@@ -125,7 +127,7 @@ export default function NavBar() {
             </Link>
           </div>
 
-          {/* DESKTOP Navigation - Tus estilos exactos */}
+          {/* DESKTOP Navigation */}
           <div
             id="primary-navigation"
             className="hidden md:block"
@@ -189,13 +191,10 @@ export default function NavBar() {
             {/* Gestión administrativa - Desktop */}
             <div className="hidden md:block">
               <button
-                onClick={handleAdminAccess}
-                className="inline-flex items-center px-2 py-1 rounded-md text-md font-[Poppins] text-white bg-[#F38840] hover:bg-amber-600 transition-colors"
+                onClick={() => setIsLoginModalOpen(true)}
+                className="inline-flex items-center px-2 py-1 rounded-md text-md font-[Poppins] text-white bg-[#F38840] hover:bg-amber-600 transition-colors duration-300"
               >
-                <svg className="size-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                Gestión <br /> Administrativa
+                Gestión<br/>Administrativa
               </button>
             </div>
 
@@ -313,7 +312,7 @@ export default function NavBar() {
               </div>
             </div>
 
-            {/* Botón hamburguesa (mobile) - SOLO HAMBURGUESA */}
+            {/* Botón hamburguesa (mobile) */}
             <div className="md:hidden">
               <button
                 onClick={() => setMenuOpen(s => !s)}
@@ -335,9 +334,11 @@ export default function NavBar() {
             </div>
           </div>
         </div>
+        {/* Login Modal */}
+        <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       </nav>
 
-      {/* OFF-CANVAS MOBILE PANEL - Ajustado */}
+      {/* OFF-CANVAS MOBILE PANEL */}
       <div
         id="mobile-menu"
         aria-hidden={!menuOpen}
@@ -424,17 +425,11 @@ export default function NavBar() {
               {/* Gestión Administrativa en móvil */}
               <div className="mt-8 pt-6 border-t border-white/20">
                 <button
-                  onClick={() => {
-                    handleAdminAccess()
-                    setMenuOpen(false)
-                  }}
-                  className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[#F38840]/90 backdrop-blur-sm text-white font-semibold font-[Poppins] rounded-xl hover:bg-amber-600 transition-colors duration-200 shadow-lg"
-                >
-                  <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <span>Gestión Administrativa</span>
-                </button>
+                onClick={() => setIsLoginModalOpen(true)}
+                className="inline-flex items-center px-2 py-1 rounded-md text-md font-[Poppins] text-white bg-[#F38840] hover:bg-amber-600 transition-colors duration-300"
+              >
+                Gestión<br/>Administrativa
+              </button>
               </div>
             </nav>
 

@@ -1,8 +1,7 @@
 import { useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 import { useInView, useScrollEffects } from '../hooks'
-import { IconRenderer } from '../components/ui'
-import { Container, Badge, ImagePlaceholder } from '../components/ui'
+import { Container, Badge, ImagePlaceholder, IconRenderer } from '../components/ui'
 import { Footer } from '../components/layout'
 
 import {
@@ -30,39 +29,31 @@ export default function Programas() {
         }
     }, [location])
 
+    // Colores para los programas (intercalados)
+    const programColors = [
+        { bg: 'from-pink-100 to-pink-200', icon: 'text-pink-600' },
+        { bg: 'from-purple-100 to-purple-200', icon: 'text-purple-600' },
+        { bg: 'from-orange-100 to-orange-200', icon: 'text-orange-600' },
+        { bg: 'from-blue-100 to-blue-200', icon: 'text-blue-600' }
+    ]
+
+
     return (
         <main className="bg-stone-50 overflow-hidden">
             {/* HERO */}
             <section 
                 ref={heroRef}
-                className={`relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-pink-50 via-stone-50 to-purple-50 transition-all duration-600 ease-smooth ${
+                className={`relative min-h-[70vh] flex items-center justify-center transition-all duration-600 ease-smooth ${
                     heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-            >
-                {/* Fondo decorativo */}
-                <div className="absolute inset-0 pointer-events-none z-0" aria-hidden>
-                    <div 
-                        className="absolute inset-0 opacity-40"
-                        style={{
-                            backgroundImage: `radial-gradient(circle at 30% 40%, #eab3081a 0%, transparent 60%),
-                                radial-gradient(circle at 70% 60%, #6366f11a 0%, transparent 60%),
-                                radial-gradient(circle at 55% 30%, #db277720 0%, transparent 60%)`
-                        }}
-                    />
-                </div>
-                
+            >                
                 <Container className="relative z-10">
                     <div className="text-center space-y-8">
                         <Badge color="pink">Educación que transforma</Badge>
                         
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
-                            <span>{programasHero.titulo.parte1}</span>
-                            <span className="block text-pink-600">{programasHero.titulo.parte2}</span>
+                            {programasHero.titulo}
                         </h1>
-                        
-                        <p className="text-xl sm:text-2xl lg:text-3xl text-blue-600 font-light max-w-3xl mx-auto">
-                            {programasHero.subtitulo}
-                        </p>
                         
                         <p className="text-lg lg:text-xl text-gray-700 leading-relaxed font-light max-w-4xl mx-auto">
                             {programasHero.descripcion}
@@ -119,41 +110,23 @@ export default function Programas() {
                                     
                                     {/* Contenido */}
                                     <div className={`space-y-6 ${idx % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-12 h-0.5 bg-pink-500" />
-                                            <span className="text-xs font-bold uppercase tracking-wider text-pink-600">
-                                                Programa {idx + 1}
-                                            </span>
-                                        </div>
-                                        
-                                        <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                                            {programa.nombre}
-                                        </h3>
-                                        
-                                        <p className="text-lg text-gray-600 leading-relaxed">
-                                            {programa.descripcionLarga}
-                                        </p>
-                                        
-                                        {/* Detalles del programa */}
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-2">
-                                                <h4 className="font-semibold text-gray-900 text-sm">Edad objetivo:</h4>
-                                                <p className="text-gray-600">{programa.edadTarget}</p>
+                                        <div className="space-y-6">
+                                            {/* Título con icono */}
+                                            <div className="flex items-center gap-4">
+                                                <div className={`w-16 h-16 bg-gradient-to-br ${programColors[idx % programColors.length].bg} rounded-full flex items-center justify-center flex-shrink-0`}>
+                                                    <IconRenderer 
+                                                    tipo={programa.icono || "programa"} 
+                                                    className={`w-8 h-8 ${programColors[idx % programColors.length].icon}`} 
+                                                    />
+                                                </div>
+                                                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                                                    {programa.nombre}
+                                                </h3>
                                             </div>
-                                            <div className="space-y-2">
-                                                <h4 className="font-semibold text-gray-900 text-sm">Duración:</h4>
-                                                <p className="text-gray-600">{programa.duracion}</p>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <h4 className="font-semibold text-gray-900 text-sm">Modalidad:</h4>
-                                                <p className="text-gray-600">{programa.modalidad}</p>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <h4 className="font-semibold text-gray-900 text-sm">Horario:</h4>
-                                                <p className="text-gray-600">
-                                                    {programa.horario ? `${programa.horario.dias} • ${programa.horario.horas}` : "A convenir"}
-                                                </p>
-                                            </div>
+                                            
+                                            <p className="text-lg text-gray-600 leading-relaxed">
+                                                {programa.descripcionLarga}
+                                            </p>
                                         </div>
                                         
                                         {/* Objetivos */}
@@ -162,7 +135,7 @@ export default function Programas() {
                                             <ul className="space-y-3">
                                                 {programa.objetivos.slice(0, 3).map((objetivo, i) => (
                                                     <li key={i} className="flex items-start gap-3">
-                                                        <div className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0 mt-2" />
+                                                        <div className="size-2 bg-purple-500 rounded-full flex-shrink-0 mt-2" />
                                                         <span className="text-gray-700">{objetivo}</span>
                                                     </li>
                                                 ))}
@@ -204,7 +177,7 @@ export default function Programas() {
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
                         {compromisosLista.map((compromiso, idx) => (
                             <li key={idx} className="flex items-start gap-3">
-                                <span className="w-3 h-3 mt-2 bg-pink-500 rounded-full flex-shrink-0" />
+                                <span className="size-3 mt-2 bg-pink-500 rounded-full flex-shrink-0" />
                                 <span className="text-gray-700 text-base lg:text-lg">{compromiso}</span>
                             </li>
                         ))}

@@ -61,10 +61,8 @@ export default function Contacto() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className={`relative pt-12 sm:pt-16 lg:pt-20 pb-12 lg:pb-16 transition-all duration-600 ease-smooth ${
-          heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
-      >
+        className={`relative py-10 lg:py-14 transition-all duration-600 ease-smooth ${ heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8' }`}>
+
         <Container>
           <div className="text-center space-y-6">
             <Badge color="pink">{contactoHeroData.subtitulo}</Badge>
@@ -92,7 +90,7 @@ export default function Contacto() {
       {/* INFORMACIÓN DE CONTACTO */}
       <section
         ref={infoRef}
-        className={`py-16 lg:py-20 bg-white/70 backdrop-blur-sm transition-all duration-600 ease-smooth ${
+        className={`pt-4 pb-16 lg:pt-8 lg:pb-20 bg-white/70 backdrop-blur-sm transition-all duration-600 ease-smooth ${
           infoInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
@@ -214,7 +212,7 @@ export default function Contacto() {
       {/* FORMULARIO */}
       <section
         ref={formularioRef}
-        className={`py-16 lg:py-20 bg-pink-50/30 transition-all duration-600 ease-smooth ${
+        className={`pt-8 pb-16 lg:pt-12 lg:pb-20 bg-pink-50/30 transition-all duration-600 ease-smooth ${
           formularioInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >

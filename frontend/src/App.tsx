@@ -3,7 +3,6 @@ import './App.css'
 import { NavBar } from './components/layout'
 import Inicio from './pages/Inicio'
 import QuienesSomos from './pages/QuienesSomos'
-import LoginPage from './pages/LoginPage'
 import Programas from './pages/Programas'
 import Servicios from './pages/Servicios'
 import Contacto from './pages/Contacto'
@@ -22,9 +21,6 @@ function App() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/donaciones" element={<Donaciones />} />
-
-        {/* Página de login administrativo */}
-        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   )

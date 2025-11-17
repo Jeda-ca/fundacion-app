@@ -2,18 +2,12 @@
 import type { 
     ProgramasHeroData,
     ProgramaDetallado,
-    TestimonioData,
-    ProcesoInscripcionData,
     HorarioData,
     SeccionData
 } from '../types'
 
 export const programasHero: ProgramasHeroData = {
-    titulo: {
-        parte1: "Nuestros",
-        parte2: "Programas"
-    },
-    subtitulo: "Educación integral que transforma vidas",
+    titulo: "Nuestros Programas",
     descripcion: "Cada programa está diseñado con amor y dedicación para potenciar las habilidades únicas de cada participante, creando espacios seguros donde el aprendizaje y el crecimiento personal van de la mano."
 }
 
