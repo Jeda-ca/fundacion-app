@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import healthController from '../controllers/healthController';
 import authRoutes from './authRoutes';
-import personaRoutes from './personaRoutes'; // 1. Importar rutas de persona
+import personaRoutes from './personaRoutes';
+import userRoutes from './userRoutes';
 
 const router = Router();
 
@@ -18,7 +19,10 @@ router.get('/health', healthController.check);
 // Rutas de Autenticación
 router.use('/auth', authRoutes);
 
-// Rutas de Gestión de Personas (Módulo 1)
-router.use('/personas', personaRoutes); // 2. Registrar rutas
+// Rutas de Gestión de Personas
+router.use('/personas', personaRoutes);
+
+// Rutas de Gestión de Usuarios
+router.use('/users', userRoutes);
 
 export default router;
