@@ -3,6 +3,7 @@ import healthController from '../controllers/healthController';
 import authRoutes from './authRoutes';
 import personaRoutes from './personaRoutes';
 import userRoutes from './userRoutes';
+import programaRoutes from './programaRoutes';
 
 const router = Router();
 
@@ -24,5 +25,8 @@ router.use('/personas', personaRoutes);
 
 // Rutas de Gestión de Usuarios
 router.use('/users', userRoutes);
+
+// Rutas de Gestión de Programas
+router.use('/programas', programaRoutes);
 
 export default router;
