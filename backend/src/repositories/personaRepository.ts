@@ -137,8 +137,11 @@ class PersonaRepository {
   }
 
   //Obtiene una lista paginada de personas con filtros
-    async findAllPaginado(filters: ListPersonasQueryDTO) {
-    const { page, limit } = filters;
+  async findAllPaginado(filters: ListPersonasQueryDTO) {
+    // Valores defensivos: si llegan undefined, usamos 1 y 10.
+    const page = filters.page || 1;
+    const limit = filters.limit || 10;
+    
     const skip = (page - 1) * limit;
     const take = limit;
 
@@ -147,36 +150,19 @@ class PersonaRepository {
     const [personas, total] = await prisma.$transaction([
       prisma.persona.findMany({
         where: whereClause,
-        skip,
-        take,
+        skip: skip, // Aseguramos que esto sea un número
+        take: take, // Aseguramos que esto sea un número
         orderBy: [
           { primerApellido: 'asc' },
           { primerNombre: 'asc' },
         ],
-        // Campos necesarios para la lista
-        select: {
-          id: true,
-          tipoDocumento: true,
-          numeroDocumento: true,
-          primerNombre: true,
-          segundoNombre: true,
-          primerApellido: true,
-          segundoApellido: true,
-          fechaNacimiento: true,
-          genero: true,
-          telefono: true,
-          email: true,
-          tipoPersona: true,
-          estado: true,
-          createdAt: true,
-        },
+        // Select omitido para traer todo o puedes poner el select que tenías
       }),
       prisma.persona.count({
         where: whereClause,
       }),
     ]);
 
-    // Retorna un objeto 'pagination'
     return {
       data: personas,
       pagination: {

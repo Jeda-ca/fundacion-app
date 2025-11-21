@@ -104,12 +104,11 @@ class PersonaService {
   /**
    * Lista personas con filtros y paginación
    */
-  async list(filters: ListPersonasQueryDTO) {
+    async list(filters: ListPersonasQueryDTO) {
+    // El repositorio ya maneja los defaults de page/limit si faltan
     const result = await personaRepository.findAllPaginado(filters);
 
-    // Enriquecer cada persona de la lista
     const personasEnriquecidas = result.data.map((persona) =>
-      // El 'select' del repo nos da los campos necesarios para esto
       this.enrichPersonaData(persona)
     );
 
