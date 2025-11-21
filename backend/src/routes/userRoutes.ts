@@ -5,7 +5,6 @@ import {
     validateListUsers, 
     validateUpdateUser 
 } from '../validators/userValidator';
-// CORRECCIÓN: Importamos 'authMiddleware' (nombre real del archivo) en lugar de 'authenticate'
 import { authMiddleware, authorize } from '../middlewares/authMiddleware';
 import { RolUsuario } from '@prisma/client';
 
