@@ -4,6 +4,7 @@ import authRoutes from './authRoutes';
 import personaRoutes from './personaRoutes';
 import userRoutes from './userRoutes';
 import programaRoutes from './programaRoutes';
+import inscripcionRoutes from './inscripcionRoutes';
 
 const router = Router();
 
@@ -28,5 +29,8 @@ router.use('/users', userRoutes);
 
 // Rutas de Gestión de Programas
 router.use('/programas', programaRoutes);
+
+// Rutas de Gestión de Inscripciones
+router.use('/inscripciones', inscripcionRoutes);
 
 export default router;
