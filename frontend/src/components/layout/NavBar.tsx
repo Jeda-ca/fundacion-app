@@ -25,11 +25,6 @@ export default function NavBar() {
   const mobilePanelRef = useRef<HTMLElement | null>(null)
   const previouslyFocusedRef = useRef<HTMLElement | null>(null)
 
-  // Abrir login en nueva pestaña
-  const handleAdminAccess = () => {
-    window.open('/login', '_blank', 'noopener,noreferrer')
-  }
-
   // Cerrar dropdowns al hacer click fuera (mejorado con pointerdown)
   useEffect(() => {
     function handlePointerDown(e: PointerEvent) {

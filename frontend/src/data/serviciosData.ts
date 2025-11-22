@@ -40,10 +40,10 @@ export const serviciosLista: ServicioDetallado[] = [
     ]
   },
   {
-    id: 'jornadas-edu-arhat',
-    titulo: 'Jornadas Recreativas y Espirituales (Edu Arhat)',
+    id: 'jornadas-recreativas-espirituales',
+    titulo: 'Jornadas Recreativas y Espirituales',
     descripcionCorta: 'Espacios de crecimiento espiritual y conexión interior',
-    descripcionCompleta: 'Las jornadas Edu Arhat son encuentros especiales donde combinamos actividades recreativas con prácticas espirituales adaptadas para toda la familia. Incluyen meditaciones guiadas, ejercicios de respiración, dinámicas de autoconocimiento y momentos de reflexión. Vemos cómo las personas encuentran paz interior y herramientas para manejar el estrés de la vida diaria.',
+    descripcionCompleta: 'Estas jornadas son encuentros especiales donde combinamos actividades recreativas con prácticas espirituales adaptadas para toda la familia. Incluyen meditaciones guiadas, ejercicios de respiración, dinámicas de autoconocimiento y momentos de reflexión. Vemos cómo las personas encuentran paz interior y herramientas para manejar el estrés de la vida diaria.',
     icono: 'loto',
     color: 'orange',
     queIncluye: [

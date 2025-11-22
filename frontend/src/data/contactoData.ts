@@ -1,4 +1,4 @@
-import type { ContactoHeroData, InformacionContacto, DatosContacto } from '../types/index'
+import type { ContactoHeroData, DatosContacto } from '../types/index'
 
 export const contactoHeroData: ContactoHeroData = {
   subtitulo: 'Ponte en contacto',

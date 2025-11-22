@@ -7,10 +7,7 @@ import type {
   Programa, 
   SeccionCompromiso,
   PracticaEspiritual,
-  Servicio,
-  LinkNavegacion,
-  ContactoInfo,
-  RedSocial
+  Servicio
 } from '../types'
 
 export const heroData: HeroData = {

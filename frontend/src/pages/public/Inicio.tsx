@@ -1,11 +1,10 @@
-import { useInView, useScrollEffects } from '../hooks'
-import { Footer } from '../components/layout'
-import { Container, Badge, Button } from '../components/ui'
+import { useInView } from '../../hooks'
+import { Footer } from '../../components/layout'
+import { Badge, HeroCarousel } from '../../components/ui'
 
 // Importar datos necesarios
 import {
     heroData,
-    estadisticas,
     queHacemosData,
     queHacemosLista,
     compromisoSocialData,
@@ -16,11 +15,9 @@ import {
     practicasEspirituales,
     serviciosData,
     servicios
-} from '../data/inicioData'
+} from '../../data/inicioData'
 
 export default function Inicio() {
-    const scrollY = useScrollEffects()
-
     const [heroRef, heroInView] = useInView(0.1)
     const [queHacemosRef, queHacemosInView] = useInView(0.2)
     const [compromisoRef, compromisoInView] = useInView(0.2)
@@ -29,90 +26,56 @@ export default function Inicio() {
     const [serviciosRef, serviciosInView] = useInView(0.2)
 
     return (
-        <main className="bg-stone-50 overflow-hidden">
-        {/* HERO SECTION */}
-        <section 
-            ref={heroRef}
-            className={`relative min-h-screen flex items-center bg-gradient-to-br from-pink-25 via-stone-50 to-orange-25 transition-all duration-600 ease-smooth ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        <main className="bg-stone-50 min-h-screen flex flex-col overflow-hidden">
+        <section
+        ref={heroRef}
+        className="bg-gradient-to-r from-pink-50 via-white to-orange-50 pt-10 lg:pt-14 pb-10"
         >
-            {/* Fondo decorativo */}
-            <div className="absolute inset-0 pointer-events-none">
-            <div 
-                className="absolute inset-0 opacity-30"
-                style={{
-                backgroundImage: `radial-gradient(circle at 25% 25%, rgba(219, 39, 119, 0.1) 0%, transparent 50%),
-                                    radial-gradient(circle at 75% 75%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
-                                    radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.05) 0%, transparent 50%)`
-                }}
+        <div
+            className={`
+            max-w-6xl mx-auto px-4 lg:px-0 space-y-6 lg:space-y-8
+            transition-all duration-700 ease-smooth
+            ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+            `}
+        >
+            {/* Título centrado */}
+            <div
+            className={`
+                space-y-2 lg:space-y-3 text-center
+                transition-all duration-700 delay-100
+                ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+            `}
+            >
+            <div className="flex justify-center">
+                <Badge color="pink">{heroData.badge}</Badge>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
+                <span className="block">{heroData.titulo.linea1}</span>
+                <span className="block text-pink-600">{heroData.titulo.linea2}</span>
+            </h1>
+            <p className="text-base sm:text-lg lg:text-xl text-sky-600 font-light">
+                {heroData.subtitulo}
+            </p>
+            </div>
+
+            {/* Carrusel grande */}
+            <div
+            className={`
+                w-full transition-all duration-700 delay-200
+                ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
+            `}
+            >
+            <HeroCarousel
+                images={[
+                '/assets/fotos/fundacion-1.jpg',
+                '/assets/fotos/fundacion-2.jpg',
+                '/assets/fotos/fundacion-3.jpg'
+                ]}
+                altBase="Foto de la Fundación Atma Namasté"
+                intervalMs={7000}
             />
             </div>
-            <Container className="relative">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[80vh]">
-                <div className={`lg:col-span-7 space-y-6 lg:space-y-8 transition-all duration-1000 delay-300 ${heroInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                <Badge color="pink">{heroData.badge}</Badge>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[0.9] tracking-tight">
-                    <span className="block">{heroData.titulo.linea1}</span>
-                    <span className="block text-pink-600">{heroData.titulo.linea2}</span>
-                </h1>
-                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-sky-600 font-light tracking-wide">{heroData.subtitulo}</p>
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed font-light max-w-2xl">{heroData.descripcion}</p>
-                <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 pt-2 lg:pt-4">
-                    <Button href={heroData.botones.primario.url} variant="primary">
-                    {heroData.botones.primario.texto}
-                    <svg className="w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                    </Button>
-                    <Button href={heroData.botones.secundario.url} variant="secondary">
-                    {heroData.botones.secundario.texto}
-                    </Button>
-                </div>
-                <div className="pt-8 lg:pt-12 grid grid-cols-3 gap-4 lg:gap-8">
-                    {estadisticas.map((stat, index) => (
-                    <div key={index} className="group text-center">
-                        <div className="relative">
-                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600 group-hover:scale-110 transition-transform duration-300">{stat.number}</div>
-                        <div className="text-gray-900 font-medium text-xs sm:text-sm lg:text-base mb-1">{stat.label}</div>
-                        <div className="text-gray-500 text-xs">{stat.sublabel}</div>
-                        <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-6 lg:w-8 h-0.5 bg-pink-200 group-hover:w-8 lg:group-hover:w-12 group-hover:bg-pink-400 transition-all duration-300" />
-                        </div>
-                    </div>
-                    ))}
-                </div>
-                </div>
-                <div className={`lg:col-span-5 transition-all duration-1000 delay-500 ${heroInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
-                <div className="relative mt-8 lg:mt-0">
-                    <div className="relative aspect-[4/5] max-w-xs sm:max-w-sm md:max-w-md mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-pink-50 to-orange-100 rounded-2xl lg:rounded-[2.5rem] rotate-3 blur-sm" />
-                    <div className="absolute inset-1 lg:inset-2 bg-gradient-to-br from-orange-100 to-pink-100 rounded-2xl lg:rounded-[2.5rem] -rotate-2 opacity-60" />
-                    <div className="relative bg-white rounded-2xl lg:rounded-[2.5rem] shadow-2xl overflow-hidden -rotate-1 hover:rotate-0 transition-all duration-700 group">
-                        <div className="aspect-[4/5] bg-gradient-to-br from-pink-50 to-orange-50 relative overflow-hidden">
-                        <div className="absolute inset-0 opacity-30">
-                            <div className="absolute inset-0" style={{
-                            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(219, 39, 119, 0.15) 1px, transparent 0)`
-                            }} />
-                        </div>
-                        <div className="relative z-10 flex items-center justify-center h-full">
-                            <div className="text-center text-gray-400">
-                            <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-4 lg:mb-6 bg-gradient-to-br from-pink-100 to-pink-200 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
-                                <svg className="w-8 h-8 lg:w-10 lg:h-10 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </div>
-                            <p className="text-base lg:text-lg font-semibold text-gray-600 mb-2">Imagen representativa</p>
-                            <p className="text-sm text-gray-400">de la fundación</p>
-                            </div>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-white/10" />
-                        </div>
-                    </div>
-                    <div className="absolute -bottom-4 lg:-bottom-8 -left-4 lg:-left-8 w-20 h-20 lg:w-32 lg:h-32 bg-gradient-to-br from-pink-200/40 to-transparent rounded-full blur-2xl" />
-                    <div className="absolute -top-2 lg:-top-4 -right-2 lg:-right-4 w-12 h-12 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-200/50 to-transparent rounded-full blur-xl" />
-                    </div>
-                </div>
-                </div>
-            </div>
-            </Container>
+        </div>
         </section>
 
         {/* QUÉ HACEMOS - Responsive */}

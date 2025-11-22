@@ -2,7 +2,7 @@ import type { DonacionesHeroData } from '../types/index'
 
 export const donacionesHeroData: DonacionesHeroData = {
   subtitulo: 'Ayúdanos a seguir transformando vidas',
-  titulo: 'Donaciones que cambian al mundo',
+  titulo: 'Donaciones',
   descripcion: 'Cada donación, sin importar su tamaño, se convierte en esperanza real para las familias de nuestra comunidad. Juntos podemos lograr transformaciones increíbles.'
 }
 
@@ -13,8 +13,7 @@ export const paypalDonationData = {
   detalles: [
     'Donación 100% segura con PayPal',
     'Proceso rápido y sencillo',
-    'Aporte directo a las familias',
-    'Recibo automático por email',
+    'Aporte a quienes más lo necesitan',
     'Moneda en dólares (USD)'
   ]
 }

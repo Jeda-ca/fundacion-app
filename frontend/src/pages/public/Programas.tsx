@@ -1,18 +1,17 @@
 import { useEffect } from "react"
 import { useLocation } from 'react-router-dom'
-import { useInView, useScrollEffects } from '../hooks'
-import { Container, Badge, ImagePlaceholder, IconRenderer } from '../components/ui'
-import { Footer } from '../components/layout'
+import { useInView } from '../../hooks'
+import { Container, Badge, ImagePlaceholder, IconRenderer } from '../../components/ui'
+import { Footer } from '../../components/layout'
 
 import {
     programasHero,
     impactoProgramasData,
     programasDetallados,
     compromisosLista
-} from '../data/programasData'
+} from '../../data/programasData'
 
 export default function Programas() {
-    const scrollY = useScrollEffects()
     const [heroRef, heroInView] = useInView(0.1)
     const [programasRef, programasInView] = useInView(0.2)
     const [compromisoRef, compromisoInView] = useInView(0.25)
@@ -43,9 +42,7 @@ export default function Programas() {
             {/* HERO */}
             <section 
                 ref={heroRef}
-                className={`relative min-h-[70vh] flex items-center justify-center transition-all duration-600 ease-smooth ${
-                    heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
+                className={`relative py-10 lg:py-14 transition-all duration-700 ease-smooth ${ heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8' }`}
             >                
                 <Container className="relative z-10">
                     <div className="text-center space-y-8">

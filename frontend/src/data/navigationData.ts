@@ -22,7 +22,7 @@ export const programasDropdown: NavDropdownItem[] = [
     { id: "refuerzo-escolar", name: "Refuerzo Escolar", texto: "Refuerzo Escolar", path: "/programas#refuerzo-escolar", url: "/programas#refuerzo-escolar" },
     { id: "artes-plasticas-pintura", name: "Artes Plásticas/Pintura", texto: "Artes Plásticas/Pintura", path: "/programas#artes-plasticas-pintura", url: "/programas#artes-plasticas-pintura" },
     { id: "danza", name: "Danza", texto: "Danza", path: "/programas#danza", url: "/programas#danza" },
-    { id: "escuela-iniciacion-musical", name: "Escuela de Iniciación Musical", texto: "Escuela de Iniciación Musical", path: "/programas#escuela-iniciacion-musical", url: "/programas#escuela-iniciacion-musical" },
+    { id: "escuela-iniciacion-musical", name: "Escuela de Iniciación Musical (NORA)", texto: "Escuela de Iniciación Musical (NORA)", path: "/programas#escuela-iniciacion-musical", url: "/programas#escuela-iniciacion-musical" },
     { id: "bespro", name: "Becas Estudiantiles y Profesionales (BESPRO)", texto: "Becas Estudiantiles y Profesionales (BESPRO)", path: "/programas#bespro", url: "/programas#bespro" },
     { id: "programa-meditacion", name: "Programa de Meditación", texto: "Programa de Meditación", path: "/programas#programa-meditacion", url: "/programas#programa-meditacion" },
     { id: "apadrinamiento", name: "Apadrinamiento", texto: "Apadrinamiento", path: "/programas#apadrinamiento", url: "/programas#apadrinamiento" }
@@ -58,8 +58,9 @@ export const redesSociales: RedSocial[] = [
 // Usado en: Footer
 // ============================================================
 export const politicasLinks: NavLink[] = [
-    { id: "politicas", texto: "Políticas de Privacidad", url: "/politicas" },
-    { id: "terminos", texto: "Términos de Uso", url: "/terminos" }
+    { id: "politicas", name: "Políticas de Privacidad", texto: "Políticas de Privacidad", path: "/politicas", url: "/politicas" },
+    { id: "terminos", name: "Términos de Uso", texto: "Términos de Uso", path: "/terminos", url: "/terminos" }
+
 ]
 
 // ============================================================

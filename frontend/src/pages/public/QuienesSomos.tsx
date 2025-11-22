@@ -1,7 +1,7 @@
-import { useInView } from '../hooks'
-import { IconRenderer } from '../components/ui'
-import { Container, Badge, Button, ImagePlaceholder } from '../components/ui'
-import { Footer } from '../components/layout'
+import { useInView } from '../../hooks'
+import { IconRenderer } from '../../components/ui'
+import { Container, Badge, Button, ImagePlaceholder } from '../../components/ui'
+import { Footer } from '../../components/layout'
 import {
     quienesSomosHeroData,
     misionData,
@@ -10,7 +10,7 @@ import {
     valores,
     compromisoFuturoData,
     compromisosLista
-} from "../data/quienesSomosData"
+} from "../../data/quienesSomosData"
 
 export default function QuienesSomos() {
     const [heroRef, heroInView] = useInView(0.1)
@@ -46,19 +46,6 @@ export default function QuienesSomos() {
                                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed font-light">
                                     {quienesSomosHeroData.descripcion}
                                 </p>
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                <Button href="/programas" variant="primary">
-                                    Conoce nuestros programas
-                                    <svg className="size-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
-                                </Button>
-                                
-                                <Button href="/contacto" variant="secondary">
-                                    Contáctanos
-                                </Button>
                             </div>
                         </div>
 

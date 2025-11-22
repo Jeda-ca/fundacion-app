@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { useInView } from '../hooks'
-import { Footer } from '../components/layout'
-import { IconRenderer } from '../components/ui'
-import { Container, Badge, Button, ImagePlaceholder } from '../components/ui'
-import { contactoHeroData, datosContacto } from '../data/contactoData'
+import { useInView } from '../../hooks'
+import { Footer } from '../../components/layout'
+import { Container, Badge, Button, IconRenderer, ImagePlaceholder, ErrorAlert, LoadingSpinner } from '../../components/ui'
+import { contactoHeroData, datosContacto } from '../../data/contactoData'
 
 export default function Contacto() {
   const [heroRef, heroInView] = useInView(0.1)
   const [infoRef, infoInView] = useInView(0.15)
   const [formularioRef, formularioInView] = useInView(0.15)
+  const [error, setError] = useState('')
+
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -30,20 +31,22 @@ export default function Contacto() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError('')
 
     try {
       console.log('Datos del formulario:', formData)
       await new Promise(resolve => setTimeout(resolve, 1000))
-      alert('¡Gracias por tu mensaje! Te responderemos pronto.')
-      
+
       setFormData({
         nombre: '',
         email: '',
         asunto: '',
         mensaje: ''
       })
+      alert('¡Gracias por tu mensaje! Te responderemos pronto.')
+      
     } catch (error) {
-      alert('Hubo un error al enviar el mensaje. Por favor intenta nuevamente.')
+      setError('Hubo un error al enviar el mensaje. Por favor intenta nuevamente.')
     } finally {
       setIsSubmitting(false)
     }
@@ -57,7 +60,7 @@ export default function Contacto() {
   }
 
   return (
-    <main className="bg-stone-50 overflow-hidden">
+    <main className="bg-stone-50 min-h-screen flex flex-col overflow-hidden">
       {/* HERO */}
       <section
         ref={heroRef}
@@ -197,13 +200,18 @@ export default function Contacto() {
                 Nuestra Ubicación
               </h2>
               
-              <ImagePlaceholder 
-                icon="ubicacion"
-                title="Mapa de ubicación"
-                subtitle="Valledupar, César - Próximamente con Google Maps"
-                aspectRatio="4/3"
-                gradient="purple-blue"
-              />
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <iframe
+                  src="https://www.google.com/maps?q=Calle+51+%2332-87+Urbanizaci%C3%B3n+Don+Carmelo+Valledupar+Cesar&output=embed"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Ubicación Fundación Atma Namasté"
+                ></iframe>
+              </div>
             </div>
           </div>
         </Container>
@@ -212,9 +220,7 @@ export default function Contacto() {
       {/* FORMULARIO */}
       <section
         ref={formularioRef}
-        className={`pt-8 pb-16 lg:pt-12 lg:pb-20 bg-pink-50/30 transition-all duration-600 ease-smooth ${
-          formularioInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
+        className={`pt-8 pb-10 lg:pt-12 lg:pb-12 bg-pink-50/30 transition-all duration-600 ease-smooth ${ formularioInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8' }`}
       >
         <Container size="md">
           <div className="text-center mb-12">
@@ -227,6 +233,7 @@ export default function Contacto() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {error && <ErrorAlert message={error} onClose={() => setError('')} />}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-2">
@@ -301,10 +308,7 @@ export default function Contacto() {
               <Button type="submit" disabled={isSubmitting} variant="primary">
                 {isSubmitting ? (
                   <>
-                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
+                    <LoadingSpinner size={5} className="inline-block mr-3 align-middle" />
                     Enviando...
                   </>
                 ) : (

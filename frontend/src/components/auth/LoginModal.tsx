@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import logo from '../../assets/atmaV2SinFondo.png'
+import { ErrorAlert } from '../ui/ErrorAlert'
+import { LoadingSpinner } from '../ui/LoadingSpinner'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -10,75 +12,52 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  useEffect(() => { // Cerrar modal con tecla ESC
+  useEffect(() => {
+    if (!isOpen) {
+      setUsername('')
+      setPassword('')
+      setShowPassword(false)
+      setLoading(false)
+      setError('')
+    }
+  }, [isOpen])
+
+  useEffect(() => { // Limpiar campos cuando el modal se cierra
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
         onClose()
       }
     }
-
     if (isOpen) {
       document.addEventListener('keydown', handleEscape)
     }
-
     return () => {
       document.removeEventListener('keydown', handleEscape)
     }
   }, [isOpen, onClose])
 
-/*1. Limpiar cuando se cierra el modal (seguridad)
-useEffect(() => {
-  if (!isOpen) {
-    setUsername('')
-    setPassword('')
-    setShowPassword(false)
-  }
-}, [isOpen])
+  if (!isOpen) return null
 
-2. También limpiar después de login exitoso
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  
-  try {
-    // Aquí irá tu lógica de autenticación
-    // await authenticateUser(username, password)
-    
-    console.log('Login attempt:', { username, password })
-    
-    // Limpiar campos
-    setUsername('')
-    setPassword('')
-    setShowPassword(false)
-    
-    // Cerrar modal
-    onClose()
-    
-    // Redirigir al dashboard o hacer lo que necesites
-  } catch (error) {
-    console.error('Login failed:', error)
-    // Aquí puedes mostrar un mensaje de error
-    // No limpies los campos si el login falla para que el usuario pueda corregir
-  }
-}*/
-
-  useEffect(() => { // Limpiar campos cuando el modal se cierra
-    if (!isOpen) {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+    try {
+      // Tu lógica real de autenticación va aquí
+      await new Promise(res => setTimeout(res, 1200))
       setUsername('')
       setPassword('')
       setShowPassword(false)
+      onClose()
+    } catch (err) {
+      setError('Usuario o contraseña incorrectos.')
+    } finally {
+      setLoading(false)
     }
-  }, [isOpen])
-
-  if (!isOpen) return null
-
-  const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault()
-  console.log('Login attempt:', { username, password })
-  /*
-  Placeholder para la Lógica de autenticación con username y password
-  */
-}
+  }
 
   return (
     <>
@@ -162,6 +141,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-3 md:space-y-6">
+                    {error && <ErrorAlert message={error} onClose={() => setError('')} />}
                     <div className="space-y-1 md:space-y-2">
                       <label htmlFor="username" className="block text-xs md:text-sm font-semibold text-gray-700">
                         Usuario
@@ -227,8 +207,16 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <button
                       type="submit"
                       className="w-full bg-gradient-to-r from-pink-600 to-pink-700 text-white py-2.5 md:py-3.5 rounded-xl font-semibold hover:from-pink-700 hover:to-pink-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm md:text-base"
+                      disabled={loading}
                     >
-                      Acceder al sistema
+                      {loading ? (
+                        <>
+                          <LoadingSpinner size={5} className="inline-block mr-3 align-middle" />
+                          Accediendo...
+                        </>
+                      ) : (
+                        <>Acceder al sistema</>
+                      )}
                     </button>
                   </form>
 

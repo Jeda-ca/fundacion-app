@@ -1,7 +1,7 @@
-import { useInView } from '../hooks'
-import { Footer } from '../components/layout'
-import { Container, Badge, Button } from '../components/ui'
-import { donacionesHeroData, paypalDonationData } from '../data/donacionesData'
+import { useInView } from '../../hooks'
+import { Footer } from '../../components/layout'
+import { Container, Badge, Button } from '../../components/ui'
+import { donacionesHeroData, paypalDonationData } from '../../data/donacionesData'
 
 export default function Donaciones() {
   const [heroRef, heroInView] = useInView(0.1)
@@ -12,7 +12,7 @@ export default function Donaciones() {
   }
 
   return (
-    <main className="bg-stone-50 overflow-hidden">
+    <main className="bg-stone-50 min-h-screen flex flex-col overflow-hidden">
       {/* HERO */}
       <section
         ref={heroRef}
@@ -209,11 +209,11 @@ export default function Donaciones() {
       </section>
 
       {/* CTA FINAL */}
-      <section className="py-12 lg:py-16 bg-gradient-to-br from-pink-50/30 to-orange-50/30">
+      <section className="pt-8 pb-10 lg:pt-10 lg:pb-12 bg-stone-50">
         <Container size="md">
           <div className="text-center space-y-6">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-              ¡Gracias por tu generosidad!
+              ¡Gracias por tu apoyo!
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
               Tu donación nos permite continuar con nuestra misión de transformar vidas y construir un futuro lleno de esperanza para las familias de nuestra comunidad.

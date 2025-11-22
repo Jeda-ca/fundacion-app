@@ -1,13 +1,12 @@
-import { useInView } from '../hooks'
-import { Footer } from '../components/layout'
+import { useInView } from '../../hooks'
+import { Footer } from '../../components/layout'
 import { 
-  SectionHeader, 
   Container, 
   ImagePlaceholder, 
   Badge, 
   Button 
-} from '../components/ui'
-import { serviciosHeroData, serviciosLista } from '../data/serviciosData'
+} from '../../components/ui'
+import { serviciosHeroData, serviciosLista } from '../../data/serviciosData'
 
 export default function Servicios() {
   const [heroRef, heroInView] = useInView(0.1)

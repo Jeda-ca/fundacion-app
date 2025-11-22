@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import { NavBar } from './components/layout'
-import Inicio from './pages/Inicio'
-import QuienesSomos from './pages/QuienesSomos'
-import Programas from './pages/Programas'
-import Servicios from './pages/Servicios'
-import Contacto from './pages/Contacto'
-import Donaciones from './pages/Donaciones'
+import Inicio from './pages/public/Inicio'
+import QuienesSomos from './pages/public/QuienesSomos'
+import Programas from './pages/public/Programas'
+import Servicios from './pages/public/Servicios'
+import Contacto from './pages/public/Contacto'
+import Donaciones from './pages/public/Donaciones'
 
 function App() {
   return (

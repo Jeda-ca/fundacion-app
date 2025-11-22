@@ -92,7 +92,7 @@ export const programasDetallados: ProgramaDetallado[] = [
     },
     {
         id: "escuela-iniciacion-musical",
-        nombre: "Escuela de Iniciación Musical",
+        nombre: "Escuela de Iniciación Musical (NORA)",
         descripcion: "Educación musical desde los primeros años",
         descripcionLarga:
         "Fundamentos musicales, ritmo, canto y exploración de instrumentos con niveles progresivos.",
