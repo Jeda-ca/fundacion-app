@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { navLinks, programasDropdown } from '../../data/navData'
-import { LoginModal } from '../auth'
+import { LoginModal } from '../modals'
 import { getActiveClass } from "../../utils/getActiveClass"
 import logo from '../../assets/atmav2SinFondo.png'
 
