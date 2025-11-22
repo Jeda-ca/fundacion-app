@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -14,9 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+// =============================================================================
 // ENUMS
-
+// =============================================================================
 
 enum TipoDocumento {
   CC
@@ -196,9 +190,9 @@ enum AccionAuditoria {
   EXPORT
 }
 
-
-// MODELOS - MÓDULO CORE
-
+// =============================================================================
+// MÓDULO CORE
+// =============================================================================
 
 model Persona {
   id                          String        @id @default(uuid())
@@ -220,12 +214,14 @@ model Persona {
   fotografiaUrl               String?       @db.VarChar(500)
   consentimientoInformado     Boolean       @default(false)
   documentoConsentimientoUrl  String?       @db.VarChar(500)
-  creadoPor                   String
+  
+  // Campos de auditoría OPCIONALES
+  creadoPor                   String?       // ← Permite NULL para bootstrap
   modificadoPor               String?
   createdAt                   DateTime      @default(now())
   updatedAt                   DateTime      @updatedAt
 
-  // Relaciones
+  // Relaciones principales
   usuario                     Usuario?
   tutorDe                     TutorMenor[]  @relation("PersonaTutor")
   menorDe                     TutorMenor[]  @relation("PersonaMenor")
@@ -236,8 +232,9 @@ model Persona {
   entregas                    Entrega[]
   entregasBeneficiario        EntregaBeneficiario[]
   gastosRecibidos             Gasto[]       @relation("PersonaRecibeGasto")
-  
-  usuarioCreador              Usuario       @relation("PersonaCreadaPor", fields: [creadoPor], references: [id])
+
+  // Relaciones de auditoría OPCIONALES
+  usuarioCreador              Usuario?      @relation("PersonaCreadaPor", fields: [creadoPor], references: [id])
   usuarioModificador          Usuario?      @relation("PersonaModificadaPor", fields: [modificadoPor], references: [id])
 
   @@index([numeroDocumento])
@@ -263,6 +260,7 @@ model TutorMenor {
   tutor              Persona       @relation("PersonaTutor", fields: [tutorId], references: [id])
   menor              Persona       @relation("PersonaMenor", fields: [menorId], references: [id])
 
+  @@unique([menorId, esTutorPrincipal, estado], name: "unique_tutor_principal")
   @@index([tutorId, estado])
   @@index([menorId, estado])
   @@map("tutores_menores")
@@ -280,10 +278,10 @@ model Usuario {
   createdAt               DateTime      @default(now())
   updatedAt               DateTime      @updatedAt
 
-  // Relaciones
+  // Relación principal
   persona                 Persona       @relation(fields: [personaId], references: [id])
-  auditorias              Auditoria[]
   
+  // Relaciones de auditoría (todas las entidades que este usuario puede crear/modificar)
   personasCreadas         Persona[]     @relation("PersonaCreadaPor")
   personasModificadas     Persona[]     @relation("PersonaModificadaPor")
   programasCreados        Programa[]
@@ -295,6 +293,7 @@ model Usuario {
   entregasRegistradas     Entrega[]     @relation("EntregaRegistradaPor")
   entregasRealizadas      Entrega[]     @relation("EntregaRealizadaPor")
   gastosRegistrados       Gasto[]
+  auditorias              Auditoria[]
 
   @@index([username])
   @@index([email])
@@ -302,9 +301,9 @@ model Usuario {
   @@map("usuarios")
 }
 
-
-// MODELOS - MÓDULO PROGRAMAS
-
+// =============================================================================
+// MÓDULO PROGRAMAS
+// =============================================================================
 
 model Programa {
   id                String          @id @default(uuid())
@@ -321,7 +320,9 @@ model Programa {
   requiereDocente   Boolean         @default(true)
   cupoMaximo        Int?
   estado            EstadoPrograma  @default(ACTIVO)
-  creadoPor         String
+
+  // Campo de auditoría opcional para bootstrap
+  creadoPor         String?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 
@@ -332,7 +333,7 @@ model Programa {
   entregas          Entrega[]
   gastos            Gasto[]
   
-  usuarioCreador    Usuario         @relation(fields: [creadoPor], references: [id])
+  usuarioCreador    Usuario?        @relation(fields: [creadoPor], references: [id])
 
   @@index([codigo])
   @@index([estado, tipoPrograma])
@@ -355,6 +356,7 @@ model ProgramaResponsable {
   programa                Programa      @relation(fields: [programaId], references: [id])
   persona                 Persona       @relation(fields: [personaId], references: [id])
 
+  @@unique([programaId, esResponsablePrincipal, estado], name: "unique_responsable_principal")
   @@index([programaId, estado])
   @@index([personaId, estado])
   @@map("programas_responsables")
@@ -369,7 +371,9 @@ model Inscripcion {
   estado            EstadoInscripcion  @default(ACTIVO)
   motivoRetiro      String?            @db.Text
   observaciones     String?            @db.Text
-  inscritoPor       String
+  
+  // Campo de auditoría opcional
+  inscritoPor       String?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 
@@ -377,8 +381,9 @@ model Inscripcion {
   programa          Programa           @relation(fields: [programaId], references: [id])
   persona           Persona            @relation(fields: [personaId], references: [id])
   asistencias       Asistencia[]
-  usuarioInscriptor Usuario            @relation(fields: [inscritoPor], references: [id])
+  usuarioInscriptor Usuario?           @relation(fields: [inscritoPor], references: [id])
 
+  @@unique([programaId, personaId, estado], name: "unique_inscripcion_activa")
   @@index([programaId, estado])
   @@index([personaId, estado])
   @@index([fechaInscripcion])
@@ -391,13 +396,15 @@ model Asistencia {
   fecha          DateTime         @db.Date
   estado         EstadoAsistencia
   observaciones  String?          @db.Text
-  registradoPor  String
+  
+  // Campo de auditoría opcional
+  registradoPor  String?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 
   // Relaciones
   inscripcion    Inscripcion      @relation(fields: [inscripcionId], references: [id])
-  usuario        Usuario          @relation(fields: [registradoPor], references: [id])
+  usuario        Usuario?         @relation(fields: [registradoPor], references: [id])
 
   @@unique([inscripcionId, fecha])
   @@index([fecha])
@@ -405,9 +412,9 @@ model Asistencia {
   @@map("asistencias")
 }
 
-
-// MODELOS - MÓDULO APADRINAMIENTO
-
+// =============================================================================
+// MÓDULO APADRINAMIENTO
+// =============================================================================
 
 model Padrino {
   id                    String              @id @default(uuid())
@@ -425,7 +432,9 @@ model Padrino {
   fechaInicio           DateTime            @default(now()) @db.Date
   estado                EstadoGeneral       @default(ACTIVO)
   observaciones         String?             @db.Text
-  creadoPor             String
+  
+  // Campo de auditoría opcional
+  creadoPor             String?
   createdAt             DateTime            @default(now())
   updatedAt             DateTime            @updatedAt
 
@@ -433,7 +442,7 @@ model Padrino {
   persona               Persona?            @relation(fields: [personaId], references: [id])
   apadrinamientos       Apadrinamiento[]
   donaciones            Donacion[]
-  usuarioCreador        Usuario             @relation(fields: [creadoPor], references: [id])
+  usuarioCreador        Usuario?            @relation(fields: [creadoPor], references: [id])
 
   @@index([estado])
   @@index([pais])
@@ -450,7 +459,9 @@ model Apadrinamiento {
   estado              EstadoApadrinamiento  @default(ACTIVO)
   motivoFinalizacion  String?               @db.Text
   observaciones       String?               @db.Text
-  creadoPor           String
+  
+  // Campo de auditoría opcional
+  creadoPor           String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
 
@@ -459,8 +470,9 @@ model Apadrinamiento {
   menor               Persona               @relation(fields: [menorId], references: [id])
   donaciones          Donacion[]
   entregas            Entrega[]
-  usuarioCreador      Usuario               @relation(fields: [creadoPor], references: [id])
+  usuarioCreador      Usuario?              @relation(fields: [creadoPor], references: [id])
 
+  @@unique([menorId, estado], name: "unique_apadrinamiento_activo")
   @@index([padrinoId, estado])
   @@index([menorId, estado])
   @@map("apadrinamientos")
@@ -484,7 +496,9 @@ model Donacion {
   descripcion        String?       @db.Text
   observaciones      String?       @db.Text
   comprobanteUrl     String?       @db.VarChar(500)
-  registradoPor      String
+  
+  // Campo de auditoría opcional
+  registradoPor      String?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
 
@@ -492,7 +506,7 @@ model Donacion {
   padrino            Padrino?      @relation(fields: [padrinoId], references: [id])
   apadrinamiento     Apadrinamiento? @relation(fields: [apadrinamientoId], references: [id])
   programa           Programa?     @relation(fields: [programaId], references: [id])
-  usuario            Usuario       @relation(fields: [registradoPor], references: [id])
+  usuario            Usuario?      @relation(fields: [registradoPor], references: [id])
 
   @@index([tipo])
   @@index([fechaRecepcion(sort: Desc)])
@@ -502,9 +516,9 @@ model Donacion {
   @@map("donaciones")
 }
 
-
-// MODELOS - MÓDULO RECURSOS
-
+// =============================================================================
+// MÓDULO RECURSOS
+// =============================================================================
 
 model Entrega {
   id                    String        @id @default(uuid())
@@ -523,7 +537,9 @@ model Entrega {
   firmaUrl              String?       @db.VarChar(500)
   comprobanteUrl        String?       @db.VarChar(500)
   observaciones         String?       @db.Text
-  registradoPor         String
+  
+  // Campos de auditoría opcionales
+  registradoPor         String?
   entregadoPor          String?
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
@@ -533,7 +549,7 @@ model Entrega {
   apadrinamiento        Apadrinamiento? @relation(fields: [apadrinamientoId], references: [id])
   persona               Persona?      @relation(fields: [personaId], references: [id])
   beneficiarios         EntregaBeneficiario[]
-  usuarioRegistrador    Usuario       @relation("EntregaRegistradaPor", fields: [registradoPor], references: [id])
+  usuarioRegistrador    Usuario?      @relation("EntregaRegistradaPor", fields: [registradoPor], references: [id])
   usuarioEntregador     Usuario?      @relation("EntregaRealizadaPor", fields: [entregadoPor], references: [id])
 
   @@index([tipo])
@@ -579,14 +595,16 @@ model Gasto {
   descripcion       String?        @db.Text
   comprobanteUrl    String?        @db.VarChar(500)
   observaciones     String?        @db.Text
-  registradoPor     String
+  
+  // Campo de auditoría opcional
+  registradoPor     String?
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
 
   // Relaciones
   persona           Persona?       @relation("PersonaRecibeGasto", fields: [personaId], references: [id])
   programa          Programa?      @relation(fields: [programaId], references: [id])
-  usuario           Usuario        @relation(fields: [registradoPor], references: [id])
+  usuario           Usuario?       @relation(fields: [registradoPor], references: [id])
 
   @@index([categoria])
   @@index([fechaGasto(sort: Desc)])
@@ -596,9 +614,9 @@ model Gasto {
   @@map("gastos")
 }
 
-
-// MODELOS - MÓDULO AUDITORÍA
-
+// =============================================================================
+// MÓDULO AUDITORÍA
+// =============================================================================
 
 model Auditoria {
   id               String          @id @default(uuid())

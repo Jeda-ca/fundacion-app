@@ -1,13 +1,23 @@
-// src/server.ts
-import app from './app';
-import dotenv from 'dotenv';
-
-// Cargar variables de entorno
-dotenv.config();
+import app from './app'; // Importamos la app configurada
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
-  console.log(`🔌 Conectado al entorno: ${process.env.NODE_ENV}`);
+// Iniciar el servidor
+const server = app.listen(PORT, () => {
+  console.log(`\n🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`   Health check: http://localhost:${PORT}/api/health`);
+  console.log(`   Modo: ${process.env.NODE_ENV || 'development'}`);
+  console.log('----------------------------------------------------');
 });
+
+// Manejo de cierreS
+const gracefulShutdown = () => {
+  console.log('Cerrando servidor...');
+  server.close(() => {
+    console.log('Servidor cerrado.');
+    process.exit(0);
+  });
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
